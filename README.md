@@ -1,2 +1,0 @@
-# Frontend
-COKKIRI Frontend Repository
