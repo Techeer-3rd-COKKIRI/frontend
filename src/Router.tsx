@@ -6,10 +6,7 @@ import Main from './components/main';
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-      </Routes>
+      <Routes></Routes>
     </BrowserRouter>
   );
 };
