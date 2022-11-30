@@ -56,7 +56,6 @@ const Navli = styled.ul`
       margin: 0 15px;
       width: 4rem;
       height: 4rem;
-      border: 2px solid #000000;
       border-radius: 1.5rem;
       padding: 2px;
     }
