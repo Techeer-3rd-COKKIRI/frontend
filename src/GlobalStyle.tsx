@@ -17,9 +17,22 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 62.5%;
 	font: inherit;
 	vertical-align: baseline;
+	font-size: 62.5%;
+	
+
+}
+@media (max-width: 1023px) {
+html { font-size: 62.5% }
+}
+ 
+@media (max-width: 767px) {
+	html { font-size: 50%; }
+}
+ 
+@media (max-width: 639px) {
+	html { font-size: 40%; }
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
