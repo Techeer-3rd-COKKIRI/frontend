@@ -23,15 +23,15 @@ time, mark, audio, video {
 	
 
 }
-@media (max-width: 1023px) {
+@media (max-width: 1023px) {//데스크탑
 html { font-size: 62.5% }
 }
  
-@media (max-width: 767px) {
+@media (max-width: 767px) { // 태블릿
 	html { font-size: 50%; }
 }
  
-@media (max-width: 639px) {
+@media (max-width: 639px) { // 모바일
 	html { font-size: 40%; }
 }
 /* HTML5 display-role reset for older browsers */
