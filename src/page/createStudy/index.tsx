@@ -1,7 +1,7 @@
 import Nav from '@/components/nav';
 import React from 'react';
 
-const SignUp = () => {
+const CreateStudy = () => {
   return (
     <div>
       <Nav />
@@ -9,4 +9,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default CreateStudy;
