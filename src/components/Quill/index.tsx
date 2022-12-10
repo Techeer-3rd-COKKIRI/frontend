@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import styled from 'styled-components';
 
-const Quill = () => {
-  const [value, setValue] = useState('');
-  console.log(value);
+interface Props {
+  studyIntroduce: string;
+  setStudyIntroduce: any;
+}
+
+const Quill = ({ studyIntroduce, setStudyIntroduce }: Props) => {
+  const fileRef = useRef<any>();
+  const imageHandler = () => {
+    console.log('hi');
+  };
   const modules = {
     toolbar: {
       container: [
@@ -59,22 +67,33 @@ const Quill = () => {
         ['image', 'video'],
         ['clean'],
       ],
+      handlers: {
+        image: imageHandler,
+      },
     },
   };
 
   return (
-    <ReactQuill
-      style={{
-        width: '100%',
-        minHeight: '350px',
-        background: 'white',
-      }}
-      theme="snow"
-      value={value}
-      onChange={setValue}
-      modules={modules}
-    />
+    <>
+      <File ref={fileRef} type={'file'}></File>
+      <ReactQuill
+        placeholder="스터디를 소개해주세요!"
+        style={{
+          width: '100%',
+          minHeight: '350px',
+          background: 'white',
+        }}
+        theme="snow"
+        value={studyIntroduce}
+        onChange={setStudyIntroduce}
+        modules={modules}
+      />
+    </>
   );
 };
 
 export default Quill;
+
+const File = styled.input`
+  display: none;
+`;
