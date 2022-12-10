@@ -1,27 +1,17 @@
 import Nav from '@/components/nav';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import ReactQuill from 'react-quill';
+import Quill from '@/components/Quill';
+import { useNavigate } from 'react-router-dom';
 interface FormValue {
   studyName: string;
+  studyIntroduce: string;
 }
 
 const CreateStudy = () => {
-  const quillElement = useRef();
-
-  useEffect(() => {
-    const options = {
-      theme: 'bubble',
-      placeholder: '당신의 하루를 들려주세요...,',
-      modules: {
-        toolbar: [
-          [{ header: '1' }, { header: '2' }],
-          ['bold', 'italic', 'underline', 'strike'],
-        ],
-      },
-    };
-  });
-
+  const navigator = useNavigate();
   const {
     register, //등록
     handleSubmit, //submit처리
@@ -29,7 +19,7 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
-  const onSubmitHandler: submitHandler<FormValue> = (data) => {
+  const onSubmitHandler: SubmitHandler<FormValue> = (data: any) => {
     console.log(data);
   };
 
@@ -39,13 +29,16 @@ const CreateStudy = () => {
       <WriteForm>
         <Title>Create Study</Title>
         <Inform>
-          <StudyInform>
-            <div>
-              <div>1</div>
-              <span>스터디 기본 정보를 입력해주세요</span>
-            </div>
-            <hr />
-          </StudyInform>
+          <form>
+            <StudyInform>
+              <div>
+                <div>1</div>
+                <span>스터디 기본 정보를 입력해주세요</span>
+              </div>
+
+              <hr />
+            </StudyInform>
+          </form>
           <StudyIntroduce>
             <div>
               <div>2</div>
@@ -54,11 +47,16 @@ const CreateStudy = () => {
             <hr />
             <form>
               <label>스터디명</label>
+
               <input
                 placeholder="글 제목을 입력해주세요 !"
                 {...register('studyName')}
               />
-              <div ref={quillElement}></div>
+              <Quill />
+              <Buttons>
+                <button onClick={() => navigator('/')}>취소</button>
+                <button>글 등록</button>
+              </Buttons>
             </form>
           </StudyIntroduce>
         </Inform>
@@ -82,7 +80,7 @@ const Title = styled.div`
 `;
 
 const WriteForm = styled.div`
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 `;
 
@@ -131,5 +129,25 @@ const StudyIntroduce = styled.div`
       border-radius: 50%;
       color: white;
     }
+  }
+
+  & > form {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  & button :nth-child(0) {
+    background: #d9d9d9;
+    opacity: 0.6;
+    border-radius: 5px;
+  }
+
+  & button :nth-child(1) {
+    background: #293659;
+    border-radius: 5px;
   }
 `;
