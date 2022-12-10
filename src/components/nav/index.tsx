@@ -158,6 +158,23 @@ const Nav = () => {
               회원가입
             </li>
           </Link>
+          <Link to={'/createStudy'} style={{ textDecoration: 'none' }}>
+            <li
+              style={{
+                opacity: currentLocation == '연필' ? '1' : '0.5',
+              }}
+              onClick={() => setCurrentLocation('연필')}
+            >
+              <div>
+                {currentLocation == '연필' ? (
+                  <img src="src\assets\image\연필.png"></img>
+                ) : (
+                  <img src="src\assets\image\연필.png"></img>
+                )}
+              </div>
+              스터디 개설
+            </li>
+          </Link>
         </Navli>
       </NavBar>
     </>
