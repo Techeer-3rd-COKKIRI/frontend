@@ -4,44 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-  let navigate = useNavigate();
-  return (
-    <SignUpPage>
-      <LeftBackground>
-        <Logo>
-          <img src="src\assets\image\코끼리로고.png"></img>
-        </Logo>
-
-        <Logo2>
-          <img src="src\assets\image\메인코끼리.png"></img>
-          <Ment>
-            코딩은 우리끼리 <br />
-            함께, <br />
-            코끼리에서
-          </Ment>
-        </Logo2>
-      </LeftBackground>
-
-      <RightBackground>
-        <Title>Create Account</Title>
-
-        <Input>
-          <NickNameInput placeholder="NickName"></NickNameInput>
-          <InputCheck>중복확인</InputCheck>
-        </Input>
-
-        <SignUpdiv>
-          <SignupButton
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            Sign Up
-          </SignupButton>
-        </SignUpdiv>
-      </RightBackground>
-    </SignUpPage>
-  );
+  return <div>ㅎㅇㅎㅇ</div>;
 };
 
 export default SignUp;
