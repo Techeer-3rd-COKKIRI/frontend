@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CreateStudy from './page/createStudy';
-import MainPage from './page/main';
-import SignUp from './page/Signup';
+
+const SignUp = lazy(() => import('./page/Signup'));
+const CreateStudy = lazy(() => import('./page/createStudy'));
+const MainPage = lazy(() => import('./page/main'));
 
 const Router = () => {
   return (
