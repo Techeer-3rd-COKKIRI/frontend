@@ -119,6 +119,11 @@ const CreateStudyPage = styled.div`
   margin-left: 200px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 639px) {
+    margin-left: 0px;
+    margin-top: 50px;
+  }
 `;
 
 const Title = styled.div`
@@ -130,7 +135,9 @@ const Title = styled.div`
 const WriteForm = styled.div`
   width: 50%;
   max-width: 1400px;
-  margin: 0 auto;
+  @media screen and (min-width: 639px) {
+    margin: 0 auto;
+  }
 `;
 
 const Inform = styled.div`
@@ -191,8 +198,8 @@ const StudyInform = styled.div`
       font-family: 'Inria Sans';
       font-style: normal;
       font-weight: 700;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 2rem;
+      line-height: 2.4rem;
 
       color: #000000;
     }
@@ -249,12 +256,12 @@ const Section = styled.section`
 
   & > label {
     width: 119px;
-    height: 29px;
+    height: 2.9rem;
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 2rem;
+    line-height: 2.4rem;
     margin-top: 10px;
     color: #000000;
   }
