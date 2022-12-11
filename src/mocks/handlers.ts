@@ -1,9 +1,9 @@
 import { rest } from 'msw';
-
-const todos = ['먹기', '자기', '놀기'];
-
+let studyRoom = [{ id: 0, studyName: '스프링스터디' }];
 export const handlers = [
-  rest.get('/todos', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(todos));
+  rest.post('/api/v1/studies', (req, res, ctx) => {
+    studyRoom.push({ id: Date.now(), studyName: '스프링' });
+    console.log(studyRoom);
+    return res(ctx.status(201), ctx.json(req.body));
   }),
 ];
