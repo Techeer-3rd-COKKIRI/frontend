@@ -28,6 +28,7 @@ const CreateStudy = () => {
     alert('글 등록이 완료되었습니다 !');
     //글 등록 컴포넌트만들기
     //확인 누르면 메인페이지로 가기
+    navigator('/');
   };
 
   return (
@@ -47,6 +48,7 @@ const CreateStudy = () => {
                 inputName={'모집인원'}
                 placeholder={'1명~10명이상'}
                 id={'userLimit'}
+                // error={errors.studyName?.message}
               />
               <CreateStudyInput
                 inputName={'패스워드'}
@@ -77,11 +79,23 @@ const CreateStudy = () => {
             <StudyIntroduce>
               <Section>
                 <label>스터디명</label>
-
                 <input
                   placeholder="글 제목을 입력해주세요 !"
-                  {...register('studyName')}
+                  {...register('studyName', {
+                    required: '스터디명을 입력해주세요!',
+                    minLength: {
+                      value: 2,
+                      message: '최소 2자 이상의 스터디명을 입력해주세요!',
+                    },
+                  })}
                 />
+                {errors.studyName ? (
+                  <Error style={{ height: '10px' }}>
+                    {errors.studyName.message}
+                  </Error>
+                ) : (
+                  <Error style={{ height: '10px' }}></Error>
+                )}
                 <Quill
                   setStudyIntroduce={setStudyIntroduce}
                   studyIntroduce={studyIntroduce}
@@ -251,7 +265,7 @@ const Section = styled.section`
     height: 5rem;
     background: #ffffff;
     border-radius: 10px;
-    margin: 10px 0;
+    margin-top: 10px;
     padding-left: 15px;
   }
 `;
@@ -279,4 +293,12 @@ const Horizon = styled.div`
   background-color: rgba(0, 0, 0, 1);
   border-radius: 50%;
   margin: 10px 0px;
+`;
+
+const Error = styled.div`
+  height: 10px;
+  margin: 10px 0;
+  margin-left: 5px;
+  color: red;
+  opacity: 0.6;
 `;
