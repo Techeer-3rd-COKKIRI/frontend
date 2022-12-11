@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import Quill from '@/components/Quill';
 import { useNavigate } from 'react-router-dom';
+import CreateStudyInput from '@/components/createStudyInput';
 interface FormValue {
   studyName: string;
   studyPassword: string;
@@ -23,8 +24,10 @@ const CreateStudy = () => {
   } = useForm<FormValue>();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    console.log({ ...values, studyIntroduce });
-    //두번을 axios
+    console.log({ ...values });
+    alert('글 등록이 완료되었습니다 !');
+    //글 등록 컴포넌트만들기
+    //확인 누르면 메인페이지로 가기
   };
 
   return (
@@ -40,26 +43,31 @@ const CreateStudy = () => {
             </InformTitle>
             <Horizon />
             <StudyInform>
-              <div>
-                <label>모집인원</label>
-                <input id="userLimit" placeholder="1명~10명이상"></input>
-              </div>
-              <div>
-                <label>패스워드</label>
-                <input id="password" placeholder="패스워드"></input>
-              </div>
-              <div>
-                <label>인증기간</label>
-                <input id="studyCycle" placeholder="인증기간"></input>
-              </div>
-              <div>
-                <label>인증기간</label>
-                <input id="studyCycle" placeholder="인증기간"></input>
-              </div>
-              <div>
-                <label>인증기간</label>
-                <input id="studyCycle" placeholder="인증기간"></input>
-              </div>
+              <CreateStudyInput
+                inputName={'모집인원'}
+                placeholder={'1명~10명이상'}
+                id={'userLimit'}
+              />
+              <CreateStudyInput
+                inputName={'패스워드'}
+                placeholder={'패스워드'}
+                id={'password'}
+              />
+              <CreateStudyInput
+                inputName={'인증기간'}
+                placeholder={'인증기간'}
+                id={'studyCycle'}
+              />
+              <CreateStudyInput
+                inputName={'시작예정일'}
+                placeholder={'시간예정일'}
+                id={'start'}
+              />
+              <CreateStudyInput
+                inputName={'종료예정일'}
+                placeholder={'종료예정일'}
+                id={'end'}
+              />
             </StudyInform>
             <InformTitle>
               <div>2</div>
