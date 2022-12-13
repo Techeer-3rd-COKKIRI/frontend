@@ -36,7 +36,7 @@ const Nav = () => {
               홈
             </Tap>
           </Link>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}>
+          <Link to={'/LogIn'} style={{ textDecoration: 'none' }}>
             <Tap isActive={loginMatch !== null}>
               <div>
                 {loginMatch !== null ? (
@@ -48,7 +48,7 @@ const Nav = () => {
               로그인
             </Tap>
           </Link>
-          <Link to={'/sign'} style={{ textDecoration: 'none' }}>
+          <Link to={'/SignUp'} style={{ textDecoration: 'none' }}>
             <Tap isActive={signMatch !== null}>
               <div>
                 {signMatch !== null ? (
