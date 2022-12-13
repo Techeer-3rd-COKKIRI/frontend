@@ -1,38 +1,44 @@
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Account from '@/components/account';
 
-const SignUp = () => {
+const LogIn = () => {
   const navigate = useNavigate();
 
   return (
-    <SignUpPage>
+    <LogInPage>
       <Account />
       <RightBackground>
-        <Title>Create Account</Title>
+        <Title>Log In</Title>
 
         <Input>
           <NickNameInput placeholder="NickName"></NickNameInput>
-          <InputCheck>중복확인</InputCheck>
         </Input>
-
-        <SignUpdiv>
-          <SignupButton
+        <LogIndiv>
+          <LogInButton
             onClick={() => {
               navigate('/');
             }}
           >
-            Sign Up
+            로그인
+          </LogInButton>
+          <SignupButton
+            onClick={() => {
+              navigate('/SignUp');
+            }}
+          >
+            회원가입 하기
           </SignupButton>
-        </SignUpdiv>
+        </LogIndiv>
       </RightBackground>
-    </SignUpPage>
+    </LogInPage>
   );
 };
 
-export default SignUp;
+export default LogIn;
 
-const SignUpPage = styled.div`
+const LogInPage = styled.div`
   display: flex;
   min-width: 100vw;
   height: 100vh;
@@ -50,7 +56,7 @@ const RightBackground = styled.div`
 const Title = styled.div`
   font-family: 'InriaSans';
   font-size: 5.5rem;
-  margin-left: 130px;
+  margin-left: 240px;
   margin-top: 190px;
 `;
 
@@ -62,25 +68,16 @@ const Input = styled.div`
 const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 18px;
-  width: 300px;
+  width: 440px;
   height: 25px;
   padding: 10px;
   padding-left: 20px;
   font-size: 2rem;
 `;
 
-const InputCheck = styled.button`
-  font-family: InriaSans;
-  border-radius: 18px;
-  width: 140px;
-  height: 48px;
-  font-size: 2rem;
-  margin-left: 10px;
-`;
-//  여기부터 다시 수정
-const SignUpdiv = styled.div``;
+const LogIndiv = styled.div``;
 
-const SignupButton = styled.button`
+const LogInButton = styled.button`
   font-family: InriaSans;
   background-color: #7e84ff;
   color: white;
@@ -89,6 +86,19 @@ const SignupButton = styled.button`
   border-radius: 18px;
   width: 470px;
   height: 48px;
+  margin-top: 40px;
+  border: 0;
+`;
+
+const SignupButton = styled.button`
+  font-family: InriaSans;
+  border: 1px solid #000000;
+  color: black;
+  font-size: 2rem;
+  margin-left: 85px;
+  border-radius: 18px;
+  width: 470px;
+  height: 45px;
   margin-top: 40px;
   border: 0;
 `;
