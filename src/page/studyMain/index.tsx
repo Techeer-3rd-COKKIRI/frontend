@@ -6,6 +6,11 @@ import styled from 'styled-components';
 
 const StudyMainPage = styled.div`
   margin-left: 200px;
+
+  @media screen and (max-width: 639px) {
+    margin-left: 0px;
+    margin-top: 50px;
+  }
 `;
 
 const StudyRoom = styled.div`
@@ -46,10 +51,17 @@ const ProfileDirection = styled.div`
   margin: 0px 3.5rem;
 `;
 const StudyMain = () => {
-  const profilesRef = useRef<any>();
+  const profilesRef = React.createRef<any>();
   const [profileScroll, setProfileScroll] = useState(0);
-  const profileMaxWidth = profilesRef.current?.getBoundingClientRect().width;
+  const [profileMaxWidth, setProfileMaxWidth] = useState(0);
+  useEffect(() => {
+    setProfileMaxWidth(
+      profilesRef.current.scrollWidth - profilesRef.current.clientWidth,
+    );
+  }, []);
 
+  console.log(profileMaxWidth);
+  console.log(profileScroll);
   const scrollLeft = () => {
     profilesRef.current?.scrollBy({
       left: -114,
@@ -58,6 +70,10 @@ const StudyMain = () => {
 
     if (profileScroll < 114) {
       setProfileScroll(() => 0);
+      profilesRef.current?.scrollTo({
+        left: 0,
+        behavior: 'smooth',
+      });
     } else {
       setProfileScroll((pre) => pre - 114);
     }
@@ -70,6 +86,10 @@ const StudyMain = () => {
 
     if (profileScroll + 114 > profileMaxWidth) {
       setProfileScroll(() => profileMaxWidth);
+      profilesRef.current?.scrollTo({
+        left: profilesRef.current?.scrollWidth,
+        behavior: 'smooth',
+      });
     } else {
       setProfileScroll((pre) => pre + 114);
     }
@@ -101,8 +121,11 @@ const StudyMain = () => {
             <ProfilePicture />
             <ProfilePicture />
             <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
           </Profiles>
-          {profileScroll != profileMaxWidth ? (
+          {profileScroll < profileMaxWidth ? (
             <ProfileDirection onClick={scrollRight}>
               <img src="src\assets\image\rightProfile.png" />
             </ProfileDirection>
