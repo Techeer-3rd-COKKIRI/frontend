@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UserPicture = styled.div`
-  min-width: 100px;
-  height: 10rem;
+  min-width: 7.5rem;
+  height: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,12 +18,7 @@ const UserPicture = styled.div`
 `;
 
 const ProfilePicture = () => {
-  return (
-    <UserPicture>
-      프로필 <br />
-      사진
-    </UserPicture>
-  );
+  return <UserPicture>프로필</UserPicture>;
 };
 
 export default ProfilePicture;

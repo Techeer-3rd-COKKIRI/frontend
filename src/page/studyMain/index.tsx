@@ -7,8 +7,7 @@ import styled from 'styled-components';
 
 const StudyMainPage = styled.div`
   margin-left: 200px;
-
-  @media screen and (max-width: 639px) {
+  @media screen and (max-width: 1440px) {
     margin-left: 0px;
     margin-top: 50px;
   }
@@ -51,6 +50,11 @@ const ProfileDirection = styled.div`
   display: flex;
   align-items: center;
   margin: 0px 3.5rem;
+
+  & img {
+    width: 10px;
+    height: 20px;
+  }
 `;
 const StudyMain = () => {
   const profilesRef = React.createRef<any>();
@@ -67,12 +71,12 @@ const StudyMain = () => {
   const scrollLeft = () => {
     //누를떄마다 114px씩 이동
     profilesRef.current?.scrollBy({
-      left: -114,
+      left: -75,
       behavior: 'smooth',
     });
 
-    //현재 스크롤위치가 114 미만이라면 처음으로 이동
-    if (profileScroll < 114) {
+    //현재 스크롤위치가 75 미만이라면 처음으로 이동
+    if (profileScroll < 75) {
       setProfileScroll(() => 0);
       profilesRef.current?.scrollTo({
         left: 0,
@@ -80,24 +84,24 @@ const StudyMain = () => {
       });
     } else {
       //아니라면 114px이동
-      setProfileScroll((pre) => pre - 114);
+      setProfileScroll((pre) => pre - 75);
     }
   };
   const scrollRight = () => {
     profilesRef.current?.scrollBy({
-      left: 114,
+      left: 75,
       behavior: 'smooth',
     });
 
     //눌렀을때 보이지않는 스크롤너비를 초과했다면 맨오른쪽으로 이동
-    if (profileScroll + 114 > profileMaxWidth) {
+    if (profileScroll + 75 > profileMaxWidth) {
       setProfileScroll(() => profileMaxWidth);
       profilesRef.current?.scrollTo({
         left: profilesRef.current?.scrollWidth,
         behavior: 'smooth',
       });
     } else {
-      setProfileScroll((pre) => pre + 114);
+      setProfileScroll((pre) => pre + 75);
     }
   };
 
@@ -113,6 +117,15 @@ const StudyMain = () => {
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
+            <ProfilePicture />
             <ProfilePicture />
             <ProfilePicture />
             <ProfilePicture />

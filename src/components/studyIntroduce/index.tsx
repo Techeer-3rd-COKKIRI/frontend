@@ -20,7 +20,6 @@ const ReaderProfile = styled.div`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
-  margin-left: 2rem;
   & div {
     width: 9rem;
     height: 9rem;
@@ -46,8 +45,8 @@ const ReaderProfile = styled.div`
 
 const Line = styled.div`
   width: 100%;
+  max-width: 1200px;
   height: 0.001px;
-  margin: 0 auto;
   opacity: 0.1;
   border: 2px solid #000000;
   border-radius: 10%;
@@ -58,7 +57,7 @@ const IntroduceRule = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 90%;
-  margin: 0 auto;
+  max-width: 1000px;
 `;
 
 const RuleBox = styled.div`
