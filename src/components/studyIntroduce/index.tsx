@@ -52,26 +52,29 @@ const Line = styled.div`
   border: 2px solid #000000;
   border-radius: 10%;
   margin-top: 3.6rem;
+  margin-bottom: 2.7rem;
 `;
 const IntroduceRule = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
 `;
 
 const RuleBox = styled.div`
   display: flex;
   width: 50%;
 
+  margin-bottom: 0.8rem;
   & div:nth-child(1) {
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 700;
     font-size: 2rem;
     line-height: 2.4rem;
-
     color: #000000;
-
     opacity: 0.5;
+    margin-right: 5.7rem;
   }
 
   & div:nth-child(2) {
@@ -85,7 +88,24 @@ const RuleBox = styled.div`
   }
 `;
 
-const IntroduceStudy = styled.div``;
+const IntroduceTitle = styled.h1`
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3rem;
+  color: #000000;
+  margin-top: 10rem;
+`;
+
+const Introduction = styled.div`
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #000000;
+`;
 
 const StudyIntroduce = () => {
   return (
@@ -115,8 +135,12 @@ const StudyIntroduce = () => {
           <div>2022-11-16</div>
         </RuleBox>
       </IntroduceRule>
-
-      <IntroduceStudy />
+      <IntroduceTitle>스프링 스터디 소개</IntroduceTitle>
+      <Line></Line>
+      <Introduction>
+        스프링 스터디입니다 !<br /> 일주일에 한번이상 블로그링크를 작성해서
+        댓글창에 올려주세요 !
+      </Introduction>
     </StudyIntroducePage>
   );
 };
