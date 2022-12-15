@@ -48,6 +48,8 @@ const CommentManagement = () => {
       <Comments>
         <Comment />
         <Comment />
+        <Comment />
+        <Comment />
       </Comments>
     </CommentManagementPage>
   );

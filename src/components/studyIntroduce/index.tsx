@@ -7,11 +7,11 @@ const Title = styled.h1`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 3rem;
   color: #000000;
-  margin: 1.9rem 0;
-  margin-top: 3.8rem;
+  margin: 1.6rem 0;
+  margin-top: 3.3rem;
 `;
 
 const ReaderProfile = styled.div`
@@ -21,23 +21,23 @@ const ReaderProfile = styled.div`
   font-style: normal;
   font-weight: 400;
   & div {
-    width: 9rem;
-    height: 9rem;
+    width: 7rem;
+    height: 7rem;
     background: #000000;
     border-radius: 50%;
   }
 
   & :nth-child(2) {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-left: 2.7rem;
-    margin-right: 3.7rem;
+    font-size: 1.7rem;
+    line-height: 2rem;
+    margin-left: 2.4rem;
+    margin-right: 3.4rem;
     color: #000000;
   }
 
   & :nth-child(3) {
-    font-size: 2rem;
-    line-height: 2.4rem;
+    font-size: 1.7rem;
+    line-height: 2rem;
     color: rgba(0, 0, 0, 1);
     opacity: 0.5;
   }
@@ -69,7 +69,7 @@ const RuleBox = styled.div`
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.7rem;
     line-height: 2.4rem;
     color: #000000;
     opacity: 0.5;
@@ -80,8 +80,8 @@ const RuleBox = styled.div`
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 2rem;
-    line-height: 2.4rem;
+    font-size: 1.7rem;
+    line-height: 2rem;
 
     color: #000000;
   }
@@ -91,7 +91,7 @@ const IntroduceTitle = styled.h1`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 3rem;
   color: #000000;
   margin-top: 10rem;
@@ -101,7 +101,7 @@ const Introduction = styled.div`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 2.4rem;
   color: #000000;
 `;

@@ -36,14 +36,14 @@ const CommentComponent = styled.div`
     width: 85%;
     & h1 {
       font-weight: 700;
-      font-size: 2rem;
-      line-height: 2.4rem;
-      margin: 1.3rem 0;
+      font-size: 1.7rem;
+      line-height: 2rem;
+      margin: 1rem 0;
     }
 
     & div {
-      font-size: 2rem;
-      line-height: 2.4rem;
+      font-size: 1.5rem;
+      line-height: 2rem;
     }
   }
 `;

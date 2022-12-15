@@ -24,17 +24,17 @@ const Title = styled.h1`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 700;
-  font-size: 5rem;
-  line-height: 6rem;
-  margin: 2.7rem 0;
-  margin-left: 2.5rem;
+  font-size: 4rem;
+  line-height: 5rem;
+  margin: 2.5rem 0;
+  margin-left: 2.3rem;
   color: #000000;
 `;
 
 const ProfileBox = styled.div`
   display: flex;
   background-color: #e9edf7;
-  border-radius: 2rem;
+  border-radius: 1.7rem;
   justify-content: space-between;
   max-width: 1000px;
 `;
