@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import Quill from '@/components/Quill';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
+import axios from 'axios';
 interface FormValue {
   studyName: string;
   studyPassword: string;
@@ -24,8 +25,9 @@ const CreateStudy = () => {
   } = useForm<FormValue>();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    console.log({ ...values });
     alert('글 등록이 완료되었습니다 !');
+    const result = await axios.post('/api/v1/studies', { ...values });
+    console.log(result.data);
     //글 등록 컴포넌트만들기
     //확인 누르면 메인페이지로 가기
     navigator('/');

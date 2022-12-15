@@ -10,9 +10,9 @@ interface Props {
 
 const Quill = ({ studyIntroduce, setStudyIntroduce }: Props) => {
   const fileRef = useRef<any>();
-  const imageHandler = () => {
+  /*const imageHandler = () => {
     console.log('hi');
-  };
+  };*/
   const modules = {
     toolbar: {
       container: [
@@ -67,15 +67,15 @@ const Quill = ({ studyIntroduce, setStudyIntroduce }: Props) => {
         ['image', 'video'],
         ['clean'],
       ],
-      handlers: {
+      /*handlers: {
         image: imageHandler,
-      },
+      },*/
     },
   };
 
   return (
     <>
-      <File ref={fileRef} type={'file'}></File>
+      {/*<File ref={fileRef} type={'file'}></File>*/}
       <ReactQuill
         placeholder="스터디를 소개해주세요!"
         style={{

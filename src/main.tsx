@@ -6,6 +6,12 @@ import App from './App';
 import GlobalStyle from './GlobalStyle';
 import { Theme } from './theme';
 
+import { worker } from './mocks/worker';
+
+if (import.meta.env.DEV) {
+  worker.start();
+}
+
 let clientQuery = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
