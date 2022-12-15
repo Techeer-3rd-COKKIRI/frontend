@@ -36,7 +36,7 @@ const ProfileBox = styled.div`
   background-color: #e9edf7;
   border-radius: 1.7rem;
   justify-content: space-between;
-  max-width: 1000px;
+  max-width: 1100px;
 `;
 
 const Profiles = styled.div`
