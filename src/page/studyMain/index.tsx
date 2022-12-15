@@ -54,20 +54,22 @@ const StudyMain = () => {
   const profilesRef = React.createRef<any>();
   const [profileScroll, setProfileScroll] = useState(0);
   const [profileMaxWidth, setProfileMaxWidth] = useState(0);
+
   useEffect(() => {
     setProfileMaxWidth(
+      //안보이는 스크롤 너비
       profilesRef.current.scrollWidth - profilesRef.current.clientWidth,
     );
   }, []);
 
-  console.log(profileMaxWidth);
-  console.log(profileScroll);
   const scrollLeft = () => {
+    //누를떄마다 114px씩 이동
     profilesRef.current?.scrollBy({
       left: -114,
       behavior: 'smooth',
     });
 
+    //현재 스크롤위치가 114 미만이라면 처음으로 이동
     if (profileScroll < 114) {
       setProfileScroll(() => 0);
       profilesRef.current?.scrollTo({
@@ -75,6 +77,7 @@ const StudyMain = () => {
         behavior: 'smooth',
       });
     } else {
+      //아니라면 114px이동
       setProfileScroll((pre) => pre - 114);
     }
   };
@@ -84,6 +87,7 @@ const StudyMain = () => {
       behavior: 'smooth',
     });
 
+    //눌렀을때 보이지않는 스크롤너비를 초과했다면 맨오른쪽으로 이동
     if (profileScroll + 114 > profileMaxWidth) {
       setProfileScroll(() => profileMaxWidth);
       profilesRef.current?.scrollTo({
@@ -107,11 +111,6 @@ const StudyMain = () => {
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
             <ProfilePicture />
             <ProfilePicture />
             <ProfilePicture />
