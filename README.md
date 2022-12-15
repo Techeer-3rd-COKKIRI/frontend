@@ -6,6 +6,7 @@
 - eslints
 - prettier
 - msw (mock service worker)
+- Suspense & lazy
 - styled-component
 - recoil
 - react-query
