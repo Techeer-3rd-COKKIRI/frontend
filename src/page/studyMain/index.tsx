@@ -1,3 +1,4 @@
+import CommentManagement from '@/components/commentManagement';
 import Nav from '@/components/nav';
 import ProfilePicture from '@/components/profilePicture';
 import StudyIntroduce from '@/components/studyIntroduce';
@@ -132,6 +133,7 @@ const StudyMain = () => {
           ) : null}
         </ProfileBox>
         <StudyIntroduce />
+        <CommentManagement />
       </StudyRoom>
     </StudyMainPage>
   );
