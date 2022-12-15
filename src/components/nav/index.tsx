@@ -88,7 +88,9 @@ const NavBar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  @media screen and (min-width: 639px) {
+  z-index: 999;
+
+  @media screen and (min-width: 1440px) {
     display: block !important;
   }
 `;
@@ -163,11 +165,11 @@ const HambergetIcon = styled.div<{ toggleNav: boolean }>`
     background-color: rgba(217, 217, 217, 0.5);
   }
 
-  @media screen and (max-width: 639px) {
+  @media screen and (min-width: 639px) {
     display: block;
   }
 
-  @media screen and (min-width: 639px) {
+  @media screen and (min-width: 1440px) {
     display: none;
   }
 `;
