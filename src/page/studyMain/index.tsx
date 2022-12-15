@@ -14,10 +14,13 @@ const StudyMainPage = styled.div`
 `;
 
 const StudyRoom = styled.div`
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1440px) {
+    width: 90%;
+  }
 `;
 
 const Title = styled.h1`
