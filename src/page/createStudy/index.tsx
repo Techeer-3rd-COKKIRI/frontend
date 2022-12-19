@@ -2,8 +2,6 @@ import Nav from '@/components/nav';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import ReactQuill from 'react-quill';
-import Quill from '@/components/Quill';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
 import axios from 'axios';
@@ -15,7 +13,6 @@ interface FormValue {
 }
 
 const CreateStudy = () => {
-  const [studyIntroduce, setStudyIntroduce] = useState('');
   const navigator = useNavigate();
   const {
     register, //등록
@@ -98,10 +95,7 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-                <Quill
-                  setStudyIntroduce={setStudyIntroduce}
-                  studyIntroduce={studyIntroduce}
-                />
+
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button>글 등록</button>
@@ -187,9 +181,6 @@ const StudyInform = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   gap: 10px;
-  @media screen and (max-width: 639px) {
-    grid-template-columns: repeat(auto-fill, minmax(100%, auto));
-  }
 
   & > div {
     display: flex;
