@@ -119,12 +119,10 @@ export default CreateStudy;
 
 const CreateStudyPage = styled.div`
   margin-left: 200px;
-  display: flex;
-  flex-direction: column;
 
-  @media screen and (max-width: 639px) {
-    margin-left: 0px;
+  @media screen and (max-width: 1440px) {
     margin-top: 50px;
+    margin-left: 0px;
   }
 `;
 
@@ -135,17 +133,18 @@ const Title = styled.div`
 `;
 
 const WriteForm = styled.div`
-  width: 50%;
+  width: 90%;
+  margin: 0 auto;
   max-width: 1400px;
   @media screen and (min-width: 639px) {
-    margin: 0 auto;
+    width: 50%;
   }
 `;
 
 const Inform = styled.div`
   width: 100%;
+  min-width: 250px;
   margin: 0 auto;
-  min-width: 500px;
   box-sizing: border-box;
   padding: 10px 30px;
   background: #e9edf7;
@@ -188,6 +187,9 @@ const StudyInform = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   gap: 10px;
+  @media screen and (max-width: 639px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, auto));
+  }
 
   & > div {
     display: flex;
@@ -202,7 +204,7 @@ const StudyInform = styled.div`
       font-weight: 700;
       font-size: 2rem;
       line-height: 2.4rem;
-
+      margin: 5px 0;
       color: #000000;
     }
     & > input {
@@ -219,7 +221,7 @@ const StudyInform = styled.div`
 
 const StudyIntroduce = styled.div`
   width: 90%;
-  margin: 0 auto;
+  margin-right: auto;
 
   & > div {
     display: flex;
