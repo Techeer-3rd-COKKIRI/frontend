@@ -95,7 +95,7 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-
+                <Textarea></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button>글 등록</button>
@@ -171,7 +171,7 @@ const InformTitle = styled.div`
     font-style: normal;
     font-weight: 700;
     font-size: 1.5rem;
-    line-height: 3rem;
+    line-height: 2.5rem;
     color: #ffffff;
     margin-right: 15px;
   }
@@ -269,6 +269,22 @@ const Section = styled.section`
     border-radius: 10px;
     margin-top: 10px;
     padding-left: 15px;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  border: none;
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #acafb7;
   }
 `;
 
