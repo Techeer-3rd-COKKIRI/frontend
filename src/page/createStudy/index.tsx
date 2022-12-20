@@ -1,6 +1,7 @@
 import Nav from '@/components/nav';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Select from 'react-select';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
@@ -30,6 +31,11 @@ const CreateStudy = () => {
     navigator('/');
   };
 
+  const options = [
+    { value: 'chocolate', name: 'Chocolate' },
+    { value: 'strawberry', name: 'Strawberry' },
+    { value: 'vanilla', name: 'Vanilla' },
+  ];
   return (
     <CreateStudyPage>
       <Nav />
@@ -47,27 +53,32 @@ const CreateStudy = () => {
                 inputName={'모집인원'}
                 placeholder={'1명~10명이상'}
                 id={'userLimit'}
+                option={options}
                 // error={errors.studyName?.message}
               />
               <CreateStudyInput
                 inputName={'패스워드'}
                 placeholder={'패스워드'}
                 id={'password'}
+                option={options}
               />
               <CreateStudyInput
                 inputName={'인증기간'}
                 placeholder={'인증기간'}
                 id={'studyCycle'}
+                option={options}
               />
               <CreateStudyInput
                 inputName={'시작예정일'}
                 placeholder={'시간예정일'}
                 id={'start'}
+                option={options}
               />
               <CreateStudyInput
                 inputName={'종료예정일'}
                 placeholder={'종료예정일'}
                 id={'end'}
+                option={options}
               />
             </StudyInform>
             <InformTitle>
@@ -110,6 +121,10 @@ const CreateStudy = () => {
 };
 
 export default CreateStudy;
+
+const StyledSelect = styled(Select)`
+  width: 150px;
+`;
 
 const CreateStudyPage = styled.div`
   margin-left: 200px;
