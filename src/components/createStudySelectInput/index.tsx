@@ -18,7 +18,7 @@ const CreateStudySelectInput = ({
   return (
     <div>
       <label htmlFor={id}>{inputName}</label>
-      <SelectBox options={option} />
+      <SelectBox placeholder={placeholder} options={option} />
       {error && <p>{error}</p>}
     </div>
   );

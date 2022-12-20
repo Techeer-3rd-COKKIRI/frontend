@@ -1,12 +1,20 @@
 import Nav from '@/components/nav';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Select from 'react-select';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
 import axios from 'axios';
-interface FormValue {
+import CreateStudySelectInput from '@/components/createStudySelectInput';
+import { certificationPeriod, recruits } from '@/constants/option';
+
+export type FormName =
+  | 'studyName'
+  | 'studyPassword'
+  | 'studyCycle'
+  | 'userLimit';
+
+export interface FormValue {
   studyName: string;
   studyPassword: string;
   studyCycle: string;
@@ -31,11 +39,6 @@ const CreateStudy = () => {
     navigator('/');
   };
 
-  const options = [
-    { value: 'chocolate', name: 'Chocolate' },
-    { value: 'strawberry', name: 'Strawberry' },
-    { value: 'vanilla', name: 'Vanilla' },
-  ];
   return (
     <CreateStudyPage>
       <Nav />
@@ -49,36 +52,57 @@ const CreateStudy = () => {
             </InformTitle>
             <Horizon />
             <StudyInform>
-              <CreateStudyInput
+              <CreateStudySelectInput
                 inputName={'모집인원'}
                 placeholder={'1명~10명이상'}
                 id={'userLimit'}
-                option={options}
+                option={recruits}
                 // error={errors.studyName?.message}
               />
               <CreateStudyInput
                 inputName={'패스워드'}
                 placeholder={'패스워드'}
-                id={'password'}
-                option={options}
+                id={'studyPassword'}
+                register={register}
+                registerConfig={{
+                  required: '패스워드를 입력해주세요!',
+                  minLength: {
+                    value: 2,
+                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
+                  },
+                }}
               />
-              <CreateStudyInput
+              <CreateStudySelectInput
                 inputName={'인증기간'}
                 placeholder={'인증기간'}
                 id={'studyCycle'}
-                option={options}
+                option={certificationPeriod}
               />
               <CreateStudyInput
-                inputName={'시작예정일'}
-                placeholder={'시간예정일'}
-                id={'start'}
-                option={options}
+                inputName={'패스워드'}
+                placeholder={'패스워드'}
+                id={'studyPassword'}
+                register={register}
+                registerConfig={{
+                  required: '패스워드를 입력해주세요!',
+                  minLength: {
+                    value: 2,
+                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
+                  },
+                }}
               />
               <CreateStudyInput
-                inputName={'종료예정일'}
-                placeholder={'종료예정일'}
-                id={'end'}
-                option={options}
+                inputName={'패스워드'}
+                placeholder={'패스워드'}
+                id={'studyPassword'}
+                register={register}
+                registerConfig={{
+                  required: '패스워드를 입력해주세요!',
+                  minLength: {
+                    value: 2,
+                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
+                  },
+                }}
               />
             </StudyInform>
             <InformTitle>
@@ -121,10 +145,6 @@ const CreateStudy = () => {
 };
 
 export default CreateStudy;
-
-const StyledSelect = styled(Select)`
-  width: 150px;
-`;
 
 const CreateStudyPage = styled.div`
   margin-left: 200px;
@@ -194,7 +214,7 @@ const InformTitle = styled.div`
 
 const StudyInform = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40%, auto));
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 3rem;
   & > div {
@@ -215,7 +235,7 @@ const StudyInform = styled.div`
     }
     & > input {
       width: 100%;
-      height: 2.5rem;
+      height: 5.5rem;
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px;
