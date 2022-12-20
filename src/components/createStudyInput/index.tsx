@@ -11,6 +11,7 @@ interface Props {
   error?: string;
   type?: string;
 }
+
 const CreateStudyInput = ({
   inputName,
   placeholder,

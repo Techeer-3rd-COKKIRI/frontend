@@ -2,6 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import Comment from '../comment';
 
+const CommentManagement = () => {
+  return (
+    <CommentManagementPage>
+      <InputBox>
+        <input placeholder="인증하기.."></input>
+        <button>게시</button>
+      </InputBox>
+      <Comments>
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+      </Comments>
+    </CommentManagementPage>
+  );
+};
+
+export default CommentManagement;
+
 const CommentManagementPage = styled.div``;
 
 const Comments = styled.div`
@@ -38,21 +57,3 @@ const InputBox = styled.div`
     top: 0.8rem;
   }
 `;
-const CommentManagement = () => {
-  return (
-    <CommentManagementPage>
-      <InputBox>
-        <input placeholder="인증하기.."></input>
-        <button>게시</button>
-      </InputBox>
-      <Comments>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-      </Comments>
-    </CommentManagementPage>
-  );
-};
-
-export default CommentManagement;

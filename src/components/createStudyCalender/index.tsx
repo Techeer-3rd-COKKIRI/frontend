@@ -11,16 +11,6 @@ interface Props {
   control: Control<FormValue, any>;
 }
 
-const SDatePicker = styled(DatePicker)`
-  width: 100%;
-  height: 5.5rem;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 10px;
-  border: none;
-  margin: 5px 0;
-`;
-
 const CreateStudyCalender = ({ inputName, id, control }: Props) => {
   return (
     <div>
@@ -46,3 +36,13 @@ const CreateStudyCalender = ({ inputName, id, control }: Props) => {
 };
 
 export default CreateStudyCalender;
+
+const SDatePicker = styled(DatePicker)`
+  width: 100%;
+  height: 6rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  margin: 5px 0;
+`;

@@ -12,6 +12,7 @@ interface Props {
   register: UseFormRegister<FormValue>;
   registerConfig: RegisterOptions<FormValue, FormName>;
 }
+
 const CreateStudySelectInput = ({
   inputName,
   placeholder,

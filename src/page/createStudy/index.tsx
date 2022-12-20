@@ -39,7 +39,8 @@ const CreateStudy = () => {
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     //alert('글 등록이 완료되었습니다 !');
     console.log({ ...values });
-
+    //백엔드와 연결된 후 작성
+    //유효성검사 미완성
     //navigator('/');
   };
 
@@ -232,7 +233,7 @@ const StudyInform = styled.div`
     }
     & > input {
       width: 100%;
-      height: 5.5rem;
+      height: 6rem;
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px;
@@ -295,8 +296,8 @@ const Section = styled.section`
 
   & > input {
     border: none;
-    width: 95%;
-    height: 5rem;
+    width: 100%;
+    height: 6.5rem;
     background: #ffffff;
     border-radius: 10px;
     margin-top: 10px;

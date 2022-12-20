@@ -1,6 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const StudyIntroduce = () => {
+  return (
+    <StudyIntroducePage>
+      <Title>[스프링 스터디] 스프링 스터디 공부인증방</Title>
+      <ReaderProfile>
+        <div></div>
+        <span>이승환승</span>
+        <span>2022.11.17</span>
+      </ReaderProfile>
+      <Line></Line>
+      <IntroduceRule>
+        <RuleBox>
+          <div>모집인원</div>
+          <div>5명</div>
+        </RuleBox>
+        <RuleBox>
+          <div>진행기간</div>
+          <div>6개월이상</div>
+        </RuleBox>
+        <RuleBox>
+          <div>진행방식</div>
+          <div>오프라인</div>
+        </RuleBox>
+        <RuleBox>
+          <div>시작예정</div>
+          <div>2022-11-16</div>
+        </RuleBox>
+      </IntroduceRule>
+      <IntroduceTitle>스프링 스터디 소개</IntroduceTitle>
+      <Line></Line>
+      <Introduction>
+        스프링 스터디입니다 !<br /> 일주일에 한번이상 블로그링크를 작성해서
+        댓글창에 올려주세요 !
+      </Introduction>
+    </StudyIntroducePage>
+  );
+};
+
+export default StudyIntroduce;
+
 const StudyIntroducePage = styled.div``;
 
 const Title = styled.h1`
@@ -105,43 +145,3 @@ const Introduction = styled.div`
   line-height: 2.4rem;
   color: #000000;
 `;
-
-const StudyIntroduce = () => {
-  return (
-    <StudyIntroducePage>
-      <Title>[스프링 스터디] 스프링 스터디 공부인증방</Title>
-      <ReaderProfile>
-        <div></div>
-        <span>이승환승</span>
-        <span>2022.11.17</span>
-      </ReaderProfile>
-      <Line></Line>
-      <IntroduceRule>
-        <RuleBox>
-          <div>모집인원</div>
-          <div>5명</div>
-        </RuleBox>
-        <RuleBox>
-          <div>진행기간</div>
-          <div>6개월이상</div>
-        </RuleBox>
-        <RuleBox>
-          <div>진행방식</div>
-          <div>오프라인</div>
-        </RuleBox>
-        <RuleBox>
-          <div>시작예정</div>
-          <div>2022-11-16</div>
-        </RuleBox>
-      </IntroduceRule>
-      <IntroduceTitle>스프링 스터디 소개</IntroduceTitle>
-      <Line></Line>
-      <Introduction>
-        스프링 스터디입니다 !<br /> 일주일에 한번이상 블로그링크를 작성해서
-        댓글창에 올려주세요 !
-      </Introduction>
-    </StudyIntroducePage>
-  );
-};
-
-export default StudyIntroduce;

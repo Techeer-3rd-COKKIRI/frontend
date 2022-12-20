@@ -1,6 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Comment = () => {
+  return (
+    <CommentComponent>
+      <div>프로필사진</div>
+      <div>
+        <h1>관리자</h1>
+        <div>
+          [공지] 2회차는 토비의 스프링 vol.1 2장 공부해오고 블로그 글
+          작성하기입니다! 댓글에 블로그 글 링크 달아주시면 되겠습니다. 이번주도
+          열심히 해봅시다!
+        </div>
+      </div>
+    </CommentComponent>
+  );
+};
+
+export default Comment;
+
 const CommentComponent = styled.div`
   display: flex;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -47,21 +65,3 @@ const CommentComponent = styled.div`
     }
   }
 `;
-
-const Comment = () => {
-  return (
-    <CommentComponent>
-      <div>프로필사진</div>
-      <div>
-        <h1>관리자</h1>
-        <div>
-          [공지] 2회차는 토비의 스프링 vol.1 2장 공부해오고 블로그 글
-          작성하기입니다! 댓글에 블로그 글 링크 달아주시면 되겠습니다. 이번주도
-          열심히 해봅시다!
-        </div>
-      </div>
-    </CommentComponent>
-  );
-};
-
-export default Comment;

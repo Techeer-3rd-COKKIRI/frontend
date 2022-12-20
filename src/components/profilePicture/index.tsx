@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const ProfilePicture = () => {
+  return <UserPicture>프로필</UserPicture>;
+};
+
+export default ProfilePicture;
+
 const UserPicture = styled.div`
   min-width: 7.5rem;
   height: 7rem;
@@ -16,9 +22,3 @@ const UserPicture = styled.div`
     background-color: #dedefc;
   }
 `;
-
-const ProfilePicture = () => {
-  return <UserPicture>프로필</UserPicture>;
-};
-
-export default ProfilePicture;
