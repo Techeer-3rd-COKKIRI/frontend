@@ -7,6 +7,7 @@ import CreateStudyInput from '@/components/createStudyInput';
 import axios from 'axios';
 import CreateStudySelectInput from '@/components/createStudySelectInput';
 import { certificationPeriod, recruits } from '@/constants/option';
+import CreateStudyCalender from '@/components/createStudyCalender';
 
 export type FormName =
   | 'studyName'
@@ -21,8 +22,8 @@ export interface FormValue {
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
-  startDay: string;
-  endDay: string;
+  startDay: Date;
+  endDay: Date;
 }
 
 const CreateStudy = () => {
@@ -31,14 +32,15 @@ const CreateStudy = () => {
     register, //등록
     handleSubmit, //submit처리
     watch, //변경사항 추적
+    control,
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    alert('글 등록이 완료되었습니다 !');
-    console.log(values);
-    //확인 누르면 메인페이지로 가기
-    navigator('/');
+    //alert('글 등록이 완료되었습니다 !');
+    console.log({ ...values });
+
+    //navigator('/');
   };
 
   return (
@@ -56,7 +58,7 @@ const CreateStudy = () => {
             <StudyInform>
               <CreateStudySelectInput
                 inputName={'모집인원'}
-                placeholder={'1명~10명이상'}
+                placeholder={'1명~10명'}
                 id={'userLimit'}
                 option={recruits}
                 register={register}
@@ -89,33 +91,15 @@ const CreateStudy = () => {
                   required: '인증기간을 선택해주세요!',
                 }}
               />
-              <CreateStudyInput
+              <CreateStudyCalender
                 inputName={'시작날짜'}
-                placeholder={'시작날짜'}
                 id={'startDay'}
-                register={register}
-                registerConfig={{
-                  required: '시작날짜를 입력해주세요!',
-                  minLength: {
-                    value: 2,
-                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
-                  },
-                }}
-                error={errors.startDay?.message}
+                control={control}
               />
-              <CreateStudyInput
+              <CreateStudyCalender
                 inputName={'마감날짜'}
-                placeholder={'마감날짜'}
                 id={'endDay'}
-                register={register}
-                registerConfig={{
-                  required: '마감날짜를 입력해주세요!',
-                  minLength: {
-                    value: 2,
-                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
-                  },
-                }}
-                error={errors.endDay?.message}
+                control={control}
               />
             </StudyInform>
             <InformTitle>
