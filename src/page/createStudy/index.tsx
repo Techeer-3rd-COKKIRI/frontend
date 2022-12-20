@@ -95,7 +95,7 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-                <Textarea></Textarea>
+                <Textarea>안녕하세요</Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button>글 등록</button>
@@ -181,7 +181,7 @@ const StudyInform = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   gap: 10px;
-
+  margin-bottom: 3rem;
   & > div {
     display: flex;
     flex-direction: column;
@@ -274,11 +274,12 @@ const Section = styled.section`
 
 const Textarea = styled.textarea`
   width: 100%;
-  height: 500px;
+  height: 700px;
   background: #ffffff;
   border-radius: 10px;
   padding: 15px;
   border: none;
+  resize: none;
   &::-webkit-scrollbar {
     width: 13px;
   }
@@ -286,21 +287,33 @@ const Textarea = styled.textarea`
     border-radius: 5px;
     background: #acafb7;
   }
+  @media screen and (max-width: 1440px) {
+    height: 400px;
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  & button :nth-child(0) {
+  margin-top: 10px;
+  & button:nth-child(1) {
+    width: 10rem;
+    height: 4.5rem;
     background: #d9d9d9;
-    opacity: 0.6;
     border-radius: 5px;
+    border: none;
+    margin-right: 20px;
+    cursor: pointer;
   }
 
-  & button :nth-child(1) {
+  & button:nth-child(2) {
+    width: 10rem;
+    height: 4.5rem;
     background: #293659;
     border-radius: 5px;
+    border: none;
+    color: #faeded;
+    cursor: pointer;
   }
 `;
 
