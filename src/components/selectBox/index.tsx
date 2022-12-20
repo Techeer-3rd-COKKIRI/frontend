@@ -1,3 +1,4 @@
+import { recruits } from '@/constants/option';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -19,9 +20,9 @@ const Select = styled.select`
   appearance: none;
 `;
 
-const SelectBox = ({ options }: any) => {
+const SelectBox = ({ id, options, register, registerConfig }: any) => {
   return (
-    <Select>
+    <Select {...register(id, registerConfig)}>
       {options.map((option: any) => (
         <option key={option.value} value={option.value}>
           {option.name}

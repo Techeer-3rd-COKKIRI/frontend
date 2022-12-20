@@ -12,13 +12,17 @@ export type FormName =
   | 'studyName'
   | 'studyPassword'
   | 'studyCycle'
-  | 'userLimit';
+  | 'userLimit'
+  | 'startDay'
+  | 'endDay';
 
 export interface FormValue {
   studyName: string;
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
+  startDay: string;
+  endDay: string;
 }
 
 const CreateStudy = () => {
@@ -32,8 +36,7 @@ const CreateStudy = () => {
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
-    const result = await axios.post('/api/v1/studies', { ...values });
-    console.log(result.data);
+    console.log(values);
     //글 등록 컴포넌트만들기
     //확인 누르면 메인페이지로 가기
     navigator('/');
@@ -57,6 +60,10 @@ const CreateStudy = () => {
                 placeholder={'1명~10명이상'}
                 id={'userLimit'}
                 option={recruits}
+                register={register}
+                registerConfig={{
+                  required: '모집인원을 선택해주세요!',
+                }}
                 // error={errors.studyName?.message}
               />
               <CreateStudyInput
@@ -77,14 +84,18 @@ const CreateStudy = () => {
                 placeholder={'인증기간'}
                 id={'studyCycle'}
                 option={certificationPeriod}
-              />
-              <CreateStudyInput
-                inputName={'패스워드'}
-                placeholder={'패스워드'}
-                id={'studyPassword'}
                 register={register}
                 registerConfig={{
-                  required: '패스워드를 입력해주세요!',
+                  required: '인증기간을 선택해주세요!',
+                }}
+              />
+              <CreateStudyInput
+                inputName={'시작날짜'}
+                placeholder={'시작날짜'}
+                id={'startDay'}
+                register={register}
+                registerConfig={{
+                  required: '시작날짜를 입력해주세요!',
                   minLength: {
                     value: 2,
                     message: '최소 2자 이상의 스터디명을 입력해주세요!',
@@ -92,12 +103,12 @@ const CreateStudy = () => {
                 }}
               />
               <CreateStudyInput
-                inputName={'패스워드'}
-                placeholder={'패스워드'}
-                id={'studyPassword'}
+                inputName={'마감날짜'}
+                placeholder={'마감날짜'}
+                id={'endDay'}
                 register={register}
                 registerConfig={{
-                  required: '패스워드를 입력해주세요!',
+                  required: '마감날짜를 입력해주세요!',
                   minLength: {
                     value: 2,
                     message: '최소 2자 이상의 스터디명을 입력해주세요!',
@@ -130,7 +141,7 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-                <Textarea>안녕하세요</Textarea>
+                <Textarea name="text" defaultValue={'안녕하세요'}></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button>글 등록</button>
