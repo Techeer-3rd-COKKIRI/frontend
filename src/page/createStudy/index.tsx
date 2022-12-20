@@ -37,7 +37,6 @@ const CreateStudy = () => {
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
     console.log(values);
-    //글 등록 컴포넌트만들기
     //확인 누르면 메인페이지로 가기
     navigator('/');
   };
@@ -64,20 +63,21 @@ const CreateStudy = () => {
                 registerConfig={{
                   required: '모집인원을 선택해주세요!',
                 }}
-                // error={errors.studyName?.message}
               />
               <CreateStudyInput
                 inputName={'패스워드'}
                 placeholder={'패스워드'}
+                type={'password'}
                 id={'studyPassword'}
                 register={register}
                 registerConfig={{
                   required: '패스워드를 입력해주세요!',
                   minLength: {
                     value: 2,
-                    message: '최소 2자 이상의 스터디명을 입력해주세요!',
+                    message: '패스워드 많이많이 입력해주세요!',
                   },
                 }}
+                error={errors.studyPassword?.message}
               />
               <CreateStudySelectInput
                 inputName={'인증기간'}
@@ -101,6 +101,7 @@ const CreateStudy = () => {
                     message: '최소 2자 이상의 스터디명을 입력해주세요!',
                   },
                 }}
+                error={errors.startDay?.message}
               />
               <CreateStudyInput
                 inputName={'마감날짜'}
@@ -114,6 +115,7 @@ const CreateStudy = () => {
                     message: '최소 2자 이상의 스터디명을 입력해주세요!',
                   },
                 }}
+                error={errors.endDay?.message}
               />
             </StudyInform>
             <InformTitle>
@@ -372,7 +374,7 @@ const Horizon = styled.div`
   margin: 10px 0px;
 `;
 
-const Error = styled.div`
+export const Error = styled.div`
   height: 10px;
   margin: 10px 0;
   margin-left: 5px;

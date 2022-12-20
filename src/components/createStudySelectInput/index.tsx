@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectBox from '../selectBox';
-import { FormName, FormValue } from '@/page/createStudy';
+import { Error, FormName, FormValue } from '@/page/createStudy';
 import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface Props {
@@ -31,7 +31,11 @@ const CreateStudySelectInput = ({
         placeholder={placeholder}
         options={option}
       />
-      {error && <p>{error}</p>}
+      {error ? (
+        <Error style={{ height: '10px' }}>{error}</Error>
+      ) : (
+        <Error style={{ height: '10px' }}></Error>
+      )}
     </div>
   );
 };
