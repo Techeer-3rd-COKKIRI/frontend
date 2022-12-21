@@ -25,8 +25,8 @@ const CreateStudyInput = ({
     <div>
       <label htmlFor={id}>{inputName}</label>
       <input
-        type={type}
         {...register(id, registerConfig)}
+        type={type}
         id={id}
         placeholder={placeholder}
       ></input>

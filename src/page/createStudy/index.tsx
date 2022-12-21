@@ -16,7 +16,8 @@ export type FormName =
   | 'studyCycle'
   | 'userLimit'
   | 'startDay'
-  | 'endDay';
+  | 'endDay'
+  | 'image';
 
 export interface FormValue {
   studyName: string;
@@ -25,6 +26,7 @@ export interface FormValue {
   userLimit: string;
   startDay: Date;
   endDay: Date;
+  image: File;
 }
 
 const CreateStudy = () => {
@@ -103,7 +105,12 @@ const CreateStudy = () => {
                 id={'endDay'}
                 control={control}
               />
-              <CreateStudyImage></CreateStudyImage>
+              <CreateStudyImage
+                inputName={'썸네일'}
+                placeholder={'썸네일을 선택해주세요'}
+                id={'image'}
+                register={register}
+              ></CreateStudyImage>
             </StudyInform>
             <InformTitle>
               <div>2</div>
@@ -133,7 +140,7 @@ const CreateStudy = () => {
                 <Textarea name="text" defaultValue={'안녕하세요'}></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
-                  <button>글 등록</button>
+                  <button type="submit">글 등록</button>
                 </Buttons>
               </Section>
             </StudyIntroduce>
