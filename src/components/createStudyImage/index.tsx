@@ -1,6 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { Error, FormName, FormValue } from '@/page/createStudy';
 import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import styled from 'styled-components';
 
 interface Props {
   inputName: string;
@@ -33,7 +34,7 @@ const CreateStudyImage = ({ inputName, placeholder, id, register }: Props) => {
 
   return (
     <div>
-      <label>이미지</label>
+      <label>썸네일</label>
       <input
         {...register(id)}
         accept="image/*"
@@ -49,11 +50,30 @@ const CreateStudyImage = ({ inputName, placeholder, id, register }: Props) => {
         }}
       ></input>
       <input readOnly value={image || ''}></input>
-      <button type="button" onClick={onUploadImageButtonClick}>
+      <Button type="button" onClick={onUploadImageButtonClick}>
         Upload File
-      </button>
+      </Button>
     </div>
   );
 };
 
 export default CreateStudyImage;
+
+const Button = styled.button`
+  background-color: #a1bcff;
+  border-radius: 10px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border: none;
+  &:hover {
+    background-color: #769cff;
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+`;
