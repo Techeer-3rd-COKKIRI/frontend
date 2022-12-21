@@ -8,6 +8,7 @@ import axios from 'axios';
 import CreateStudySelectInput from '@/components/createStudySelectInput';
 import { certificationPeriod, recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
+import CreateStudyImage from '@/components/createStudyImage';
 
 export type FormName =
   | 'studyName'
@@ -102,6 +103,7 @@ const CreateStudy = () => {
                 id={'endDay'}
                 control={control}
               />
+              <CreateStudyImage></CreateStudyImage>
             </StudyInform>
             <InformTitle>
               <div>2</div>
