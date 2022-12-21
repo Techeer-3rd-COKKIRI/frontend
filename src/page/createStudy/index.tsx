@@ -2,35 +2,46 @@ import Nav from '@/components/nav';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import ReactQuill from 'react-quill';
-import Quill from '@/components/Quill';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
 import axios from 'axios';
-interface FormValue {
+import CreateStudySelectInput from '@/components/createStudySelectInput';
+import { certificationPeriod, recruits } from '@/constants/option';
+import CreateStudyCalender from '@/components/createStudyCalender';
+
+export type FormName =
+  | 'studyName'
+  | 'studyPassword'
+  | 'studyCycle'
+  | 'userLimit'
+  | 'startDay'
+  | 'endDay';
+
+export interface FormValue {
   studyName: string;
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
+  startDay: Date;
+  endDay: Date;
 }
 
 const CreateStudy = () => {
-  const [studyIntroduce, setStudyIntroduce] = useState('');
   const navigator = useNavigate();
   const {
     register, //등록
     handleSubmit, //submit처리
     watch, //변경사항 추적
+    control,
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    alert('글 등록이 완료되었습니다 !');
-    const result = await axios.post('/api/v1/studies', { ...values });
-    console.log(result.data);
-    //글 등록 컴포넌트만들기
-    //확인 누르면 메인페이지로 가기
-    navigator('/');
+    //alert('글 등록이 완료되었습니다 !');
+    console.log({ ...values });
+    //백엔드와 연결된 후 작성
+    //유효성검사 미완성
+    //navigator('/');
   };
 
   return (
@@ -46,31 +57,50 @@ const CreateStudy = () => {
             </InformTitle>
             <Horizon />
             <StudyInform>
-              <CreateStudyInput
+              <CreateStudySelectInput
                 inputName={'모집인원'}
-                placeholder={'1명~10명이상'}
+                placeholder={'1명~10명'}
                 id={'userLimit'}
-                // error={errors.studyName?.message}
+                option={recruits}
+                register={register}
+                registerConfig={{
+                  required: '모집인원을 선택해주세요!',
+                }}
               />
               <CreateStudyInput
                 inputName={'패스워드'}
                 placeholder={'패스워드'}
-                id={'password'}
+                type={'password'}
+                id={'studyPassword'}
+                register={register}
+                registerConfig={{
+                  required: '패스워드를 입력해주세요!',
+                  minLength: {
+                    value: 2,
+                    message: '패스워드 많이많이 입력해주세요!',
+                  },
+                }}
+                error={errors.studyPassword?.message}
               />
-              <CreateStudyInput
+              <CreateStudySelectInput
                 inputName={'인증기간'}
                 placeholder={'인증기간'}
                 id={'studyCycle'}
+                option={certificationPeriod}
+                register={register}
+                registerConfig={{
+                  required: '인증기간을 선택해주세요!',
+                }}
               />
-              <CreateStudyInput
-                inputName={'시작예정일'}
-                placeholder={'시간예정일'}
-                id={'start'}
+              <CreateStudyCalender
+                inputName={'시작날짜'}
+                id={'startDay'}
+                control={control}
               />
-              <CreateStudyInput
-                inputName={'종료예정일'}
-                placeholder={'종료예정일'}
-                id={'end'}
+              <CreateStudyCalender
+                inputName={'마감날짜'}
+                id={'endDay'}
+                control={control}
               />
             </StudyInform>
             <InformTitle>
@@ -98,10 +128,7 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-                <Quill
-                  setStudyIntroduce={setStudyIntroduce}
-                  studyIntroduce={studyIntroduce}
-                />
+                <Textarea name="text" defaultValue={'안녕하세요'}></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button>글 등록</button>
@@ -119,12 +146,10 @@ export default CreateStudy;
 
 const CreateStudyPage = styled.div`
   margin-left: 200px;
-  display: flex;
-  flex-direction: column;
 
-  @media screen and (max-width: 639px) {
-    margin-left: 0px;
+  @media screen and (max-width: 1440px) {
     margin-top: 50px;
+    margin-left: 0px;
   }
 `;
 
@@ -135,17 +160,18 @@ const Title = styled.div`
 `;
 
 const WriteForm = styled.div`
-  width: 50%;
+  width: 90%;
+  margin: 0 auto;
   max-width: 1400px;
   @media screen and (min-width: 639px) {
-    margin: 0 auto;
+    width: 50%;
   }
 `;
 
 const Inform = styled.div`
   width: 100%;
+  min-width: 250px;
   margin: 0 auto;
-  min-width: 500px;
   box-sizing: border-box;
   padding: 10px 30px;
   background: #e9edf7;
@@ -178,7 +204,7 @@ const InformTitle = styled.div`
     font-style: normal;
     font-weight: 700;
     font-size: 1.5rem;
-    line-height: 3rem;
+    line-height: 2.5rem;
     color: #ffffff;
     margin-right: 15px;
   }
@@ -186,9 +212,9 @@ const InformTitle = styled.div`
 
 const StudyInform = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40%, auto));
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-
+  margin-bottom: 3rem;
   & > div {
     display: flex;
     flex-direction: column;
@@ -202,12 +228,12 @@ const StudyInform = styled.div`
       font-weight: 700;
       font-size: 2rem;
       line-height: 2.4rem;
-
+      margin: 5px 0;
       color: #000000;
     }
     & > input {
       width: 100%;
-      height: 2.5rem;
+      height: 6rem;
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px;
@@ -219,7 +245,7 @@ const StudyInform = styled.div`
 
 const StudyIntroduce = styled.div`
   width: 90%;
-  margin: 0 auto;
+  margin-right: auto;
 
   & > div {
     display: flex;
@@ -270,8 +296,8 @@ const Section = styled.section`
 
   & > input {
     border: none;
-    width: 95%;
-    height: 5rem;
+    width: 100%;
+    height: 6.5rem;
     background: #ffffff;
     border-radius: 10px;
     margin-top: 10px;
@@ -279,19 +305,48 @@ const Section = styled.section`
   }
 `;
 
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 700px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  border: none;
+  resize: none;
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #acafb7;
+  }
+  @media screen and (max-width: 1440px) {
+    height: 400px;
+  }
+`;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  & button :nth-child(0) {
+  margin-top: 10px;
+  & button:nth-child(1) {
+    width: 10rem;
+    height: 4.5rem;
     background: #d9d9d9;
-    opacity: 0.6;
     border-radius: 5px;
+    border: none;
+    margin-right: 20px;
+    cursor: pointer;
   }
 
-  & button :nth-child(1) {
+  & button:nth-child(2) {
+    width: 10rem;
+    height: 4.5rem;
     background: #293659;
     border-radius: 5px;
+    border: none;
+    color: #faeded;
+    cursor: pointer;
   }
 `;
 
@@ -304,7 +359,7 @@ const Horizon = styled.div`
   margin: 10px 0px;
 `;
 
-const Error = styled.div`
+export const Error = styled.div`
   height: 10px;
   margin: 10px 0;
   margin-left: 5px;

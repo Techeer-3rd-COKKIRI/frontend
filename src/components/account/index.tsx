@@ -19,7 +19,6 @@ const Account = () => {
   );
 };
 
-
 const LeftBackground = styled.div`
   background-color: #e9edf7;
   width: 60vw;

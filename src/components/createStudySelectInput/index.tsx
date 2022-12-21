@@ -1,35 +1,37 @@
-import { Error, FormName, FormValue } from '@/page/createStudy';
 import React from 'react';
+import SelectBox from '../selectBox';
+import { Error, FormName, FormValue } from '@/page/createStudy';
 import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface Props {
   inputName: string;
   placeholder: string;
-  id: FormName;
+  id: string;
+  error?: string;
+  option: any;
   register: UseFormRegister<FormValue>;
   registerConfig: RegisterOptions<FormValue, FormName>;
-  error?: string;
-  type?: string;
 }
 
-const CreateStudyInput = ({
+const CreateStudySelectInput = ({
   inputName,
   placeholder,
   id,
   error,
+  option,
   register,
   registerConfig,
-  type,
 }: Props) => {
   return (
     <div>
       <label htmlFor={id}>{inputName}</label>
-      <input
-        type={type}
-        {...register(id, registerConfig)}
+      <SelectBox
         id={id}
+        register={register}
+        registerConfig={registerConfig}
         placeholder={placeholder}
-      ></input>
+        options={option}
+      />
       {error ? (
         <Error style={{ height: '10px' }}>{error}</Error>
       ) : (
@@ -39,4 +41,4 @@ const CreateStudyInput = ({
   );
 };
 
-export default CreateStudyInput;
+export default CreateStudySelectInput;
