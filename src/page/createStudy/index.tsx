@@ -40,11 +40,11 @@ const CreateStudy = () => {
   } = useForm<FormValue>();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    //alert('글 등록이 완료되었습니다 !');
+    alert('글 등록이 완료되었습니다 !');
     console.log({ ...values });
     //백엔드와 연결된 후 작성
     //유효성검사 미완성
-    //navigator('/');
+    navigator('/');
   };
 
   return (

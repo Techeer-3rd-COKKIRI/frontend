@@ -60,13 +60,13 @@ const CreateStudyImage = ({ inputName, placeholder, id, register }: Props) => {
 export default CreateStudyImage;
 
 const Button = styled.button`
-  background-color: #a1bcff;
+  background-color: #000000;
   border-radius: 10px;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
   font-size: 1.2rem;
-  padding: 1rem 2rem;
+  padding: 1.5rem 3rem;
   text-decoration: none;
   border: none;
   &:hover {
