@@ -15,8 +15,8 @@ export type FormName =
   | 'studyPassword'
   | 'studyCycle'
   | 'userLimit'
-  | 'startDay'
-  | 'endDay'
+  | 'startDate'
+  | 'finishDate'
   | 'image';
 
 export interface FormValue {
@@ -24,8 +24,8 @@ export interface FormValue {
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
-  startDay: Date;
-  endDay: Date;
+  startDate: Date;
+  finishDate: Date;
   image: File;
 }
 
@@ -97,12 +97,12 @@ const CreateStudy = () => {
               />
               <CreateStudyCalender
                 inputName={'시작날짜'}
-                id={'startDay'}
+                id={'startDate'}
                 control={control}
               />
               <CreateStudyCalender
                 inputName={'마감날짜'}
-                id={'endDay'}
+                id={'finishDate'}
                 control={control}
               />
               <CreateStudyImage
