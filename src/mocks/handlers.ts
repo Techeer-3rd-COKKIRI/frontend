@@ -1,7 +1,8 @@
 import { rest } from 'msw';
+import { useParams } from 'react-router-dom';
 
 interface MakeStudy {
-  id: number;
+  studyId: number;
   image: string;
   startDate: Date;
   finishDate: Date;
@@ -16,8 +17,18 @@ const studyRoom: MakeStudy[] = [];
 
 export const handlers = [
   //스터디 id로 조회 API
-  rest.get('/api/v1/studies/{studyId}', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(studyRoom));
+  rest.get('/api/v1/studies/:studyId', (req, res, ctx) => {
+    const { studyId } = req.params;
+    // studyRoom에 검색한 stduyId가 있다면
+    const find = studyRoom.find((room) => room.studyId == Number(studyId));
+    console.log(find);
+    if (find) {
+      console.log(studyId + '를찾았습니다');
+      return res(ctx.status(200), ctx.json(studyRoom));
+    } else {
+      console.log(studyId + '를 찾지못하였습니다');
+      return res(ctx.status(400), ctx.json(studyRoom));
+    }
   }),
 
   //스터디 개설 API
@@ -35,7 +46,7 @@ export const handlers = [
 
     //가져온 데이터를 data object로 묶어준다.
     const data: MakeStudy = {
-      id: Date.now(),
+      studyId: Date.now(),
       image,
       startDate,
       finishDate,
