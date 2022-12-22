@@ -18,7 +18,12 @@ const MainPage = () => {
         <img src="src\assets\image\메인배너.png"></img>
       </Banner>
       <MyStudy>진행중인 스터디</MyStudy>
-      <StudyComponents />
+      <Studies>
+        <StudyComponents />
+        <StudyComponents />
+        <StudyComponents />
+        <StudyComponents />
+      </Studies>
     </StudyMain>
   );
 };
@@ -26,15 +31,19 @@ const MainPage = () => {
 const StudyMain = styled.div`
   margin-left: 200px;
   font-family: 'InriaSans';
+  @media screen and (max-width: 1440px) {
+    margin-left: 0px;
+    margin-top: 50px;
+  }
 `;
 
 const Banner = styled.div`
   display: flex;
-  margin-left: 30px;
   & img {
-    width: 95%;
-    height: 36rem;
-    margin: 20px;
+    width: 135rem;
+    height: 34rem;
+    margin: 0 auto;
+    margin-top: 15px;
   }
 `;
 
@@ -43,8 +52,17 @@ const MyStudy = styled.div`
   font-weight: 700;
   font-size: 3rem;
   line-height: 3.5rem;
-  margin-left: 80px;
-  margin-top: 50px;
+  margin: 100px 0px 60px 120px;
+`;
+
+const Studies = styled.div`
+  margin: 0 auto;
+  width: 60%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+  row-gap: 5px;
 `;
 
 export default MainPage;

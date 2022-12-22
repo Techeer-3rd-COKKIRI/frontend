@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+// 구조 다시
+// 바로가기 화살표 빼기
 
 const StudyComponents = () => {
   return (
     <Studies>
       <Picture />
-      <StudyTitle>스터디 제목자리</StudyTitle>
-      <StudyDuration>
-        <DurationTitle>진행기간</DurationTitle>
-      </StudyDuration>
-      <Etc>
-        <Duration>2022-11-13 ~ 2022-11-29</Duration>
-        <StudyButton>바로가기 ▶</StudyButton>
-      </Etc>
+      <Info>
+        <StudyTitle>스터디 제목자리</StudyTitle>
+        <Bottom>
+          <StudyDuration>
+            <DurationTitle>진행기간</DurationTitle>
+            <Duration>2022-11-13 ~ 2022-11-29</Duration>
+          </StudyDuration>
+          <StudyButton>바로가기</StudyButton>
+        </Bottom>
+        <Etc></Etc>
+      </Info>
     </Studies>
   );
 };
 const Studies = styled.div`
   font-family: 'Inria Sans';
-  width: 45rem;
+  width: 48rem;
   height: 13rem;
   border: 1px solid #b2b2b2;
   border-radius: 5px;
+  display: flex;
 `;
 
 const Picture = styled.div`
@@ -29,6 +35,12 @@ const Picture = styled.div`
   height: 130px;
   background: tomato;
   float: left;
+  border-radius: 5px;
+`;
+
+const Info = styled.div`
+  float: right;
+  flex-direction: row;
 `;
 
 const StudyTitle = styled.p`
@@ -45,10 +57,12 @@ const StudyTitle = styled.p`
   margin-bottom: 30px;
 `;
 
-const StudyDuration = styled.div`
+const Bottom = styled.div`
   display: flex;
-  flex-direction: row;
-  padding-left: 15px;
+`;
+
+const StudyDuration = styled.div`
+  margin-left: 15px;
 `;
 
 const DurationTitle = styled.div`
@@ -57,6 +71,7 @@ const DurationTitle = styled.div`
   line-height: 1.5rem;
   color: #b2b2b2;
 `;
+
 const Etc = styled.div`
   display: flex;
   align-items: center;
