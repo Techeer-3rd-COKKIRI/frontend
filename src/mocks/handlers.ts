@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 
 interface MakeStudy {
+  id: number;
   image: string;
   startDate: Date;
   finishDate: Date;
@@ -34,6 +35,7 @@ export const handlers = [
 
     //가져온 데이터를 data object로 묶어준다.
     const data: MakeStudy = {
+      id: Date.now(),
       image,
       startDate,
       finishDate,
