@@ -26,7 +26,7 @@ export interface FormValue {
   userLimit: string;
   startDate: Date;
   finishDate: Date;
-  image: File;
+  image: string;
 }
 
 const CreateStudy = () => {
@@ -41,10 +41,35 @@ const CreateStudy = () => {
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
-    console.log({ ...values });
-    //백엔드와 연결된 후 작성
-    //유효성검사 미완성
-    navigator('/');
+    const {
+      startDate,
+      finishDate,
+      studyCycle,
+      studyName,
+      studyPassword,
+      userLimit,
+      image,
+    } = values;
+    const formData = new FormData();
+    let startDay = new Date(startDate).toUTCString();
+    let finishDay = new Date(finishDate).toUTCString();
+    formData.append('image', image[0]);
+    formData.append('startDate', startDay);
+    formData.append('finishDate', finishDay);
+    formData.append('studyCycle', studyCycle);
+    formData.append('studyName', studyName);
+    formData.append('studyPassword', studyPassword);
+    formData.append('userLimit', userLimit);
+
+    let result = await axios.post('/api/v1/studies', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    // formData를 순회하며 데이터출력
+    // let entries = formData.entries();
+    // for (const pair of entries) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
   };
 
   return (
