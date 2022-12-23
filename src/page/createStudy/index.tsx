@@ -9,6 +9,7 @@ import CreateStudySelectInput from '@/components/createStudySelectInput';
 import { certificationPeriod, recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
 import CreateStudyImage from '@/components/createStudyImage';
+import { useMutation } from '@tanstack/react-query';
 
 export type FormName =
   | 'studyName'
@@ -39,6 +40,9 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
+  const { mutate } = useMutation((formData: FormData) =>
+    axios.post<FormValue>('/api/v1/studies', formData),
+  );
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
     const {
@@ -61,9 +65,14 @@ const CreateStudy = () => {
     formData.append('studyPassword', studyPassword);
     formData.append('userLimit', userLimit);
 
-    let result = await axios.post('/api/v1/studies', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
     });
+    // let result = await axios.post('/api/v1/studies', formData, {
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    // });
 
     // formData를 순회하며 데이터출력
     // let entries = formData.entries();
