@@ -27,7 +27,7 @@ export interface FormValue {
   userLimit: string;
   startDate: Date;
   finishDate: Date;
-  image: string;
+  image: FileList;
 }
 
 const CreateStudy = () => {

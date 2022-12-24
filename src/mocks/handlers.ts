@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 interface MakeStudy {
   studyId: number;
-  image: string;
+  image: File;
   startDate: Date;
   finishDate: Date;
   studyCycle: string;
