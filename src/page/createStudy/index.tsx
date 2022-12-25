@@ -10,6 +10,7 @@ import { certificationPeriod, recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
 import CreateStudyImage from '@/components/createStudyImage';
 import { useMutation } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
 export type FormName =
   | 'studyName'
@@ -55,8 +56,9 @@ const CreateStudy = () => {
       image,
     } = values;
     const formData = new FormData();
-    let startDay = new Date(startDate).toUTCString();
-    let finishDay = new Date(finishDate).toUTCString();
+    let startDay = dayjs(startDate).format('YYYY-MM-DD');
+    let finishDay = dayjs(finishDate).format('YYYY-MM-DD');
+
     formData.append('image', image[0]);
     formData.append('startDate', startDay);
     formData.append('finishDate', finishDay);
