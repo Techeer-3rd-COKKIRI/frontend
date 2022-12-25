@@ -8,22 +8,26 @@ import axios from 'axios';
 import CreateStudySelectInput from '@/components/createStudySelectInput';
 import { certificationPeriod, recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
+import CreateStudyImage from '@/components/createStudyImage';
+import { useMutation } from '@tanstack/react-query';
 
 export type FormName =
   | 'studyName'
   | 'studyPassword'
   | 'studyCycle'
   | 'userLimit'
-  | 'startDay'
-  | 'endDay';
+  | 'startDate'
+  | 'finishDate'
+  | 'image';
 
 export interface FormValue {
   studyName: string;
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
-  startDay: Date;
-  endDay: Date;
+  startDate: Date;
+  finishDate: Date;
+  image: FileList;
 }
 
 const CreateStudy = () => {
@@ -36,12 +40,45 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
+  const { mutate } = useMutation((formData: FormData) =>
+    axios.post<FormValue>('/api/v1/studies', formData),
+  );
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
-    //alert('글 등록이 완료되었습니다 !');
-    console.log({ ...values });
-    //백엔드와 연결된 후 작성
-    //유효성검사 미완성
-    //navigator('/');
+    alert('글 등록이 완료되었습니다 !');
+    const {
+      startDate,
+      finishDate,
+      studyCycle,
+      studyName,
+      studyPassword,
+      userLimit,
+      image,
+    } = values;
+    const formData = new FormData();
+    let startDay = new Date(startDate).toUTCString();
+    let finishDay = new Date(finishDate).toUTCString();
+    formData.append('image', image[0]);
+    formData.append('startDate', startDay);
+    formData.append('finishDate', finishDay);
+    formData.append('studyCycle', studyCycle);
+    formData.append('studyName', studyName);
+    formData.append('studyPassword', studyPassword);
+    formData.append('userLimit', userLimit);
+
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    });
+    // let result = await axios.post('/api/v1/studies', formData, {
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    // });
+
+    // formData를 순회하며 데이터출력
+    // let entries = formData.entries();
+    // for (const pair of entries) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
   };
 
   return (
@@ -94,14 +131,20 @@ const CreateStudy = () => {
               />
               <CreateStudyCalender
                 inputName={'시작날짜'}
-                id={'startDay'}
+                id={'startDate'}
                 control={control}
               />
               <CreateStudyCalender
                 inputName={'마감날짜'}
-                id={'endDay'}
+                id={'finishDate'}
                 control={control}
               />
+              <CreateStudyImage
+                inputName={'썸네일'}
+                placeholder={'썸네일을 선택해주세요'}
+                id={'image'}
+                register={register}
+              ></CreateStudyImage>
             </StudyInform>
             <InformTitle>
               <div>2</div>
@@ -131,7 +174,7 @@ const CreateStudy = () => {
                 <Textarea name="text" defaultValue={'안녕하세요'}></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
-                  <button>글 등록</button>
+                  <button type="submit">글 등록</button>
                 </Buttons>
               </Section>
             </StudyIntroduce>
