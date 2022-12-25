@@ -7,12 +7,13 @@ import GlobalStyle from './GlobalStyle';
 import { Theme } from './theme';
 
 import { worker } from './mocks/worker';
+import { getClient } from './queryClient';
 
 if (import.meta.env.DEV) {
   worker.start();
 }
 
-let clientQuery = new QueryClient();
+let clientQuery = getClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
