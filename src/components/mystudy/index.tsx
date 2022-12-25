@@ -16,7 +16,6 @@ const StudyComponents = () => {
           </StudyDuration>
           <StudyButton>바로가기</StudyButton>
         </Bottom>
-        <Etc></Etc>
       </Info>
     </Studies>
   );
@@ -72,29 +71,23 @@ const DurationTitle = styled.div`
   color: #b2b2b2;
 `;
 
-const Etc = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const Duration = styled.div`
-  padding-left: 15px;
   color: #b2b2b2;
   font-weight: 700;
   font-size: 1.2rem;
   line-height: 1.5rem;
+  margin-top: 5px;
 `;
 
 const StudyButton = styled.button`
-  margin-right: 15px;
   width: 88px;
   height: 26px;
   background: #697af8;
   border-radius: 5px;
   border: none;
   color: #fff;
-  text-align: center;
+  margin-left: 75px;
+  margin-top: 10px;
 `;
 
 export default StudyComponents;
