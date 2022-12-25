@@ -11,6 +11,7 @@ import CreateStudyCalender from '@/components/createStudyCalender';
 import CreateStudyImage from '@/components/createStudyImage';
 import { useMutation } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { restFetcher } from '@/queryClient';
 
 export type FormName =
   | 'studyName'
@@ -41,9 +42,12 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
-  const { mutate } = useMutation((formData: FormData) =>
-    axios.post<FormValue>('/api/v1/studies', formData),
+  const { mutate } = useMutation(
+    (formData: FormData) =>
+      restFetcher({ method: 'POST', path: '/studies', body: formData }),
+    //axios.post<FormValue>('/api/v1/studies', formData),
   );
+
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
     const {
@@ -66,7 +70,7 @@ const CreateStudy = () => {
     formData.append('studyName', studyName);
     formData.append('studyPassword', studyPassword);
     formData.append('userLimit', userLimit);
-
+    console.log('formData' + formData);
     mutate(formData, {
       onSuccess: (data) => {
         console.log(data);
