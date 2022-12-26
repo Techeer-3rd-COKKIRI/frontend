@@ -6,65 +6,6 @@ import WeekButton from '@/components/weekButton';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const StudyMainPage = styled.div`
-  margin-left: 200px;
-  @media screen and (max-width: 1440px) {
-    margin-left: 0px;
-    margin-top: 50px;
-  }
-`;
-
-const StudyRoom = styled.div`
-  width: 50%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  @media screen and (max-width: 1440px) {
-    width: 90%;
-  }
-`;
-
-const Title = styled.h1`
-  font-family: 'Inria Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 4rem;
-  line-height: 5rem;
-  margin: 2.5rem 0;
-  margin-left: 2.3rem;
-  color: #000000;
-`;
-
-const ProfileBox = styled.div`
-  display: flex;
-  background-color: #e9edf7;
-  border-radius: 1.7rem;
-  justify-content: space-between;
-  max-width: 1100px;
-`;
-
-const Profiles = styled.div`
-  display: flex;
-  flex-grow: 1;
-  justify-content: flex-start;
-  overflow-x: hidden;
-`;
-
-const ProfileDirection = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0px 3.5rem;
-
-  & img {
-    width: 10px;
-    height: 20px;
-  }
-`;
-
-const WeekBox = styled(ProfileBox)``;
-const WeekButtons = styled(Profiles)``;
-const WeekDirection = styled(ProfileDirection)``;
-
 const StudyMain = () => {
   //profiles 스크롤 변수 저장
   const profilesRef = React.createRef<HTMLDivElement>();
@@ -219,3 +160,62 @@ const StudyMain = () => {
   );
 };
 export default StudyMain;
+
+const StudyMainPage = styled.div`
+  margin-left: 200px;
+  @media screen and (max-width: 1440px) {
+    margin-left: 0px;
+    margin-top: 50px;
+  }
+`;
+
+const StudyRoom = styled.div`
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 1440px) {
+    width: 90%;
+  }
+`;
+
+const Title = styled.h1`
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 5rem;
+  margin: 2.5rem 0;
+  margin-left: 2.3rem;
+  color: #000000;
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  background-color: #e9edf7;
+  border-radius: 1.7rem;
+  justify-content: space-between;
+  max-width: 1100px;
+`;
+
+const Profiles = styled.div`
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  overflow-x: hidden;
+`;
+
+const ProfileDirection = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0px 3.5rem;
+
+  & img {
+    width: 10px;
+    height: 20px;
+  }
+`;
+
+const WeekBox = styled(ProfileBox)``;
+const WeekButtons = styled(Profiles)``;
+const WeekDirection = styled(ProfileDirection)``;
