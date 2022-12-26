@@ -2,6 +2,7 @@ import CommentManagement from '@/components/commentManagement';
 import Nav from '@/components/nav';
 import ProfilePicture from '@/components/profilePicture';
 import StudyIntroduce from '@/components/studyIntroduce';
+import WeekButton from '@/components/weekButton';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -14,7 +15,7 @@ const StudyMainPage = styled.div`
 `;
 
 const StudyRoom = styled.div`
-  width: 70%;
+  width: 50%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -59,19 +60,39 @@ const ProfileDirection = styled.div`
     height: 20px;
   }
 `;
+
+const WeekBox = styled(ProfileBox)``;
+const WeekButtons = styled(Profiles)``;
+const WeekDirection = styled(ProfileDirection)``;
+
 const StudyMain = () => {
-  const profilesRef = React.createRef<any>();
+  //profiles 스크롤 변수 저장
+  const profilesRef = React.createRef<HTMLDivElement>();
   const [profileScroll, setProfileScroll] = useState(0);
   const [profileMaxWidth, setProfileMaxWidth] = useState(0);
 
+  //weekButtons 스크롤변수 저장
+  const weekButtonRef = React.createRef<HTMLDivElement>();
+  const [weekButtonScroll, setWeekButtonScroll] = useState(0);
+  const [weekButtonMaxWidth, setWeekButtonMaxWidth] = useState(0);
+
   useEffect(() => {
-    setProfileMaxWidth(
-      //안보이는 스크롤 너비
-      profilesRef.current.scrollWidth - profilesRef.current.clientWidth,
-    );
+    if (profilesRef.current) {
+      setProfileMaxWidth(
+        //안보이는 스크롤 너비
+        profilesRef.current.scrollWidth - profilesRef.current.clientWidth,
+      );
+    }
+
+    if (weekButtonRef.current) {
+      setWeekButtonMaxWidth(
+        //안보이는 스크롤 너비
+        weekButtonRef.current.scrollWidth - weekButtonRef.current.clientWidth,
+      );
+    }
   }, []);
 
-  const scrollLeft = () => {
+  const profileScrollLeft = () => {
     //누를떄마다 114px씩 이동
     profilesRef.current?.scrollBy({
       left: -75,
@@ -90,7 +111,7 @@ const StudyMain = () => {
       setProfileScroll((pre) => pre - 75);
     }
   };
-  const scrollRight = () => {
+  const profileScrollRight = () => {
     profilesRef.current?.scrollBy({
       left: 75,
       behavior: 'smooth',
@@ -108,47 +129,90 @@ const StudyMain = () => {
     }
   };
 
+  const weekScrollLeft = () => {
+    //누를떄마다 114px씩 이동
+    weekButtonRef.current?.scrollBy({
+      left: -75,
+      behavior: 'smooth',
+    });
+
+    //현재 스크롤위치가 75 미만이라면 처음으로 이동
+    if (weekButtonScroll < 75) {
+      setWeekButtonScroll(() => 0);
+      weekButtonRef.current?.scrollTo({
+        left: 0,
+        behavior: 'smooth',
+      });
+    } else {
+      //아니라면 114px이동
+      setWeekButtonScroll((pre) => pre - 75);
+    }
+  };
+  const weekScrollRight = () => {
+    weekButtonRef.current?.scrollBy({
+      left: 75,
+      behavior: 'smooth',
+    });
+
+    //눌렀을때 보이지않는 스크롤너비를 초과했다면 맨오른쪽으로 이동
+    if (weekButtonScroll + 75 > weekButtonMaxWidth) {
+      setWeekButtonScroll(() => weekButtonMaxWidth);
+      weekButtonRef.current?.scrollTo({
+        left: weekButtonRef.current?.scrollWidth,
+        behavior: 'smooth',
+      });
+    } else {
+      setWeekButtonScroll((pre) => pre + 75);
+    }
+  };
+
   return (
     <StudyMainPage>
       <Nav />
+
       <StudyRoom>
         <Title>Study Main</Title>
+        {/* 유저별 프로필*/}
         <ProfileBox>
           {profileScroll != 0 ? (
-            <ProfileDirection onClick={scrollLeft}>
+            <ProfileDirection onClick={profileScrollLeft}>
               <img src="src\assets\image\leftProfile.png" />
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
-            <ProfilePicture />
+            {[1, 2, 3, 4, 1, 2, 3, 2, 4, 3, 5, 33, 4, 1, 423, 4].map(
+              (user, i) => {
+                return <ProfilePicture key={i} people={i + 1} />;
+              },
+            )}
           </Profiles>
           {profileScroll < profileMaxWidth ? (
-            <ProfileDirection onClick={scrollRight}>
+            <ProfileDirection onClick={profileScrollRight}>
               <img src="src\assets\image\rightProfile.png" />
             </ProfileDirection>
           ) : null}
         </ProfileBox>
+        {/* 스터디 소개하는 컴포넌트*/}
         <StudyIntroduce />
+        {/* 주차별 버튼*/}
+        <WeekBox>
+          {weekButtonScroll != 0 ? (
+            <WeekDirection onClick={weekScrollLeft}>
+              <img src="src\assets\image\leftProfile.png" />
+            </WeekDirection>
+          ) : null}
+          <WeekButtons ref={weekButtonRef}>
+            {[1, 2, 3, 4].map((weekNumber, i) => {
+              return <WeekButton key={i} figure={i + 1} />;
+            })}
+          </WeekButtons>
+          {weekButtonScroll < weekButtonMaxWidth ? (
+            <WeekDirection onClick={weekScrollRight}>
+              <img src="src\assets\image\rightProfile.png" />
+            </WeekDirection>
+          ) : null}
+        </WeekBox>
+        {/* 댓글 달수있는 컴포넌트*/}
         <CommentManagement />
       </StudyRoom>
     </StudyMainPage>

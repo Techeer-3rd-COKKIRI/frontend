@@ -39,11 +39,8 @@ const InputBox = styled.div`
     border-radius: 3rem;
     border: none;
     padding-left: 3rem;
-    margin-bottom: 1.3rem;
-
-    @media screen and (max-width: 1440px) {
-      min-width: 100%;
-    }
+    margin: 1.3rem 0;
+    min-width: 100%;
   }
 
   & button {
@@ -54,6 +51,6 @@ const InputBox = styled.div`
     border-radius: 30px;
     border: none;
     left: -13rem;
-    top: 0.8rem;
+    top: 2.2rem;
   }
 `;
