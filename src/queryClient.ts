@@ -22,7 +22,7 @@ export const getClient = (() => {
   };
 })();
 
-const BASE_URL = '/';
+const BASE_URL = '/api/v1';
 
 export const restFetcher = async ({
   method,
@@ -48,7 +48,7 @@ export const restFetcher = async ({
       const searchParams = new URLSearchParams(params);
       url += '?' + searchParams.toString();
     }
-    if (body) axiosConfig.data = JSON.stringify(body);
+    if (body) axiosConfig.data = body;
 
     const res = await axios(url, axiosConfig);
     return res.data;
