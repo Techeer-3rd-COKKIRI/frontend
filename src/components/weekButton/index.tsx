@@ -2,16 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  people: number;
+  figure: number;
 }
-
-const ProfilePicture = ({ people }: Props) => {
-  return <UserPicture>{people}프로필</UserPicture>;
+const WeekButton = ({ figure }: Props) => {
+  return <OneWeek>{figure}주차</OneWeek>;
 };
 
-export default ProfilePicture;
+export default WeekButton;
 
-const UserPicture = styled.div`
+const OneWeek = styled.div`
   min-width: 7.5rem;
   height: 7rem;
   display: flex;

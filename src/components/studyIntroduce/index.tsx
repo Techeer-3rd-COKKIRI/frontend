@@ -144,4 +144,8 @@ const Introduction = styled.div`
   font-size: 1.5rem;
   line-height: 2.4rem;
   color: #000000;
+  border: 1px solid black;
+  border-radius: 3rem;
+  padding: 30px 10px;
+  margin: 30px 0;
 `;
