@@ -6,12 +6,6 @@ import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
 
 const MainPage = () => {
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await axios.get('/todos');
-  //     console.log(result.data);
-  //   })();
-  // }, []);
   return (
     <StudyMain>
       <Nav />

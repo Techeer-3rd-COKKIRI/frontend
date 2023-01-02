@@ -31,6 +31,10 @@ export const handlers = [
     }
   }),
 
+  //개설된 스터디 모두 호출하는 api
+  rest.get('/api/v1/studies/page/0?size=2', async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(studyRoom));
+  }),
   //스터디 개설 API
   rest.post<MakeStudy>('/api/v1/studies', async (req, res, ctx) => {
     //body에서 가져온 데이터를 구조분해할당
@@ -43,7 +47,6 @@ export const handlers = [
       studyPassword,
       userLimit,
     } = req.body;
-
     //가져온 데이터를 data object로 묶어준다.
     const data: MakeStudy = {
       studyId: Date.now(),
