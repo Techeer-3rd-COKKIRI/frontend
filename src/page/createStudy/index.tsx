@@ -43,8 +43,8 @@ const CreateStudy = () => {
   } = useForm<FormValue>();
 
   const { mutate } = useMutation(
-    (formData: FormData) =>
-      restFetcher({ method: 'POST', path: '/studies', body: formData }),
+    (studyName: string) =>
+      restFetcher({ method: 'POST', path: '/studies', body: { studyName } }),
     //axios.post<FormValue>('/api/v1/studies', formData),
   );
 
@@ -71,11 +71,12 @@ const CreateStudy = () => {
     formData.append('studyPassword', studyPassword);
     formData.append('userLimit', userLimit);
     console.log('formData' + formData);
-    mutate(formData, {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    });
+    mutate(studyName);
+    // mutate(formData, { //formdata전부다 넣음
+    //   onSuccess: (data) => {
+    //     console.log(data);
+    //   },
+    // });
     // let result = await axios.post('/api/v1/studies', formData, {
     //   headers: { 'Content-Type': 'multipart/form-data' },
     // });

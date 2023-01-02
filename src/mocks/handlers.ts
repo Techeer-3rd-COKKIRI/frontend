@@ -12,8 +12,11 @@ interface MakeStudy {
   userLimit: string;
 }
 
+interface Poc {
+  studyName: string;
+}
 //스터디룸
-const studyRoom: MakeStudy[] = [];
+const studyRoom: Poc[] = [];
 
 export const handlers = [
   //스터디 id로 조회 API
@@ -62,7 +65,7 @@ export const handlers = [
     //studyName이 중복되지않는다면 게시물을 추가한다.
     const find = studyRoom.find((room) => room.studyName == studyName);
     if (!find) {
-      studyRoom.push(data);
+      studyRoom.push(studyName);
       console.log(studyRoom);
       return res(ctx.status(201), ctx.json(studyRoom));
     } //그렇지않으면 중복에러를 보낸다.
