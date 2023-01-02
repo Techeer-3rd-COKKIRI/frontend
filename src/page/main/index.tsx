@@ -1,11 +1,18 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
 
 const MainPage = () => {
+  const [studyRoomList, setStudyRoomList] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const result = await axios('/api/v1/studies/page/0?size=2');
+      console.log(result.data);
+    })();
+  }, []);
   return (
     <StudyMain>
       <Nav />
