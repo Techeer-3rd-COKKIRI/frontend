@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { stringify } from 'querystring';
 import { useParams } from 'react-router-dom';
 
 interface MakeStudy {
@@ -13,6 +14,7 @@ interface MakeStudy {
 }
 
 interface Poc {
+  studyId: number;
   studyName: string;
 }
 //스터디룸
@@ -36,6 +38,7 @@ export const handlers = [
 
   //개설된 스터디 모두 호출하는 api
   rest.get('/api/v1/studies/page/0?size=2', async (req, res, ctx) => {
+    console.log('호출됨');
     return res(ctx.status(200), ctx.json(studyRoom));
   }),
   //스터디 개설 API
@@ -62,11 +65,14 @@ export const handlers = [
       userLimit,
     };
 
+    const pocData: Poc = {
+      studyId: Date.now(),
+      studyName: studyName,
+    };
     //studyName이 중복되지않는다면 게시물을 추가한다.
     const find = studyRoom.find((room) => room.studyName == studyName);
     if (!find) {
-      studyRoom.push(studyName);
-      console.log(studyRoom);
+      studyRoom.push(pocData);
       return res(ctx.status(201), ctx.json(studyRoom));
     } //그렇지않으면 중복에러를 보낸다.
     else {
