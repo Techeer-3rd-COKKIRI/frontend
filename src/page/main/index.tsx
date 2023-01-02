@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
+import { useNavigate } from 'react-router-dom';
 
 interface roomType {
   studyId: number;
   studyName: string;
 }
 const MainPage = () => {
+  const navigator = useNavigate();
   const [studyRoomList, setStudyRoomList] = useState<roomType[]>([]);
   useEffect(() => {
     (async () => {
@@ -17,6 +19,10 @@ const MainPage = () => {
       setStudyRoomList(result.data);
     })();
   }, []);
+
+  const inToRoom = (id: number) => {
+    navigator(`/studyMain${id}`);
+  };
   return (
     <StudyMain>
       <Nav />
@@ -33,7 +39,11 @@ const MainPage = () => {
         {/* 스터디 리스트 */}
         {studyRoomList?.map((room) => {
           return (
-            <StudyListComponent studyName={room.studyName}></StudyListComponent>
+            <div onClick={() => inToRoom(room.studyId)}>
+              <StudyListComponent
+                studyName={room.studyName}
+              ></StudyListComponent>
+            </div>
           );
         })}
       </StudyList>
