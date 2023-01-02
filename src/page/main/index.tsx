@@ -5,12 +5,16 @@ import axios from 'axios';
 import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
 
+interface roomType {
+  studyId: number;
+  studyName: string;
+}
 const MainPage = () => {
-  const [studyRoomList, setStudyRoomList] = useState([]);
+  const [studyRoomList, setStudyRoomList] = useState<roomType[]>([]);
   useEffect(() => {
     (async () => {
       const result = await axios('/api/v1/studies/page/0?size=2');
-      console.log(result.data);
+      setStudyRoomList(result.data);
     })();
   }, []);
   return (
@@ -27,7 +31,11 @@ const MainPage = () => {
       </Studies>
       <StudyList>
         {/* 스터디 리스트 */}
-        <StudyListComponent></StudyListComponent>
+        {studyRoomList?.map((room) => {
+          return (
+            <StudyListComponent studyName={room.studyName}></StudyListComponent>
+          );
+        })}
       </StudyList>
     </StudyMain>
   );

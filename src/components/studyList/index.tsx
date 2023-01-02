@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StudyListComponent = () => {
+interface Props {
+  studyName: string;
+}
+
+const StudyListComponent = ({ studyName }: Props) => {
   return (
     <StudyList>
       <StudyImage></StudyImage>
@@ -11,7 +15,7 @@ const StudyListComponent = () => {
             <Tag>#태그1</Tag>
             <Tag>#태그2</Tag>
           </Tags>
-          <StudyTitle>스터디 제목</StudyTitle>
+          <StudyTitle>{studyName}</StudyTitle>
           <StudyIntro>스터디 소개</StudyIntro>
         </StudyInfo>
 
