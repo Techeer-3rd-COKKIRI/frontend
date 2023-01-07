@@ -16,12 +16,12 @@ const MainPage = () => {
   useEffect(() => {
     (async () => {
       const result = await axios('/api/v1/studies/page/0?size=2');
-      setStudyRoomList(result.data);
+      setStudyRoomList(result.data.data);
     })();
   }, []);
 
   const inToRoom = (id: number) => {
-    navigator(`/studyMain${id}`);
+    navigator(`/studyMain/${id}`);
   };
   return (
     <StudyMain>
