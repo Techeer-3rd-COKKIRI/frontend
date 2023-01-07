@@ -57,21 +57,21 @@ const CreateStudy = () => {
       studyName,
       studyPassword,
       userLimit,
-      image,
+      // image,
     } = values;
     const formData = new FormData();
     let startDay = dayjs(startDate).format('YYYY-MM-DD');
     let finishDay = dayjs(finishDate).format('YYYY-MM-DD');
+    // formData.append('image', image[0]);
+    // formData.append('startDate', startDay);
+    // formData.append('finishDate', finishDay);
+    // formData.append('studyCycle', studyCycle);
+    // formData.append('studyName', studyName);
+    // formData.append('studyPassword', studyPassword);
+    // formData.append('userLimit', userLimit);
+    // console.log('formData' + formData);
+    // mutate(studyName);
 
-    formData.append('image', image[0]);
-    formData.append('startDate', startDay);
-    formData.append('finishDate', finishDay);
-    formData.append('studyCycle', studyCycle);
-    formData.append('studyName', studyName);
-    formData.append('studyPassword', studyPassword);
-    formData.append('userLimit', userLimit);
-    console.log('formData' + formData);
-    mutate(studyName);
     // mutate(formData, { //formdata전부다 넣음
     //   onSuccess: (data) => {
     //     console.log(data);
@@ -86,6 +86,12 @@ const CreateStudy = () => {
     // for (const pair of entries) {
     //   console.log(pair[0] + ', ' + pair[1]);
     // }
+
+    // 테스트를 위해 임시로 추가한 api 호출 부분
+    values.startDate = startDay;
+    values.finishDate = finishDay;
+    let result = await axios.post('/api/v1/studies', values);
+    console.log(result);
   };
 
   return (

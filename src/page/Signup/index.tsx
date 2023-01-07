@@ -1,9 +1,32 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Account from '@/components/account';
+import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  // API 연결 테스트를 위해 임시로 만든 부분
+  const username = useRef<string>();
+  const password = useRef<string>();
+
+  const sginUp = async () => {
+    try {
+      const registrationRequest = {
+        username: username.current,
+        password: password.current,
+        nickname: 'nickname',
+      };
+      console.log(registrationRequest);
+      const result = await axios.post('/api/v1/users', registrationRequest);
+      console.log(result);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // ------------------------------
 
   return (
     <SignUpPage>
@@ -12,14 +35,26 @@ const SignUp = () => {
         <Title>Create Account</Title>
 
         <Input>
-          <NickNameInput placeholder="NickName"></NickNameInput>
+          <NickNameInput
+            placeholder="NickName"
+            onChange={(e) => {
+              username.current = e.target.value;
+            }}
+          ></NickNameInput>
           <InputCheck>중복확인</InputCheck>
+          <NickNameInput
+            placeholder="Password"
+            onChange={(e) => {
+              password.current = e.target.value;
+            }}
+          ></NickNameInput>
         </Input>
 
         <SignUpdiv>
           <SignupButton
             onClick={() => {
-              navigate('/');
+              // navigate('/');
+              sginUp();
             }}
           >
             Sign Up

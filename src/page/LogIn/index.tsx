@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Account from '@/components/account';
+import axios from 'axios';
 
 const LogIn = () => {
   const navigate = useNavigate();
+
+  // API 연결 테스트를 위해 임시로 만든 부분
+  const username = useRef<string>();
+  const password = useRef<string>();
+
+  const login = async () => {
+    try {
+      const loginRequest = {
+        username: username.current,
+        password: password.current,
+      };
+      console.log(loginRequest);
+      const result = await axios.post('/api/v1/users/login', loginRequest);
+      console.log(result);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // ------------------------------
 
   return (
     <LogInPage>
@@ -13,12 +34,24 @@ const LogIn = () => {
         <Title>Log In</Title>
 
         <Input>
-          <NickNameInput placeholder="NickName"></NickNameInput>
+          <NickNameInput
+            placeholder="NickName"
+            onChange={(e) => {
+              username.current = e.target.value;
+            }}
+          ></NickNameInput>
+          <NickNameInput
+            placeholder="Password"
+            onChange={(e) => {
+              password.current = e.target.value;
+            }}
+          ></NickNameInput>
         </Input>
         <LogIndiv>
           <LogInButton
             onClick={() => {
-              navigate('/');
+              login();
+              // navigate('/');
             }}
           >
             로그인
