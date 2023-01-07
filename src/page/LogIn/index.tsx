@@ -102,10 +102,11 @@ const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 18px;
   width: 440px;
-  height: 25px;
+  height: 50px;
   padding: 10px;
   padding-left: 20px;
   font-size: 2rem;
+  margin-top: 5px;
 `;
 
 const LogIndiv = styled.div``;

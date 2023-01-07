@@ -15,7 +15,7 @@ const MainPage = () => {
   const [studyRoomList, setStudyRoomList] = useState<roomType[]>([]);
   useEffect(() => {
     (async () => {
-      const result = await axios('/api/v1/studies/page/0?size=2');
+      const result = await axios('/api/v1/studies/page/0?size=3');
       setStudyRoomList(result.data.data);
     })();
   }, []);
@@ -34,7 +34,9 @@ const MainPage = () => {
       <Studies>
         {/* 참여중인 컴포넌트 */}
         <StudyComponents />
+        <StudyComponents />
       </Studies>
+      <MyStudy>최근 스터디들</MyStudy>
       <StudyList>
         {/* 스터디 리스트 */}
         {studyRoomList?.map((room) => {
@@ -54,7 +56,7 @@ const MainPage = () => {
 const StudyMain = styled.div`
   margin-left: 200px;
   font-family: 'InriaSans';
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: 1320px) {
     margin-left: 0px;
     margin-top: 50px;
   }
@@ -63,7 +65,7 @@ const StudyMain = styled.div`
 const Banner = styled.div`
   display: flex;
   & img {
-    width: 135rem;
+    width: 110rem;
     height: 34rem;
     margin: 0 auto;
     margin-top: 15px;
@@ -75,28 +77,29 @@ const MyStudy = styled.div`
   font-weight: 700;
   font-size: 3rem;
   line-height: 3.5rem;
-  margin: 100px 0px 60px 120px;
+  margin: 30px 0px 10px 90px;
 `;
 
 const Studies = styled.div`
   margin: 0 auto;
-  width: 60%;
+  width: 100%;
   max-width: 1000px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 10px;
   row-gap: 5px;
+  margin-left: 110px;
 `;
 
 const StudyList = styled.div`
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
   display: grid;
   place-items: center;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 15px;
   grid-column-gap: 15px;
-  margin-top: 120px;
+  margin-left: 110px;
 `;
 export default MainPage;

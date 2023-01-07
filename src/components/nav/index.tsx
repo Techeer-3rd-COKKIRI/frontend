@@ -90,7 +90,7 @@ const NavBar = styled.div`
   left: 0;
   z-index: 999;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 1320px) {
     display: block !important;
   }
 `;
