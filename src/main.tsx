@@ -9,9 +9,9 @@ import { Theme } from './theme';
 import { worker } from './mocks/worker';
 import { getClient } from './queryClient';
 
-if (import.meta.env.DEV) {
-  worker.start();
-}
+// if (import.meta.env.DEV) {
+//   worker.start();
+// }
 
 let clientQuery = getClient();
 
