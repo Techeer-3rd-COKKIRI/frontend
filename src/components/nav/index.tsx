@@ -159,7 +159,9 @@ const Tap = styled.li<{ isActive: boolean }>`
 const HambergetIcon = styled.div<{ toggleNav: boolean }>`
   width: 35px;
   height: 35px;
-  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 5px;
   left: ${(props) => (props.toggleNav ? '205px' : '15px')};
   position: absolute;
