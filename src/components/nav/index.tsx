@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
+import hamburger from '@/assets/image/hamburger.png';
+import logo from '@/assets/image/logo.png';
+import selectedHome from '@/assets/image/selectedHome.png';
+import home from '@/assets/image/home.png';
+import selectedLogin from '@/assets/image/selectedLogin.png';
+import login from '@/assets/image/login.png';
+import selectedSign from '@/assets/image/selectedSign.png';
+import user from '@/assets/image/user.png';
+import pencil from '@/assets/image/pencil.png';
 
 const Nav = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -17,20 +26,20 @@ const Nav = () => {
           setToggleNav(!toggleNav);
         }}
       >
-        <img src="src\assets\image\햄버거.png"></img>
+        <img src={hamburger}></img>
       </HambergetIcon>
       <NavBar style={{ display: toggleNav ? 'block' : 'none' }}>
         <Logo>
-          <img src="src\assets\image\코끼리로고.png"></img>
+          <img src={logo}></img>
         </Logo>
         <Taps>
           <Link to={'/'} style={{ textDecoration: 'none' }}>
             <Tap isActive={homeMatch !== null}>
               <div>
                 {homeMatch !== null ? (
-                  <img src="src\assets\image\selected홈.png"></img>
+                  <img src={selectedHome}></img>
                 ) : (
-                  <img src="src\assets\image\홈.png"></img>
+                  <img src={home}></img>
                 )}
               </div>
               홈
@@ -40,9 +49,9 @@ const Nav = () => {
             <Tap isActive={loginMatch !== null}>
               <div>
                 {loginMatch !== null ? (
-                  <img src="src\assets\image\selected로그인.png"></img>
+                  <img src={selectedLogin}></img>
                 ) : (
-                  <img src="src\assets\image\로그인.png"></img>
+                  <img src={login}></img>
                 )}
               </div>
               로그인
@@ -52,9 +61,9 @@ const Nav = () => {
             <Tap isActive={signMatch !== null}>
               <div>
                 {signMatch !== null ? (
-                  <img src="src\assets\image\selected회원가입.png"></img>
+                  <img src={selectedSign}></img>
                 ) : (
-                  <img src="src\assets\image\유저.png"></img>
+                  <img src={user}></img>
                 )}
               </div>
               회원가입
@@ -64,9 +73,9 @@ const Nav = () => {
             <Tap isActive={createStudy !== null}>
               <div>
                 {createStudy !== null ? (
-                  <img src="src\assets\image\연필.png"></img>
+                  <img src={pencil}></img>
                 ) : (
-                  <img src="src\assets\image\연필.png"></img>
+                  <img src={pencil}></img>
                 )}
               </div>
               스터디 개설

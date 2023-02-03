@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import logo from '../../assets/image/logo.png';
+import mainElephant from '../../assets/image/mainElephant.png';
 const Account = () => {
   return (
     <LeftBackground>
       <Logo>
-        <img src="src\assets\image\코끼리로고.png"></img>
+        <img src={logo}></img>
       </Logo>
       <Logo2>
-        <img src="src\assets\image\메인코끼리.png"></img>
+        <img src={mainElephant}></img>
         <Ment>
           코딩은 우리끼리 <br />
           함께, <br />

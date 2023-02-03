@@ -15,10 +15,6 @@ const MainPage = () => {
   return (
     <StudyMain>
       <Nav />
-      <Banner>
-        {/* 임시배너 */}
-        <img src="src\assets\image\메인배너.png"></img>
-      </Banner>
       <MyStudy>진행중인 스터디</MyStudy>
       <Studies>
         {/* 참여중인 컴포넌트 */}
@@ -56,7 +52,6 @@ const MyStudy = styled.div`
   font-weight: 700;
   font-size: 3rem;
   line-height: 3.5rem;
-  margin: 100px 0px 60px 120px;
 `;
 
 const Studies = styled.div`
