@@ -21,26 +21,23 @@ const Account = () => {
 };
 
 const LeftBackground = styled.div`
-  background-color: #e9edf7;
-  width: 60vw;
-  height: 100%;
+  background: #e9edf7;
+  width: 55vw;
+  height: 100vh;
   box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
-  z-index: 1;
+  /* z-index: 1; */
   flex-shrink: 1;
   position: relative;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 80px;
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
   & img {
-    position: absolute;
-    top: 15px;
-    left: 25px;
     width: 130px;
     height: 50px;
   }
@@ -60,8 +57,7 @@ const Logo2 = styled.div`
 const Ment = styled.div`
   font-size: 5.5rem;
   font-weight: 500;
-  margin-left: 15px;
-  margin-top: 60px;
+  margin-top: 160px;
 `;
 
 export default Account;
