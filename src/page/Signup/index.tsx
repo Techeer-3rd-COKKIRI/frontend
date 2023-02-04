@@ -10,21 +10,25 @@ const SignUp = () => {
       <Account />
       <RightBackground>
         <Title>Create Account</Title>
-
         <Input>
-          <NickNameInput placeholder="NickName"></NickNameInput>
-          <InputCheck>중복확인</InputCheck>
+          <NickName>
+            <NickNameInput placeholder="Nickname"></NickNameInput>
+            <NickNameCheck>중복확인</NickNameCheck>
+          </NickName>
+          <Id>
+            <IdInput placeholder="Id"></IdInput>
+          </Id>
+          <Password placeholder="Password" type="password"></Password>
+          <PasswordCheck
+            placeholder="Password Check"
+            type="password"
+          ></PasswordCheck>
+          <Agree>
+            <AgreeCheck type="checkbox"></AgreeCheck>
+            <AgreeText>어쩌고 저쩌고 동의합니다</AgreeText>
+          </Agree>
         </Input>
-
-        <SignUpdiv>
-          <SignupButton
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            Sign Up
-          </SignupButton>
-        </SignUpdiv>
+        <SignUpButton>Sign Up</SignUpButton>
       </RightBackground>
     </SignUpPage>
   );
@@ -39,6 +43,9 @@ const SignUpPage = styled.div`
 `;
 
 const RightBackground = styled.div`
+  text-align: center;
+  align-items: center;
+  font-family: InriaSans;
   flex-grow: 1;
   height: 100%;
   background-color: white;
@@ -47,48 +54,102 @@ const RightBackground = styled.div`
   align-items: center;
 `;
 
-const Title = styled.div`
-  font-family: 'InriaSans';
+const Title = styled.h1`
   font-size: 5.5rem;
-  margin-left: 130px;
-  margin-top: 190px;
+  margin-top: 100px;
 `;
 
 const Input = styled.div`
-  margin-left: 85px;
+  text-align: center;
+  align-items: center;
   margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  border-color: #293659;
 `;
-
+const NickName = styled.div`
+  margin: 5px;
+  display: flex;
+`;
 const NickNameInput = styled.input`
   font-family: InriaSans;
-  border-radius: 18px;
+  border-radius: 20px;
   width: 300px;
   height: 25px;
-  padding: 10px;
-  padding-left: 20px;
+  padding: 25px;
+  padding-left: 25px;
   font-size: 2rem;
 `;
-
-const InputCheck = styled.button`
-  font-family: InriaSans;
-  border-radius: 18px;
-  width: 140px;
+const NickNameCheck = styled.button`
+  border-radius: 20px;
+  width: 100px;
   height: 48px;
   font-size: 2rem;
   margin-left: 10px;
 `;
-//  여기부터 다시 수정
-const SignUpdiv = styled.div``;
-
-const SignupButton = styled.button`
+const Id = styled.div`
+  margin: 5px;
+  display: flex;
+`;
+const IdInput = styled.input`
   font-family: InriaSans;
-  background-color: #7e84ff;
-  color: white;
+  border-radius: 20px;
+  width: 410px;
+  height: 25px;
+  padding: 25px;
+  padding-left: 25px;
   font-size: 2rem;
-  margin-left: 85px;
-  border-radius: 18px;
-  width: 470px;
-  height: 48px;
-  margin-top: 40px;
-  border: 0;
+`;
+
+const Password = styled.input`
+  font-family: InriaSans;
+  margin: 5px;
+  border-radius: 20px;
+  width: 410px;
+  height: 25px;
+  padding: 25px;
+  padding-left: 25px;
+  font-size: 2rem;
+`;
+const PasswordCheck = styled.input`
+  font-family: InriaSans;
+  margin: 5px;
+  border-radius: 20px;
+  width: 410px;
+  height: 25px;
+  padding: 25px;
+  padding-left: 20px;
+  font-size: 2rem;
+`;
+const Agree = styled.div`
+  font-family: InriaSans;
+  margin: 5px;
+  margin-top: 30px;
+  display: flex;
+  margin-left: -150px;
+`;
+const AgreeCheck = styled.input`
+  width: 24px;
+  height: 24px;
+`;
+const AgreeText = styled.h3`
+  font-size: 2rem;
+  margin-left: 15px;
+`;
+
+const SignUpButton = styled.button`
+  margin: 5px;
+  font-family: InriaSans;
+  background: #7e84ff;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+  color: #fff;
+  width: 410px;
+  height: 50px;
+  padding: 30px;
+  padding-left: 20px;
+  font-size: 2rem;
+  margin-top: 50px;
+  line-height: normal;
+  padding-top: 10px;
 `;

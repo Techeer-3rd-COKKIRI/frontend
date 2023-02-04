@@ -53,7 +53,7 @@ const Logo2 = styled.div`
   margin-left: 100px;
   & img {
     position: absolute;
-    bottom: 60px;
+    bottom: 15px;
   }
 `;
 
