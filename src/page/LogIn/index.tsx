@@ -72,7 +72,7 @@ export default LogIn;
 const LoginPage = styled.div`
   display: flex;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 900px) {
     justify-content: center;
   }
 `;
@@ -94,7 +94,7 @@ const LoginIntroduce = styled.div`
   flex-shrink: 1;
   box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;
@@ -117,7 +117,7 @@ const DoLogin = styled.div`
     text-align: center;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 850px) {
     max-width: 100vw;
   }
 `;
@@ -129,16 +129,20 @@ const Form = styled.form`
 
 const UserInput = styled.input`
   width: 80%;
-  min-width: 300px;
   min-height: 50px;
-  max-width: 300px;
+  max-width: 400px;
+  min-width: 400px;
   background: #ffffff;
   border: 1px solid #293659;
   border-radius: 20px;
-  padding: 1rem;
+  padding: 1.5rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 850px) {
+    min-width: 300px;
+  }
 `;
 
 const Error = styled.div`
@@ -154,9 +158,12 @@ const Buttons = styled.div`
     background: #7e84ff;
     border: 1px solid #ffffff;
     border-radius: 20px;
-    min-width: 300px;
+    min-width: 400px;
     height: 50px;
     color: rgba(255, 255, 255, 1);
     margin-bottom: 20px;
+    @media screen and (max-width: 850px) {
+      min-width: 300px;
+    }
   }
 `;
