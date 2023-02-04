@@ -18,6 +18,8 @@ const LogIn = () => {
   } = useForm<userInform>();
 
   // console.log(watch());
+  // 1.유효성검사 추가하기
+  // 2.유효성검사 실패시 에러핸들링하기
   const onSubmitHandler: SubmitHandler<userInform> = async (values, e) => {
     const { id, password } = values;
     console.log(id, password);
