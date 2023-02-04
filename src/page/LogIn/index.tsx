@@ -40,10 +40,12 @@ const LogIn = () => {
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <UserInput
             {...register('id', {})}
+            required
             placeholder={'아이디를 입력해주세요'}
           />
           <UserInput
             {...register('password', {})}
+            required
             placeholder={'비밀번호를 입력해주세요'}
           />
           {/* {errors.id ? (
@@ -59,7 +61,7 @@ const LogIn = () => {
           <Error />
           <Buttons>
             <button type="submit">Sign In</button>
-            <button>Create Account</button>
+            <button onClick={() => navigate('/signup')}>Create Account</button>
           </Buttons>
         </Form>
       </DoLogin>
@@ -84,6 +86,12 @@ const Logo = styled.div`
   & > img {
     width: 130px;
     height: 50px;
+  }
+  @media screen and (max-width: 700px) {
+    & > img {
+      width: 100px;
+      height: 40px;
+    }
   }
 `;
 
