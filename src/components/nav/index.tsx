@@ -113,8 +113,8 @@ const Logo = styled.div`
   margin-bottom: 80px;
   & img {
     position: absolute;
-    top: 15px;
-    left: 25px;
+    top: 1.5rem;
+    left: 2.5rem;
     width: 130px;
     height: 50px;
   }

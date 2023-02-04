@@ -1,104 +1,55 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import Account from '@/components/account';
-
+import logo from '../../assets/image/logo.png';
 const LogIn = () => {
   const navigate = useNavigate();
 
   return (
-    <LogInPage>
-      <Account />
-      <RightBackground>
-        <Title>Log In</Title>
-
-        <Input>
-          <NickNameInput placeholder="NickName"></NickNameInput>
-        </Input>
-        <LogIndiv>
-          <LogInButton
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            로그인
-          </LogInButton>
-          <SignupButton
-            onClick={() => {
-              navigate('/SignUp');
-            }}
-          >
-            회원가입 하기
-          </SignupButton>
-        </LogIndiv>
-      </RightBackground>
-    </LogInPage>
+    <LoginPage>
+      <Logo onClick={() => navigate('/')}>
+        <img src={logo}></img>
+      </Logo>
+      <LoginIntroduce></LoginIntroduce>
+      <DoLogin>로그인 하이</DoLogin>
+    </LoginPage>
   );
 };
 
 export default LogIn;
 
-const LogInPage = styled.div`
+const LoginPage = styled.div`
   display: flex;
-  min-width: 100vw;
+`;
+
+const Logo = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  & > img {
+    width: 130px;
+    height: 50px;
+  }
+`;
+
+const LoginIntroduce = styled.div`
+  width: 55vw;
   height: 100vh;
+  background: #e9edf7;
+  flex-shrink: 1;
+  box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
-const RightBackground = styled.div`
-  flex-grow: 1;
-  height: 100%;
-  background-color: white;
+const DoLogin = styled.div`
+  min-width: 380px;
+  height: 100vh;
   flex-shrink: 0;
-  flex-basis: 500px;
-  align-items: center;
-`;
 
-const Title = styled.div`
-  font-family: 'InriaSans';
-  font-size: 5.5rem;
-  margin-left: 240px;
-  margin-top: 190px;
-`;
-
-const Input = styled.div`
-  margin-left: 85px;
-  margin-top: 150px;
-`;
-
-const NickNameInput = styled.input`
-  font-family: InriaSans;
-  border-radius: 18px;
-  width: 440px;
-  height: 25px;
-  padding: 10px;
-  padding-left: 20px;
-  font-size: 2rem;
-`;
-
-const LogIndiv = styled.div``;
-
-const LogInButton = styled.button`
-  font-family: InriaSans;
-  background-color: #7e84ff;
-  color: white;
-  font-size: 2rem;
-  margin-left: 85px;
-  border-radius: 18px;
-  width: 470px;
-  height: 48px;
-  margin-top: 40px;
-  border: 0;
-`;
-
-const SignupButton = styled.button`
-  font-family: InriaSans;
-  border: 1px solid #000000;
-  color: black;
-  font-size: 2rem;
-  margin-left: 85px;
-  border-radius: 18px;
-  width: 470px;
-  height: 45px;
-  margin-top: 40px;
-  border: 0;
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+  }
 `;
