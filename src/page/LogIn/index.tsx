@@ -162,6 +162,7 @@ const Buttons = styled.div`
     height: 50px;
     color: rgba(255, 255, 255, 1);
     margin-bottom: 20px;
+    cursor: pointer;
     @media screen and (max-width: 850px) {
       min-width: 300px;
     }
