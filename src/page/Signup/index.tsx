@@ -23,10 +23,6 @@ const SignUp = () => {
             placeholder="Password Check"
             type="password"
           ></PasswordCheck>
-          <Agree>
-            <AgreeCheck type="checkbox"></AgreeCheck>
-            <AgreeText>어쩌고 저쩌고 동의합니다</AgreeText>
-          </Agree>
         </Input>
         <SignUpButton>Sign Up</SignUpButton>
       </RightBackground>
@@ -82,19 +78,20 @@ const NickNameInput = styled.input`
 `;
 const NickNameCheck = styled.button`
   border-radius: 20px;
-  width: 100px;
+  width: 130px;
   height: 48px;
   font-size: 2rem;
   margin-left: 10px;
+  padding: 25px;
 `;
 const Id = styled.div`
-  margin: 5px;
+  margin-top: 10px;
   display: flex;
 `;
 const IdInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
-  width: 410px;
+  width: 440px;
   height: 25px;
   padding: 25px;
   padding-left: 25px;
@@ -103,9 +100,9 @@ const IdInput = styled.input`
 
 const Password = styled.input`
   font-family: InriaSans;
-  margin: 5px;
+  margin-top: 10px;
   border-radius: 20px;
-  width: 410px;
+  width: 440px;
   height: 25px;
   padding: 25px;
   padding-left: 25px;
@@ -113,43 +110,27 @@ const Password = styled.input`
 `;
 const PasswordCheck = styled.input`
   font-family: InriaSans;
-  margin: 5px;
+  margin-top: 10px;
   border-radius: 20px;
-  width: 410px;
+  width: 440px;
   height: 25px;
   padding: 25px;
   padding-left: 20px;
   font-size: 2rem;
 `;
-const Agree = styled.div`
-  font-family: InriaSans;
-  margin: 5px;
-  margin-top: 30px;
-  display: flex;
-  margin-left: -150px;
-`;
-const AgreeCheck = styled.input`
-  width: 24px;
-  height: 24px;
-`;
-const AgreeText = styled.h3`
-  font-size: 2rem;
-  margin-left: 15px;
-`;
 
 const SignUpButton = styled.button`
-  margin: 5px;
+  margin-top: 10px;
   font-family: InriaSans;
   background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
   color: #fff;
-  width: 410px;
+  width: 440px;
   height: 50px;
   padding: 30px;
+  padding-top: 10px;
   padding-left: 20px;
   font-size: 2rem;
-  margin-top: 50px;
-  line-height: normal;
-  padding-top: 10px;
+  margin-top: 160px;
 `;
