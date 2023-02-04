@@ -17,9 +17,11 @@ const LogIn = () => {
     formState: { errors },
   } = useForm<userInform>();
 
+  // console.log(watch());
   const onSubmitHandler: SubmitHandler<userInform> = async (values, e) => {
     const { id, password } = values;
     console.log(id, password);
+    console.log(e);
     const user = { id, password };
     // mutate(user, {
     //   onSuccess: (data) => {
@@ -39,13 +41,12 @@ const LogIn = () => {
         <h1>Sign In</h1>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <UserInput
-            {...register('id', {})}
-            required
+            {...register('id', { required: true })}
             placeholder={'아이디를 입력해주세요'}
           />
           <UserInput
-            {...register('password', {})}
-            required
+            {...register('password', { required: true })}
+            type="password"
             placeholder={'비밀번호를 입력해주세요'}
           />
           {/* {errors.id ? (
@@ -127,6 +128,10 @@ const DoLogin = styled.div`
 
   @media screen and (max-width: 850px) {
     max-width: 100vw;
+
+    & > h1 {
+      font-size: 40px;
+    }
   }
 `;
 
