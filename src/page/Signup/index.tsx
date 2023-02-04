@@ -79,15 +79,17 @@ const NickNameInput = styled.input`
 const NickNameCheck = styled.button`
   border-radius: 20px;
   width: 130px;
-  height: 48px;
+  height: 54px;
   font-size: 2rem;
   margin-left: 10px;
-  padding: 25px;
+  /* padding: 25px; */
 `;
+
 const Id = styled.div`
   margin-top: 10px;
   display: flex;
 `;
+
 const IdInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
