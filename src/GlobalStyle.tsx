@@ -23,6 +23,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	font-size: 62.5%;
+	font-family: 'Inria Sans';
 	
 
 }

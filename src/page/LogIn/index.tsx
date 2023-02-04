@@ -37,7 +37,7 @@ const LogIn = () => {
       <LoginIntroduce></LoginIntroduce>
       <DoLogin>
         <h1>Sign In</h1>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <UserInput
             {...register('id', {})}
             placeholder={'아이디를 입력해주세요'}
@@ -56,11 +56,12 @@ const LogIn = () => {
         ) : (
           <Error style={{ height: '10px' }}></Error>
         )} */}
+          <Error />
           <Buttons>
             <button type="submit">Sign In</button>
             <button>Create Account</button>
           </Buttons>
-        </form>
+        </Form>
       </DoLogin>
     </LoginPage>
   );
@@ -70,7 +71,10 @@ export default LogIn;
 
 const LoginPage = styled.div`
   display: flex;
-  margin-top: 300px;
+
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+  }
 `;
 
 const Logo = styled.div`
@@ -96,31 +100,63 @@ const LoginIntroduce = styled.div`
 `;
 
 const DoLogin = styled.div`
-  min-width: 380px;
+  display: flex;
+  width: 45vw;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
   height: 100vh;
-  flex-shrink: 0;
+
+  & > h1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 60px;
+    margin: 125px 0;
+    color: #000000;
+    text-align: center;
+  }
 
   @media screen and (max-width: 767px) {
-    width: 100vw;
+    max-width: 100vw;
   }
 `;
 
-const UserInput = styled.input`
-  width: 100px;
-  height: 50px;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
-const Error = styled.div``;
+const UserInput = styled.input`
+  width: 80%;
+  min-width: 300px;
+  min-height: 50px;
+  max-width: 300px;
+  background: #ffffff;
+  border: 1px solid #293659;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const Error = styled.div`
+  height: 100px;
+`;
 
 const Buttons = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   & > button {
     background: #7e84ff;
     border: 1px solid #ffffff;
     border-radius: 20px;
-    height: 5rem;
+    min-width: 300px;
+    height: 50px;
     color: rgba(255, 255, 255, 1);
+    margin-bottom: 20px;
   }
 `;
