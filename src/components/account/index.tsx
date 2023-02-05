@@ -21,6 +21,7 @@ const Account = () => {
 };
 
 const LeftBackground = styled.div`
+  flex-direction: column;
   background: #e9edf7;
   width: 55vw;
   height: 100vh;
@@ -49,8 +50,12 @@ const Logo2 = styled.div`
   display: flex;
   margin-left: 100px;
   & img {
-    position: absolute;
     bottom: 15px;
+    width: 482px;
+    height: 477px;
+    left: 589px;
+    top: 450px;
+    margin-top: 35rem;
   }
 `;
 
@@ -58,6 +63,7 @@ const Ment = styled.div`
   font-size: 5.5rem;
   font-weight: 500;
   margin-top: 160px;
+  margin-left: -45rem;
 `;
 
 export default Account;

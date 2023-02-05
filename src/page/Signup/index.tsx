@@ -117,7 +117,7 @@ const PasswordCheck = styled.input`
   width: 440px;
   height: 25px;
   padding: 25px;
-  padding-left: 20px;
+  padding-left: 25px;
   font-size: 2rem;
 `;
 
@@ -132,7 +132,6 @@ const SignUpButton = styled.button`
   height: 50px;
   padding: 30px;
   padding-top: 10px;
-  padding-left: 20px;
   font-size: 2rem;
   margin-top: 160px;
 `;
