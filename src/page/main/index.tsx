@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
+import UserStudy from '@/components/userStudy';
 
 const MainPage = () => {
   // useEffect(() => {
@@ -15,15 +16,26 @@ const MainPage = () => {
   return (
     <StudyMain>
       <Nav />
-      <MyStudy>진행중인 스터디</MyStudy>
-      <Studies>
-        {/* 참여중인 컴포넌트 */}
-        <StudyComponents />
-      </Studies>
-      <StudyList>
-        {/* 스터디 리스트 */}
-        <StudyListComponent></StudyListComponent>
-      </StudyList>
+      <MainView>
+        <UserStudying>
+          <h1>진행중인 스터디</h1>
+          <UserStudyList>
+            {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
+            {/* userpage를 선언후 userpage에 맞게 splice */}
+            <UserStudy />
+            <UserStudy />
+            <UserStudy />
+          </UserStudyList>
+        </UserStudying>
+        <AllStudyList>
+          {/* 커스텀 훅 써보기  */}
+          <StudySearch></StudySearch>
+          <GridStudyList>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+          </GridStudyList>
+        </AllStudyList>
+      </MainView>
     </StudyMain>
   );
 };
@@ -37,42 +49,13 @@ const StudyMain = styled.div`
   }
 `;
 
-const Banner = styled.div`
-  display: flex;
-  & img {
-    width: 135rem;
-    height: 34rem;
-    margin: 0 auto;
-    margin-top: 15px;
-  }
-`;
-
-const MyStudy = styled.div`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 3rem;
-  line-height: 3.5rem;
-`;
-
-const Studies = styled.div`
-  margin: 0 auto;
-  width: 60%;
-  max-width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 10px;
-  row-gap: 5px;
-`;
-
-const StudyList = styled.div`
-  margin: 0 auto;
-  width: 80%;
-  max-width: 1000px;
-  display: grid;
-  place-items: center;
-  grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 15px;
-  grid-column-gap: 15px;
-  margin-top: 120px;
-`;
+const MainView = styled.div``;
+const UserStudying = styled.div``;
+const UserStudyList = styled.div``;
+const AllStudyList = styled.div``;
+const StudySearch = styled.input.attrs({
+  tpye: 'text',
+  placeholder: '스터디를 검색해보세요',
+})``;
+const GridStudyList = styled.div``;
 export default MainPage;
