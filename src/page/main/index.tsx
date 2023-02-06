@@ -56,6 +56,12 @@ const MainPage = () => {
           <GridStudyList>
             <StudyListComponent></StudyListComponent>
             <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
           </GridStudyList>
         </AllStudyList>
       </MainView>
@@ -125,5 +131,9 @@ const StudySearch = styled.input.attrs({
   margin: 5rem 0;
   color: rgba(198, 198, 198, 1);
 `;
-const GridStudyList = styled.div``;
+const GridStudyList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+`;
 export default MainPage;
