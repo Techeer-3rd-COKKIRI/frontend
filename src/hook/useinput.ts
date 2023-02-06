@@ -6,18 +6,32 @@ import {
   useState,
 } from 'react';
 
-type ReturnTypes<T> = [
-  T,
+type ReturnTypes = [
+  string,
+  Dispatch<SetStateAction<string>>,
   (e: ChangeEvent<HTMLInputElement>) => void,
-  Dispatch<SetStateAction<T>>,
+  (e: React.KeyboardEvent<HTMLInputElement>) => void,
 ];
 
-const useInput = <T>(initialData: T): ReturnTypes<T> => {
-  const [value, setValue] = useState(initialData);
-  const handler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value as unknown as T);
-  }, []);
-  return [value, handler, setValue];
+const useInput = (initialData: string): ReturnTypes => {
+  const [value, setValue] = useState<string>(initialData);
+  const handler = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    console.log(value);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+
+      setValue('');
+    }
+  };
+  return [value, setValue, handler, onKeyDown];
 };
 
 export default useInput;

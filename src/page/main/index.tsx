@@ -1,7 +1,6 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
-import StudyComponents from '@/components/mystudy';
+import React, { useCallback, useEffect, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
@@ -12,6 +11,23 @@ const MainPage = () => {
   //     console.log(result.data);
   //   })();
   // }, []);
+  const [inputValue, setInputValue] = useState<string>('');
+  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setInputValue(e.target.value);
+  }, []);
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+      console.log(inputValue);
+    }
+  };
+
   return (
     <StudyMain>
       <Nav />
@@ -31,7 +47,10 @@ const MainPage = () => {
           {/* 커스텀 훅 써보기  */}
           <SearchBox>
             <img src={search} />
-            <StudySearch></StudySearch>
+            <StudySearch
+              onKeyDown={onKeyDown}
+              onChange={changeInput}
+            ></StudySearch>
           </SearchBox>
 
           <GridStudyList>
