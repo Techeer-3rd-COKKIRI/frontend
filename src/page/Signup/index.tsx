@@ -48,6 +48,9 @@ const RightBackground = styled.div`
   flex-shrink: 0;
   flex-basis: 500px;
   align-items: center;
+  @media screen and (max-width: 850px) {
+    max-width: 100vw;
+  }
 `;
 
 const Title = styled.h1`
@@ -70,15 +73,15 @@ const NickName = styled.div`
 const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
-  width: 300px;
-  height: 25px;
+  width: 30rem;
+  height: 2.5rem;
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
 `;
 const NickNameCheck = styled.button`
   border-radius: 20px;
-  width: 130px;
+  width: 13rem;
   height: 54px;
   font-size: 2rem;
   margin-left: 10px;
@@ -93,8 +96,8 @@ const Id = styled.div`
 const IdInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
-  width: 440px;
-  height: 25px;
+  width: 44rem;
+  height: 2.5rem;
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
@@ -104,8 +107,8 @@ const Password = styled.input`
   font-family: InriaSans;
   margin-top: 10px;
   border-radius: 20px;
-  width: 440px;
-  height: 25px;
+  width: 44rem;
+  height: 2.5rem;
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
@@ -114,24 +117,27 @@ const PasswordCheck = styled.input`
   font-family: InriaSans;
   margin-top: 10px;
   border-radius: 20px;
-  width: 440px;
-  height: 25px;
+  width: 44rem;
+  height: 2.5rem;
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
 `;
 
 const SignUpButton = styled.button`
-  margin-top: 10px;
   font-family: InriaSans;
-  background: #7e84ff;
+  /* background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
   color: #fff;
-  width: 440px;
+  width: 44rem;
+  height: 5.5rem;
+  font-size: 2.2rem; */
+  margin-top: 15rem;
+  background: #7e84ff;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+  min-width: 44rem;
   height: 50px;
-  padding: 30px;
-  padding-top: 10px;
-  font-size: 2rem;
-  margin-top: 160px;
+  color: rgba(255, 255, 255, 1);
 `;

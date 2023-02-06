@@ -29,7 +29,7 @@ const LeftBackground = styled.div`
   /* z-index: 1; */
   flex-shrink: 1;
   position: relative;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1080px) {
     display: none;
   }
 `;
