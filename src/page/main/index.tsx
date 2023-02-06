@@ -63,6 +63,7 @@ const MainPage = () => {
             <StudyListComponent></StudyListComponent>
             <StudyListComponent></StudyListComponent>
           </GridStudyList>
+          <Paging>1 2 3 4 5 7 8 9 </Paging>
         </AllStudyList>
       </MainView>
     </StudyMain>
@@ -132,8 +133,29 @@ const StudySearch = styled.input.attrs({
   color: rgba(198, 198, 198, 1);
 `;
 const GridStudyList = styled.div`
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  place-items: center;
+  margin: 0 auto;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  @media screen and (max-width: 1084px) {
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+    gap: 0.5rem;
+    transform: translateX(15px);
+  }
+  @media screen and (max-width: 400px) {
+    transform: translateX(0px);
+  }
+`;
+
+const Paging = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  opacity: 0.5;
+  margin-bottom: 5rem;
+  cursor: pointer;
 `;
 export default MainPage;
