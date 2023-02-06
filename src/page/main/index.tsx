@@ -25,6 +25,7 @@ const MainPage = () => {
             <UserStudy />
             <UserStudy />
             <UserStudy />
+            <UserStudy />
           </UserStudyList>
         </UserStudying>
         <AllStudyList>
@@ -50,8 +51,25 @@ const StudyMain = styled.div`
 `;
 
 const MainView = styled.div``;
-const UserStudying = styled.div``;
-const UserStudyList = styled.div``;
+const UserStudying = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 100px;
+  & > h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+
+    color: #000000;
+  }
+`;
+const UserStudyList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
 const AllStudyList = styled.div``;
 const StudySearch = styled.input.attrs({
   tpye: 'text',
