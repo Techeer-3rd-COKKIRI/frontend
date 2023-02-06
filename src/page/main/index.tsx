@@ -1,11 +1,10 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import StudyComponents from '@/components/mystudy';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
-
+import search from '../../assets/image/search.png';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -30,7 +29,11 @@ const MainPage = () => {
         </UserStudying>
         <AllStudyList>
           {/* 커스텀 훅 써보기  */}
-          <StudySearch></StudySearch>
+          <SearchBox>
+            <img src={search} />
+            <StudySearch></StudySearch>
+          </SearchBox>
+
           <GridStudyList>
             <StudyListComponent></StudyListComponent>
             <StudyListComponent></StudyListComponent>
@@ -71,9 +74,37 @@ const UserStudyList = styled.div`
   grid-template-columns: repeat(2, 1fr);
 `;
 const AllStudyList = styled.div``;
+const SearchBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    position: relative;
+    left: 4rem;
+    top: 5.5rem;
+    width: 3rem;
+    height: 3rem;
+    z-index: 9;
+  }
+`;
 const StudySearch = styled.input.attrs({
   tpye: 'text',
   placeholder: '스터디를 검색해보세요',
-})``;
+})`
+  display: inline-block;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  padding: 1rem 0rem;
+  padding-left: 5.5rem;
+  width: 40%;
+  max-width: 500px;
+  margin: 5rem 0;
+  color: rgba(198, 198, 198, 1);
+`;
 const GridStudyList = styled.div``;
 export default MainPage;
