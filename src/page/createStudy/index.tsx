@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
-import axios from 'axios';
 import CreateStudySelectInput from '@/components/createStudySelectInput';
 import { certificationPeriod, recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
