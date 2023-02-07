@@ -1,10 +1,9 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import StudyComponents from '@/components/mystudy';
+import React, { useCallback, useEffect, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
-
+import UserStudy from '@/components/userStudy';
+import search from '../../assets/image/search.png';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -12,18 +11,61 @@ const MainPage = () => {
   //     console.log(result.data);
   //   })();
   // }, []);
+  const [inputValue, setInputValue] = useState<string>('');
+  const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setInputValue(e.target.value);
+  }, []);
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+      console.log(inputValue);
+    }
+  };
+
   return (
     <StudyMain>
       <Nav />
-      <MyStudy>진행중인 스터디</MyStudy>
-      <Studies>
-        {/* 참여중인 컴포넌트 */}
-        <StudyComponents />
-      </Studies>
-      <StudyList>
-        {/* 스터디 리스트 */}
-        <StudyListComponent></StudyListComponent>
-      </StudyList>
+      <MainView>
+        <UserStudying>
+          <h1>진행중인 스터디</h1>
+          <UserStudyList>
+            {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
+            {/* userpage를 선언후 userpage에 맞게 splice */}
+            <UserStudy />
+            <UserStudy />
+            <UserStudy />
+            <UserStudy />
+          </UserStudyList>
+        </UserStudying>
+        <AllStudyList>
+          {/* 커스텀 훅 써보기  */}
+          <SearchBox>
+            <img src={search} />
+            <StudySearch
+              onKeyDown={onKeyDown}
+              onChange={changeInput}
+            ></StudySearch>
+          </SearchBox>
+
+          <GridStudyList>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+            <StudyListComponent></StudyListComponent>
+          </GridStudyList>
+          <Paging>1 2 3 4 5 7 8 9 </Paging>
+        </AllStudyList>
+      </MainView>
     </StudyMain>
   );
 };
@@ -37,42 +79,83 @@ const StudyMain = styled.div`
   }
 `;
 
-const Banner = styled.div`
+const MainView = styled.div``;
+const UserStudying = styled.div`
+  width: 80%;
   display: flex;
-  & img {
-    width: 135rem;
-    height: 34rem;
-    margin: 0 auto;
-    margin-top: 15px;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 100px;
+  & > h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+
+    color: #000000;
+  }
+`;
+const UserStudyList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
+const AllStudyList = styled.div``;
+const SearchBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    position: relative;
+    left: 4rem;
+    top: 5.5rem;
+    width: 3rem;
+    height: 3rem;
+    z-index: 9;
+  }
+`;
+const StudySearch = styled.input.attrs({
+  tpye: 'text',
+  placeholder: '스터디를 검색해보세요',
+})`
+  display: inline-block;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  padding: 1rem 0rem;
+  padding-left: 5.5rem;
+  width: 40%;
+  max-width: 500px;
+  margin: 5rem 0;
+  color: rgba(198, 198, 198, 1);
+`;
+const GridStudyList = styled.div`
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  @media screen and (max-width: 1084px) {
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+    gap: 0.5rem;
+    transform: translateX(15px);
+  }
+  @media screen and (max-width: 400px) {
+    transform: translateX(0px);
   }
 `;
 
-const MyStudy = styled.div`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 3rem;
-  line-height: 3.5rem;
-`;
-
-const Studies = styled.div`
-  margin: 0 auto;
-  width: 60%;
-  max-width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 10px;
-  row-gap: 5px;
-`;
-
-const StudyList = styled.div`
-  margin: 0 auto;
-  width: 80%;
-  max-width: 1000px;
-  display: grid;
-  place-items: center;
-  grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 15px;
-  grid-column-gap: 15px;
-  margin-top: 120px;
+const Paging = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  opacity: 0.5;
+  margin-bottom: 5rem;
+  cursor: pointer;
 `;
 export default MainPage;
