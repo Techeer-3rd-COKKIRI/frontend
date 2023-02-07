@@ -132,7 +132,7 @@ const Nav = () => {
 
           {user ? (
             <div onClick={logoutHandle}>
-              <Tap isActive={createStudy !== null}>
+              <Tap>
                 <div>
                   <img
                     style={{ width: '6rem', height: '6rem' }}
@@ -187,7 +187,7 @@ const Taps = styled.ul`
   flex-direction: column;
 `;
 
-const Tap = styled.li<{ isActive: boolean }>`
+const Tap = styled.li<{ isActive?: boolean }>`
   display: flex;
   align-items: center;
 
@@ -200,6 +200,9 @@ const Tap = styled.li<{ isActive: boolean }>`
   line-height: 2.4rem;
   color: #000000;
   opacity: ${(props) => (props.isActive ? '1' : '0.5')};
+  &:hover {
+    opacity: 1;
+  }
 
   & div {
     display: flex;
