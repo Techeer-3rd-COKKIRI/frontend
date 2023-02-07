@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
+import { useQuery } from '@tanstack/react-query';
+import { restFetcher } from '@/queryClient';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -11,6 +13,22 @@ const MainPage = () => {
   //     console.log(result.data);
   //   })();
   // }, []);
+  const [page, setPage] = useState<number>(1);
+  const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
+
+  const { isLoading, isError, error, data } = useQuery(
+    ['page', page],
+    () =>
+      restFetcher({
+        method: 'GET',
+        path: `/api/v1/studies/page/${page}`,
+        params: { size: 20 },
+      }),
+    {
+      staleTime: 2000, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+    },
+  );
+
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
@@ -27,6 +45,26 @@ const MainPage = () => {
       console.log(inputValue);
     }
   };
+
+  const pageHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement; // 해결 방법 (1)
+    // const target = e.currentTarget; // 해결방법 (2)
+    // let page = [];
+
+    setPage(Number(target.innerText)); //3 ,4
+  };
+
+  // useEffect(() => {
+  //   let pageNumber = data.data.length / 20;
+  //   if (!Number.isInteger(pageNumber)) {
+  //     pageNumber += 1;
+  //   }
+  //   let arr = [];
+  //   for (let i = 0; i < pageNumber; i++) {
+  //     arr.push(0);
+  //   }
+  //   setPageLenth(arr);
+  // }, [page]);
 
   return (
     <StudyMain>
@@ -63,7 +101,15 @@ const MainPage = () => {
             <StudyListComponent></StudyListComponent>
             <StudyListComponent></StudyListComponent>
           </GridStudyList>
-          <Paging>1 2 3 4 5 7 8 9 </Paging>
+          <Paging>
+            {pageLength.map((page, index) => {
+              return (
+                <div key={index} onClick={pageHandler}>
+                  {index + 1}
+                </div>
+              );
+            })}
+          </Paging>
         </AllStudyList>
       </MainView>
     </StudyMain>
