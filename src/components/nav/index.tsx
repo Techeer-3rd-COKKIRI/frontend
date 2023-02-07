@@ -230,7 +230,7 @@ const HambergetIcon = styled.div<{ toggleNav: boolean }>`
   align-items: center;
   top: 5px;
   left: ${(props) => (props.toggleNav ? '205px' : '15px')};
-  position: absolute;
+  position: fixed;
   z-index: 999;
   & img {
     width: 35px;
