@@ -135,7 +135,7 @@ const Nav = () => {
               <Tap>
                 <div>
                   <img
-                    style={{ width: '6rem', height: '6rem' }}
+                    style={{ width: '55px', height: '55px' }}
                     src={bye}
                   ></img>
                 </div>
@@ -196,7 +196,7 @@ const Tap = styled.li<{ isActive?: boolean }>`
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 18px;
   line-height: 2.4rem;
   color: #000000;
   opacity: ${(props) => (props.isActive ? '1' : '0.5')};
@@ -217,8 +217,8 @@ const Tap = styled.li<{ isActive?: boolean }>`
   }
 
   & img {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 35px;
+    height: 35px;
   }
 `;
 
