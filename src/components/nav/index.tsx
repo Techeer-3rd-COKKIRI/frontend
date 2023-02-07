@@ -7,9 +7,13 @@ import selectedHome from '@/assets/image/selectedHome.png';
 import home from '@/assets/image/home.png';
 import selectedLogin from '@/assets/image/selectedLogin.png';
 import login from '@/assets/image/login.png';
+import bye from '@/assets/image/bye.png';
 import selectedSign from '@/assets/image/selectedSign.png';
-import user from '@/assets/image/user.png';
+import myprofile from '@/assets/image/myprofile.svg';
+import clickMyprofile from '@/assets/image/clickMyprofile.svg';
+import people from '@/assets/image/user.png';
 import pencil from '@/assets/image/pencil.png';
+import axios from 'axios';
 
 const Nav = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -17,6 +21,26 @@ const Nav = () => {
   const loginMatch = useMatch('/login');
   const signMatch = useMatch('/sign');
   const createStudy = useMatch('/createStudy');
+  const profile = useMatch('/profile');
+
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
+  const logoutHandle = async () => {
+    // useQuery(['logout'], async () =>
+    //   restFetcher({ method: 'GET', path: '/api/v1/users/logout' }),
+    // );
+    try {
+      await axios.get('http://localhost:8080/api/v1/users/logout');
+    } catch {
+      location.replace('/');
+      window.localStorage.clear();
+    }
+  };
 
   return (
     <>
@@ -45,42 +69,77 @@ const Nav = () => {
               홈
             </Tap>
           </Link>
-          <Link to={'/LogIn'} style={{ textDecoration: 'none' }}>
-            <Tap isActive={loginMatch !== null}>
-              <div>
-                {loginMatch !== null ? (
-                  <img src={selectedLogin}></img>
-                ) : (
-                  <img src={login}></img>
-                )}
-              </div>
-              로그인
-            </Tap>
-          </Link>
-          <Link to={'/SignUp'} style={{ textDecoration: 'none' }}>
-            <Tap isActive={signMatch !== null}>
-              <div>
-                {signMatch !== null ? (
-                  <img src={selectedSign}></img>
-                ) : (
-                  <img src={user}></img>
-                )}
-              </div>
-              회원가입
-            </Tap>
-          </Link>
-          <Link to={'/createStudy'} style={{ textDecoration: 'none' }}>
-            <Tap isActive={createStudy !== null}>
-              <div>
-                {createStudy !== null ? (
-                  <img src={pencil}></img>
-                ) : (
-                  <img src={pencil}></img>
-                )}
-              </div>
-              스터디 개설
-            </Tap>
-          </Link>
+          {user ? null : (
+            <>
+              <Link to={'/LogIn'} style={{ textDecoration: 'none' }}>
+                <Tap isActive={loginMatch !== null}>
+                  <div>
+                    {loginMatch !== null ? (
+                      <img src={selectedLogin}></img>
+                    ) : (
+                      <img src={login}></img>
+                    )}
+                  </div>
+                  로그인
+                </Tap>
+              </Link>
+              <Link to={'/SignUp'} style={{ textDecoration: 'none' }}>
+                <Tap isActive={signMatch !== null}>
+                  <div>
+                    {signMatch !== null ? (
+                      <img src={selectedSign}></img>
+                    ) : (
+                      <img src={people}></img>
+                    )}
+                  </div>
+                  회원가입
+                </Tap>
+              </Link>
+            </>
+          )}
+
+          {user ? (
+            <Link to={'/profile'} style={{ textDecoration: 'none' }}>
+              <Tap isActive={profile !== null}>
+                <div>
+                  {profile !== null ? (
+                    <img src={myprofile}></img>
+                  ) : (
+                    <img src={clickMyprofile}></img>
+                  )}
+                </div>
+                내 프로필
+              </Tap>
+            </Link>
+          ) : null}
+          {user ? (
+            <Link to={'/createStudy'} style={{ textDecoration: 'none' }}>
+              <Tap isActive={createStudy !== null}>
+                <div>
+                  {createStudy !== null ? (
+                    <img src={pencil}></img>
+                  ) : (
+                    <img src={pencil}></img>
+                  )}
+                </div>
+                스터디 개설
+              </Tap>
+            </Link>
+          ) : null}
+
+          {user ? (
+            <div onClick={logoutHandle}>
+              <Tap>
+                <div>
+                  <img
+                    style={{ width: '55px', height: '55px' }}
+                    src={bye}
+                  ></img>
+                </div>
+                로그아웃
+              </Tap>
+            </div>
+          ) : null}
         </Taps>
       </NavBar>
     </>
@@ -125,18 +184,22 @@ const Taps = styled.ul`
   flex-direction: column;
 `;
 
-const Tap = styled.li<{ isActive: boolean }>`
+const Tap = styled.li<{ isActive?: boolean }>`
   display: flex;
   align-items: center;
 
+  cursor: pointer;
   margin-bottom: 30px;
   font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 18px;
   line-height: 2.4rem;
   color: #000000;
   opacity: ${(props) => (props.isActive ? '1' : '0.5')};
+  &:hover {
+    opacity: 1;
+  }
 
   & div {
     display: flex;
@@ -151,8 +214,8 @@ const Tap = styled.li<{ isActive: boolean }>`
   }
 
   & img {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 35px;
+    height: 35px;
   }
 `;
 
@@ -164,7 +227,7 @@ const HambergetIcon = styled.div<{ toggleNav: boolean }>`
   align-items: center;
   top: 5px;
   left: ${(props) => (props.toggleNav ? '205px' : '15px')};
-  position: absolute;
+  position: fixed;
   z-index: 999;
   & img {
     width: 35px;
