@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import logo from '../../assets/image/logo.png';
-interface userInform {
-  id: string;
-  password: string;
-}
+import { useMutation } from '@tanstack/react-query';
+import { restFetcher } from '@/queryClient';
+import { User, userInform } from '@/type/user';
+
 const LogIn = () => {
   const navigate = useNavigate();
 
@@ -20,16 +20,34 @@ const LogIn = () => {
   // console.log(watch());
   // 1.유효성검사 추가하기
   // 2.유효성검사 실패시 에러핸들링하기
+  const { mutate } = useMutation((user: userInform) =>
+    restFetcher({ method: 'POST', path: '/api/v1/users/login', body: user }),
+  );
+
   const onSubmitHandler: SubmitHandler<userInform> = async (values, e) => {
-    const { id, password } = values;
-    console.log(id, password);
-    console.log(e);
-    const user = { id, password };
-    // mutate(user, {
-    //   onSuccess: (data) => {
-    //     console.log('로그인에 성공하셨습니다 !');
-    //   },
-    // });
+    const { username, password } = values;
+    const user = { username, password };
+    mutate(user, {
+      onSuccess: (data) => {
+        if (data) {
+          //로그인이 되었다면?
+          const loginUser: User = {
+            id: data.data.id,
+            username: data.data.username,
+          };
+          //객체를 저장할떈 stringify 다시 뺄떈 parse
+          localStorage.setItem('user', JSON.stringify(loginUser));
+          alert('로그인에 성공하셨습니다 !');
+          navigate('/');
+        } else {
+          alert('로그인에 실패하셨습니다 !');
+        }
+      },
+      onError: (data) => {
+        console.log(data);
+        console.log('로그인에 실패하셨습니다 !');
+      },
+    });
   };
   //로그인버튼을 누르면 mutate trigger
 
@@ -43,7 +61,7 @@ const LogIn = () => {
         <h1>Sign In</h1>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <UserInput
-            {...register('id', { required: true })}
+            {...register('username', { required: true })}
             placeholder={'아이디를 입력해주세요'}
           />
           <UserInput
