@@ -18,6 +18,14 @@ const Nav = () => {
   const signMatch = useMatch('/sign');
   const createStudy = useMatch('/createStudy');
 
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
+  console.log(user);
   return (
     <>
       <HambergetIcon
@@ -45,30 +53,36 @@ const Nav = () => {
               홈
             </Tap>
           </Link>
-          <Link to={'/LogIn'} style={{ textDecoration: 'none' }}>
-            <Tap isActive={loginMatch !== null}>
-              <div>
-                {loginMatch !== null ? (
-                  <img src={selectedLogin}></img>
-                ) : (
-                  <img src={login}></img>
-                )}
-              </div>
-              로그인
-            </Tap>
-          </Link>
-          <Link to={'/SignUp'} style={{ textDecoration: 'none' }}>
-            <Tap isActive={signMatch !== null}>
-              <div>
-                {signMatch !== null ? (
-                  <img src={selectedSign}></img>
-                ) : (
-                  <img src={user}></img>
-                )}
-              </div>
-              회원가입
-            </Tap>
-          </Link>
+          {!user ? null : (
+            <>
+              <Link to={'/LogIn'} style={{ textDecoration: 'none' }}>
+                <Tap isActive={loginMatch !== null}>
+                  <div>
+                    {loginMatch !== null ? (
+                      <img src={selectedLogin}></img>
+                    ) : (
+                      <img src={login}></img>
+                    )}
+                  </div>
+                  로그인
+                </Tap>
+              </Link>
+              <Link to={'/SignUp'} style={{ textDecoration: 'none' }}>
+                <Tap isActive={signMatch !== null}>
+                  <div>
+                    {signMatch !== null ? (
+                      <img src={selectedSign}></img>
+                    ) : (
+                      <img src={user}></img>
+                    )}
+                  </div>
+                  회원가입
+                </Tap>
+              </Link>
+            </>
+          )}
+
+          {/* {user?<Link to={"/profile"} styl></Link>} */}
           <Link to={'/createStudy'} style={{ textDecoration: 'none' }}>
             <Tap isActive={createStudy !== null}>
               <div>
