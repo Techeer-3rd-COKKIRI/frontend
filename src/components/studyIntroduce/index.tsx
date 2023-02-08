@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StudyIntroduce = () => {
+const StudyIntroduce = ({ id, studyName }: any) => {
   return (
     <StudyIntroducePage>
-      <Title>[스프링 스터디] 스프링 스터디 공부인증방</Title>
+      <Title>{studyName}</Title>
       <ReaderProfile>
         <div></div>
         <span>이승환승</span>

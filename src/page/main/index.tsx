@@ -13,19 +13,23 @@ const MainPage = () => {
   //     console.log(result.data);
   //   })();
   // }, []);
-  const [page, setPage] = useState<number>(1);
-  const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
+  const [page, setPage] = useState<number>(0);
+  const [pageLength, setPageLenth] = useState<number[]>([0]);
 
   const { isLoading, isError, error, data } = useQuery(
     ['page', page],
-    () =>
-      restFetcher({
+    async () =>
+      await restFetcher({
         method: 'GET',
         path: `/api/v1/studies/page/${page}`,
         params: { size: 20 },
       }),
     {
-      staleTime: 2000, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+      select(data) {
+        return data.data;
+      },
+      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+      cacheTime: 0,
     },
   );
 
@@ -54,24 +58,25 @@ const MainPage = () => {
     setPage(Number(target.innerText)); //3 ,4
   };
 
-  // useEffect(() => {
-  //   let pageNumber = data.data.length / 20;
-  //   if (!Number.isInteger(pageNumber)) {
-  //     pageNumber += 1;
-  //   }
-  //   let arr = [];
-  //   for (let i = 0; i < pageNumber; i++) {
-  //     arr.push(0);
-  //   }
-  //   setPageLenth(arr);
-  // }, [page]);
+  useEffect(() => {
+    console.log(data);
+    // let pageNumber = data.length / 20;
+    // if (!Number.isInteger(pageNumber)) {
+    //   pageNumber += 1;
+    // }
+    // let arr = [];
+    // for (let i = 0; i <= pageNumber; i++) {
+    //   arr.push(0);
+    // }
+    // setPageLenth(arr);
+  }, [page]);
 
   return (
     <StudyMain>
       <Nav />
       <MainView>
         <UserStudying>
-          <h1>진행중인 스터디</h1>
+          <h1>내 스터디</h1>
           <UserStudyList>
             {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
             {/* userpage를 선언후 userpage에 맞게 splice */}
@@ -92,20 +97,20 @@ const MainPage = () => {
           </SearchBox>
 
           <GridStudyList>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
-            <StudyListComponent></StudyListComponent>
+            {data?.map((item: any) => {
+              return (
+                <StudyListComponent
+                  key={item.id}
+                  {...item}
+                ></StudyListComponent>
+              );
+            })}
           </GridStudyList>
           <Paging>
             {pageLength.map((_, index) => {
               return (
                 <div
-                  style={{ backgroundColor: page == index + 1 ? 'gray' : '' }}
+                  style={{ backgroundColor: page == index ? 'gray' : '' }}
                   key={index}
                   onClick={pageHandler}
                 >

@@ -4,9 +4,14 @@ import ProfilePicture from '@/components/profilePicture';
 import StudyIntroduce from '@/components/studyIntroduce';
 import WeekButton from '@/components/weekButton';
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StudyMain = () => {
+  const { state } = useLocation();
+  console.log(state);
+  console.log(useLocation());
+
   //profiles 스크롤 변수 저장
   const profilesRef = React.createRef<HTMLDivElement>();
   const [profileScroll, setProfileScroll] = useState(0);
@@ -134,7 +139,7 @@ const StudyMain = () => {
           ) : null}
         </ProfileBox>
         {/* 스터디 소개하는 컴포넌트*/}
-        <StudyIntroduce />
+        <StudyIntroduce {...state} />
         {/* 주차별 버튼*/}
         <WeekBox>
           {weekButtonScroll != 0 ? (
