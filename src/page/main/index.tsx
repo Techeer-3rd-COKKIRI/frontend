@@ -102,9 +102,13 @@ const MainPage = () => {
             <StudyListComponent></StudyListComponent>
           </GridStudyList>
           <Paging>
-            {pageLength.map((page, index) => {
+            {pageLength.map((_, index) => {
               return (
-                <div key={index} onClick={pageHandler}>
+                <div
+                  style={{ backgroundColor: page == index + 1 ? 'gray' : '' }}
+                  key={index}
+                  onClick={pageHandler}
+                >
                   {index + 1}
                 </div>
               );
@@ -203,5 +207,17 @@ const Paging = styled.div`
   opacity: 0.5;
   margin-bottom: 5rem;
   cursor: pointer;
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
 `;
 export default MainPage;
