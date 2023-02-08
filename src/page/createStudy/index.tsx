@@ -17,18 +17,20 @@ export type FormName =
   | 'studyPassword'
   | 'studyCycle'
   | 'userLimit'
-  | 'startDate'
-  | 'finishDate'
-  | 'image';
+  | 'startDay'
+  | 'finishDay'
+  | 'image'
+  | 'introduction';
 
 export interface FormValue {
   studyName: string;
   studyPassword: string;
   studyCycle: string;
   userLimit: string;
-  startDate: Date;
-  finishDate: Date;
+  startDay: Date;
+  finishDay: Date;
   image: FileList;
+  introduction: string;
 }
 
 const CreateStudy = () => {
@@ -42,48 +44,57 @@ const CreateStudy = () => {
   } = useForm<FormValue>();
 
   const { mutate } = useMutation(
-    (formData: FormData) =>
-      restFetcher({ method: 'POST', path: '/studies', body: formData }),
+    (formData: any) =>
+      restFetcher({ method: 'POST', path: '/api/v1/studies', body: formData }),
     //axios.post<FormValue>('/api/v1/studies', formData),
   );
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');
-    const {
-      startDate,
-      finishDate,
+    let {
+      startDay,
+      finishDay,
       studyCycle,
       studyName,
       studyPassword,
       userLimit,
       image,
+      introduction,
     } = values;
     const formData = new FormData();
-    let startDay = dayjs(startDate).format('YYYY-MM-DD');
-    let finishDay = dayjs(finishDate).format('YYYY-MM-DD');
-
-    formData.append('image', image[0]);
-    formData.append('startDate', startDay);
-    formData.append('finishDate', finishDay);
+    let startDate = dayjs(startDay).format('YYYY-MM-DD');
+    let finishDate = dayjs(finishDay).format('YYYY-MM-DD');
+    //아직 api에 이미지가 없음
+    // formData.append('image', image[0]);
+    formData.append('startDate', startDate);
+    formData.append('finishDate', finishDate);
     formData.append('studyCycle', studyCycle);
     formData.append('studyName', studyName);
     formData.append('studyPassword', studyPassword);
     formData.append('userLimit', userLimit);
-    console.log('formData' + formData);
-    mutate(formData, {
+    formData.append('introduce', introduction);
+    const imsi = {
+      finishDate,
+      startDate,
+      studyCycle: '3',
+      studyName,
+      studyPassword,
+      userLimit: '4',
+      introduction,
+    };
+    mutate(imsi, {
       onSuccess: (data) => {
-        console.log(data);
+        navigator('/');
       },
     });
     // let result = await axios.post('/api/v1/studies', formData, {
     //   headers: { 'Content-Type': 'multipart/form-data' },
     // });
 
-    // formData를 순회하며 데이터출력
-    // let entries = formData.entries();
-    // for (const pair of entries) {
-    //   console.log(pair[0] + ', ' + pair[1]);
-    // }
+    let entries = formData.entries();
+    for (const pair of entries) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
   };
 
   return (
@@ -136,12 +147,12 @@ const CreateStudy = () => {
               />
               <CreateStudyCalender
                 inputName={'시작날짜'}
-                id={'startDate'}
+                id={'startDay'}
                 control={control}
               />
               <CreateStudyCalender
                 inputName={'마감날짜'}
-                id={'finishDate'}
+                id={'finishDay'}
                 control={control}
               />
               <CreateStudyImage
@@ -176,7 +187,16 @@ const CreateStudy = () => {
                 ) : (
                   <Error style={{ height: '10px' }}></Error>
                 )}
-                <Textarea name="text" defaultValue={'안녕하세요'}></Textarea>
+                <Textarea
+                  defaultValue={'스터디를 소개해주세요!'}
+                  {...register('introduction', {
+                    required: '스터디를 소개해주세요!',
+                    minLength: {
+                      value: 2,
+                      message: '스터디를 소개해주세요!',
+                    },
+                  })}
+                ></Textarea>
                 <Buttons>
                   <button onClick={() => navigator('/')}>취소</button>
                   <button type="submit">글 등록</button>

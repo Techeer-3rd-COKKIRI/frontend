@@ -35,7 +35,7 @@ const Nav = () => {
     //   restFetcher({ method: 'GET', path: '/api/v1/users/logout' }),
     // );
     try {
-      await axios.get('http://localhost:8080/api/v1/users/logout');
+      await axios.get('http://localhost/api/v1/users/logout');
     } catch {
       location.replace('/');
       window.localStorage.clear();
