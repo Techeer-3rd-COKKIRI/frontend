@@ -1,16 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import bear from '../../assets/image/bear.png';
 import bear2 from '../../assets/image/bear2.png';
 import bear3 from '../../assets/image/bear3.png';
 import bear4 from '../../assets/image/bear4.png';
-const StudyListComponent = () => {
+const StudyListComponent = ({ id, studyName }: any) => {
+  const navigator = useNavigate();
+  const goStudyMain = () => {
+    const roomData = { id, studyName };
+    navigator(`/studyMain/${id}`, { state: roomData }); // studyMain에 roomData를 보냄
+  };
   return (
-    <StudyList>
+    <StudyList onClick={goStudyMain}>
       <StudyImage></StudyImage>
       <StudyText>
         <StudyInfo>
-          <StudyTitle>스터디 제목</StudyTitle>
+          <StudyTitle>{studyName}</StudyTitle>
           <StudyIntro>스터디 소개</StudyIntro>
         </StudyInfo>
 
