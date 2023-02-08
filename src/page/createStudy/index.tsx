@@ -76,15 +76,15 @@ const CreateStudy = () => {
     const imsi = {
       finishDate,
       startDate,
-      studyCycle: 3,
+      studyCycle: '3',
       studyName,
       studyPassword,
-      userLimit: 4,
+      userLimit: '4',
       introduction,
     };
     mutate(imsi, {
       onSuccess: (data) => {
-        console.log(data);
+        navigator('/');
       },
     });
     // let result = await axios.post('/api/v1/studies', formData, {
