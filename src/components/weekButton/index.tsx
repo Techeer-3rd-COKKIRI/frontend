@@ -27,7 +27,7 @@ const OneWeek = styled.div`
   background: #ffffff;
   border: 2px solid #a6a6ff;
   margin: 1rem 0.5rem;
-
+  cursor: pointer;
   &:hover {
     background-color: #dedefc;
   }

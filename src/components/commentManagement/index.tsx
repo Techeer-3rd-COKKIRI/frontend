@@ -1,12 +1,12 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Comment from '../comment';
 
 const CommentManagement = ({ id, studyName, weekNumber }: any) => {
-  const { data: comments } = useQuery(
-    [QueryKeys.COMMENT, id],
+  const { data: comments, refetch } = useQuery(
+    [QueryKeys.COMMENT, id, weekNumber],
     () =>
       restFetcher({
         method: 'GET',
@@ -17,6 +17,8 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       select(data) {
         return data.data;
       },
+      staleTime: 0,
+      cacheTime: 0,
     },
   );
   const { mutate } = useMutation((commentInform: any) =>
@@ -26,6 +28,7 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       body: commentInform,
     }),
   );
+
   const [chat, setChat] = useState('');
   const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChat(e.target.value);
@@ -38,7 +41,7 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       studyWeek: weekNumber,
     };
     console.log(commentInform);
-    mutate(commentInform);
+    mutate(commentInform, { onSuccess: (data) => refetch() });
   };
 
   return (
