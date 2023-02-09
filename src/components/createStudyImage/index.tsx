@@ -61,7 +61,7 @@ export default CreateStudyImage;
 
 const Button = styled.button`
   background-color: #293659;
-  border-radius: 10px;
+  border-radius: 1rem;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;

@@ -302,22 +302,29 @@ const StudyInform = styled.div`
     }
     & > input {
       width: 100%;
-      height: 60px;
+      height: 6rem;
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px;
       border: none;
       margin: 5px 0;
+      @media screen and (max-width: 639px) {
+        height: 40px;
+      }
     }
 
     & > select {
       height: 60px;
+      @media screen and (max-width: 639px) {
+        height: 40px;
+      }
     }
     & > div > div > input {
-      height: 60px;
+      height: 6rem;
 
       @media screen and (max-width: 639px) {
         font-size: 10px;
+        height: 40px;
       }
     }
   }
@@ -382,6 +389,9 @@ const Section = styled.section`
     border-radius: 10px;
     margin-top: 10px;
     padding-left: 15px;
+    @media screen and (max-width: 639px) {
+      height: 40px;
+    }
   }
 `;
 
