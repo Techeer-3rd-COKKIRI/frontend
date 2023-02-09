@@ -68,7 +68,7 @@ const CreateStudy = () => {
     // formData.append('image', image[0]);
     formData.append('startDate', startDate);
     formData.append('finishDate', finishDate);
-    formData.append('studyCycle', studyCycle);
+    formData.append('studyCycle', '7');
     formData.append('studyName', studyName);
     formData.append('studyPassword', studyPassword);
     formData.append('userLimit', userLimit);
@@ -76,7 +76,7 @@ const CreateStudy = () => {
     const imsi = {
       finishDate,
       startDate,
-      studyCycle: '3',
+      studyCycle: '7',
       studyName,
       studyPassword,
       userLimit: '4',
@@ -126,16 +126,16 @@ const CreateStudy = () => {
                 type={'password'}
                 id={'studyPassword'}
                 register={register}
-                registerConfig={{
-                  required: '패스워드를 입력해주세요!',
-                  minLength: {
-                    value: 2,
-                    message: '패스워드 많이많이 입력해주세요!',
-                  },
-                }}
+                // registerConfig={{
+                //   required: '패스워드를 입력해주세요!',
+                //   minLength: {
+                //     value: 2,
+                //     message: '패스워드 많이많이 입력해주세요!',
+                //   },
+                //}}
                 error={errors.studyPassword?.message}
               />
-              <CreateStudySelectInput
+              {/* <CreateStudySelectInput
                 inputName={'인증기간'}
                 placeholder={'인증기간'}
                 id={'studyCycle'}
@@ -144,7 +144,7 @@ const CreateStudy = () => {
                 registerConfig={{
                   required: '인증기간을 선택해주세요!',
                 }}
-              />
+              /> */}
               <CreateStudyCalender
                 inputName={'시작날짜'}
                 id={'startDay'}
@@ -232,7 +232,7 @@ const WriteForm = styled.div`
   margin: 0 auto;
   max-width: 1400px;
   @media screen and (min-width: 639px) {
-    width: 50%;
+    width: 70%;
   }
 `;
 
@@ -283,6 +283,7 @@ const StudyInform = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 3rem;
+
   & > div {
     display: flex;
     flex-direction: column;
@@ -301,12 +302,23 @@ const StudyInform = styled.div`
     }
     & > input {
       width: 100%;
-      height: 6rem;
+      height: 60px;
       background-color: #ffffff;
       border-radius: 10px;
       padding: 10px;
       border: none;
       margin: 5px 0;
+    }
+
+    & > select {
+      height: 60px;
+    }
+    & > div > div > input {
+      height: 60px;
+
+      @media screen and (max-width: 639px) {
+        font-size: 10px;
+      }
     }
   }
 `;
@@ -365,7 +377,7 @@ const Section = styled.section`
   & > input {
     border: none;
     width: 100%;
-    height: 6.5rem;
+    height: 65px;
     background: #ffffff;
     border-radius: 10px;
     margin-top: 10px;
@@ -375,12 +387,13 @@ const Section = styled.section`
 
 const Textarea = styled.textarea`
   width: 100%;
-  height: 700px;
+  height: 200px;
   background: #ffffff;
   border-radius: 10px;
   padding: 15px;
   border: none;
-  resize: none;
+  /* resize: none; */
+  resize: vertical;
   &::-webkit-scrollbar {
     width: 13px;
   }

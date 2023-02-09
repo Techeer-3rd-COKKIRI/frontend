@@ -7,7 +7,7 @@ interface Props {
   placeholder: string;
   id: FormName;
   register: UseFormRegister<FormValue>;
-  registerConfig: RegisterOptions<FormValue, FormName>;
+  // registerConfig: RegisterOptions<FormValue, FormName>;
   error?: string;
   type?: string;
 }
@@ -18,14 +18,13 @@ const CreateStudyInput = ({
   id,
   error,
   register,
-  registerConfig,
   type,
 }: Props) => {
   return (
     <div>
       <label htmlFor={id}>{inputName}</label>
       <input
-        {...register(id, registerConfig)}
+        {...register(id)}
         type={type}
         id={id}
         placeholder={placeholder}
