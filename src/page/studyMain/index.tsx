@@ -12,6 +12,12 @@ const StudyMain = () => {
   console.log(state);
   console.log(useLocation());
 
+  const [weekNumber, setWeekNumber] = useState<number>(1);
+
+  const changeWeekNumber = (week: number) => {
+    setWeekNumber(week);
+  };
+
   //profiles 스크롤 변수 저장
   const profilesRef = React.createRef<HTMLDivElement>();
   const [profileScroll, setProfileScroll] = useState(0);
@@ -126,11 +132,9 @@ const StudyMain = () => {
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
-            {[1, 2, 3, 4, 1, 2, 3, 2, 4, 3, 5, 33, 4, 1, 423, 4].map(
-              (user, i) => {
-                return <ProfilePicture key={i} people={i + 1} />;
-              },
-            )}
+            {[1, 2].map((user, i) => {
+              return <ProfilePicture key={i} people={i + 1} />;
+            })}
           </Profiles>
           {profileScroll < profileMaxWidth ? (
             <ProfileDirection onClick={profileScrollRight}>
@@ -148,8 +152,12 @@ const StudyMain = () => {
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
-            {[1, 2, 3, 4].map((weekNumber, i) => {
-              return <WeekButton key={i} figure={i + 1} />;
+            {[1, 2].map((_, week) => {
+              return (
+                <div key={week} onClick={() => changeWeekNumber(week + 1)}>
+                  <WeekButton weekNumber={weekNumber} figure={week + 1} />;
+                </div>
+              );
             })}
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
@@ -159,7 +167,7 @@ const StudyMain = () => {
           ) : null}
         </WeekBox>
         {/* 댓글 달수있는 컴포넌트*/}
-        <CommentManagement />
+        <CommentManagement {...state} weekNumber={weekNumber} />
       </StudyRoom>
     </StudyMainPage>
   );

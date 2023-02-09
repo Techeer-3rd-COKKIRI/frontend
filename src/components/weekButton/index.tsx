@@ -3,9 +3,16 @@ import styled from 'styled-components';
 
 interface Props {
   figure: number;
+  weekNumber: number;
 }
-const WeekButton = ({ figure }: Props) => {
-  return <OneWeek>{figure}주차</OneWeek>;
+const WeekButton = ({ figure, weekNumber }: Props) => {
+  return (
+    <OneWeek
+      style={{ backgroundColor: weekNumber == figure ? '#a6a6ff' : '#ffffff' }}
+    >
+      {figure}주차
+    </OneWeek>
+  );
 };
 
 export default WeekButton;

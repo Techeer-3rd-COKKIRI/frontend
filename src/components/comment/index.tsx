@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Comment = () => {
+const Comment = ({ commentInform }: any) => {
+  console.log(commentInform);
   return (
     <CommentComponent>
       <div></div>
       <div>
-        <h1>관리자</h1>
-        <div>
-          [공지] 2회차는 토비의 스프링 vol.1 2장 공부해오고 블로그 글
-          작성하기입니다!
-        </div>
+        <h1>{commentInform.userCommentInfo.userName}</h1>
+        <div>{commentInform.content}</div>
       </div>
     </CommentComponent>
   );
