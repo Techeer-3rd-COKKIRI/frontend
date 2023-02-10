@@ -1,30 +1,61 @@
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
+import { useMutation } from '@tanstack/react-query';
+import { createUser, userInform } from '@/type/user';
+import { restFetcher } from '@/queryClient';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { register, handleSubmit, watch } = useForm<createUser>();
+  const { mutate } = useMutation((user: createUser) =>
+    restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
+  );
+  const onSubmitHandler: SubmitHandler<createUser> = async (values, e) => {
+    const { nickname, username, password } = values;
+    const user = { nickname, username, password };
+    mutate(user, {
+      onSuccess: (data) => {
+        console.log(data);
+        alert('회원가입에 성공하셨습니다 ! ');
+        navigate('/login');
+      },
+    });
+  };
 
+  // 회원가입 성공 -> 로그인
+  // 중복확인
+  // 유효성검사
+  // 비밀번호 같게입력했는지
   return (
     <SignUpPage>
       <Account />
       <RightBackground>
         <Title>Create Account</Title>
-        <Input>
+        <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <NickName>
-            <NickNameInput placeholder="Nickname"></NickNameInput>
+            <NickNameInput
+              {...register('username', { required: true })}
+              placeholder={'닉네임을 입력해주세요'}
+            ></NickNameInput>
             <NickNameCheck>중복확인</NickNameCheck>
           </NickName>
           <Id>
             <IdInput placeholder="Id"></IdInput>
           </Id>
-          <Password placeholder="Password" type="password"></Password>
+          <Password
+            {...register('password', { required: true })}
+            placeholder={'비밀번호를 입력해주세요'}
+            type="password"
+          ></Password>
           <PasswordCheck
             placeholder="Password Check"
             type="password"
           ></PasswordCheck>
-        </Input>
-        <SignUpButton>Sign Up</SignUpButton>
+        </Form>
+        <SignUpButton type="submit">Sign Up</SignUpButton>
       </RightBackground>
     </SignUpPage>
   );
@@ -58,7 +89,7 @@ const Title = styled.h1`
   margin-top: 100px;
 `;
 
-const Input = styled.div`
+const Form = styled.div`
   text-align: center;
   align-items: center;
   margin-top: 150px;
