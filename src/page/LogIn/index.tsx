@@ -6,6 +6,7 @@ import logo from '../../assets/image/logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import { User, userInform } from '@/type/user';
+import Account from '@/components/account';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ const LogIn = () => {
       <Logo onClick={() => navigate('/')}>
         <img src={logo}></img>
       </Logo>
-      <LoginIntroduce></LoginIntroduce>
+      <LoginIntroduce>
+        <Account />
+      </LoginIntroduce>
       <DoLogin>
         <h1>Sign In</h1>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
