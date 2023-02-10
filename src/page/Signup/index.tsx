@@ -73,19 +73,25 @@ const NickName = styled.div`
 const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
-  width: 30rem;
+  width: 32rem;
   height: 2.5rem;
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
+  @media screen and (max-width: 600px) {
+    min-width: 37rem;
+  }
 `;
 const NickNameCheck = styled.button`
   border-radius: 20px;
-  width: 13rem;
+  width: 11rem;
   height: 54px;
   font-size: 2rem;
   margin-left: 10px;
   /* padding: 25px; */
+  @media screen and (max-width: 600px) {
+    min-width: 15rem;
+  }
 `;
 
 const Id = styled.div`
@@ -101,6 +107,9 @@ const IdInput = styled.input`
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
+  @media screen and (max-width: 600px) {
+    min-width: 54rem;
+  }
 `;
 
 const Password = styled.input`
@@ -112,6 +121,9 @@ const Password = styled.input`
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
+  @media screen and (max-width: 600px) {
+    min-width: 54rem;
+  }
 `;
 const PasswordCheck = styled.input`
   font-family: InriaSans;
@@ -122,22 +134,27 @@ const PasswordCheck = styled.input`
   padding: 25px;
   padding-left: 25px;
   font-size: 2rem;
+  @media screen and (max-width: 600px) {
+    min-width: 54rem;
+  }
 `;
 
 const SignUpButton = styled.button`
   font-family: InriaSans;
-  /* background: #7e84ff;
-  border: 1px solid #ffffff;
-  border-radius: 20px;
-  color: #fff;
+  /* background: #7e84ff; */
+  /* border: 1px solid #ffffff; */
+  /* border-radius: 20px; */
+  /* color: #fff; */
   width: 44rem;
-  height: 5.5rem;
-  font-size: 2.2rem; */
+  /* height: 5.5rem; */
+  font-size: 2.2rem;
   margin-top: 15rem;
   background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
-  min-width: 44rem;
   height: 50px;
   color: rgba(255, 255, 255, 1);
+  @media screen and (max-width: 600px) {
+    min-width: 54rem;
+  }
 `;
