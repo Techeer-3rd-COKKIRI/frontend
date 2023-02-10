@@ -126,11 +126,9 @@ const StudyMain = () => {
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
-            {[1, 2, 3, 4, 1, 2, 3, 2, 4, 3, 5, 33, 4, 1, 423, 4].map(
-              (user, i) => {
-                return <ProfilePicture key={i} people={i + 1} />;
-              },
-            )}
+            {[1, 2, 3].map((user, i) => {
+              return <ProfilePicture key={i} people={i + 1} />;
+            })}
           </Profiles>
           {profileScroll < profileMaxWidth ? (
             <ProfileDirection onClick={profileScrollRight}>
@@ -148,7 +146,7 @@ const StudyMain = () => {
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
-            {[1, 2, 3, 4].map((weekNumber, i) => {
+            {[1, 2, 3].map((weekNumber, i) => {
               return <WeekButton key={i} figure={i + 1} />;
             })}
           </WeekButtons>
