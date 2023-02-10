@@ -37,13 +37,16 @@ const SignUp = () => {
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <NickName>
             <NickNameInput
-              {...register('username', { required: true })}
+              {...register('nickname', { required: true })}
               placeholder={'닉네임을 입력해주세요'}
             ></NickNameInput>
             <NickNameCheck>중복확인</NickNameCheck>
           </NickName>
           <Id>
-            <IdInput placeholder="Id"></IdInput>
+            <IdInput
+              {...register('username', { required: true })}
+              placeholder="Id를 입력해주세요"
+            ></IdInput>
           </Id>
           <Password
             {...register('password', { required: true })}
@@ -54,8 +57,8 @@ const SignUp = () => {
             placeholder="Password Check"
             type="password"
           ></PasswordCheck>
+          <SignUpButton type="submit">Sign Up</SignUpButton>
         </Form>
-        <SignUpButton type="submit">Sign Up</SignUpButton>
       </RightBackground>
     </SignUpPage>
   );
@@ -89,7 +92,7 @@ const Title = styled.h1`
   margin-top: 100px;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   text-align: center;
   align-items: center;
   margin-top: 150px;
