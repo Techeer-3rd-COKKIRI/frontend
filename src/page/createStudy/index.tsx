@@ -245,8 +245,11 @@ const Inform = styled.div`
   background: #e9edf7;
   border: 3px solid #e9edf7;
   border-radius: 2rem;
-  @media screen and (min-width: 639px) {
+  @media screen and (max-width: 1800px) {
     padding-left: 125px;
+  }
+  @media screen and (max-width: 639px) {
+    padding-left: 75px;
   }
 `;
 
