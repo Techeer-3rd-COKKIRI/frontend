@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -10,7 +10,6 @@ import Account from '@/components/account';
 
 const LogIn = () => {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -55,7 +54,7 @@ const LogIn = () => {
   return (
     <LoginPage>
       <Logo onClick={() => navigate('/')}>
-        <img src={logo}></img>
+        <img src={logo} alt="누르면 메인으로 가는 로고"></img>
       </Logo>
       <Account></Account>
       <DoLogin>
