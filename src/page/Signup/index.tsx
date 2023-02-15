@@ -6,9 +6,11 @@ import Account from '@/components/account';
 import { useMutation } from '@tanstack/react-query';
 import { createUser, userInform } from '@/type/user';
 import { restFetcher } from '@/queryClient';
+import logo from '../../assets/image/logo.png';
 
 const SignUp = () => {
   const navigate = useNavigate();
+
   const { register, handleSubmit, watch } = useForm<createUser>();
   const { mutate } = useMutation((user: createUser) =>
     restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
@@ -25,12 +27,18 @@ const SignUp = () => {
     });
   };
 
+  const gotoMain = () => {
+    navigate('/');
+  };
   // 회원가입 성공 -> 로그인
   // 중복확인
   // 유효성검사
   // 비밀번호 같게입력했는지
   return (
     <SignUpPage>
+      <Logo onClick={gotoMain}>
+        <img src={logo} alt="클릭하면 메인페이지로 가는 로고"></img>
+      </Logo>
       <Account />
       <RightBackground>
         <Title>Create Account</Title>
@@ -68,34 +76,49 @@ export default SignUp;
 
 const SignUpPage = styled.div`
   display: flex;
-  min-width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
+const Logo = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  & > img {
+    width: 130px;
+    height: 50px;
+  }
+  @media screen and (max-width: 700px) {
+    & > img {
+      width: 100px;
+      height: 40px;
+    }
+  }
+`;
 const RightBackground = styled.div`
-  text-align: center;
-  align-items: center;
   font-family: InriaSans;
-  flex-grow: 1;
-  height: 100%;
-  background-color: white;
-  flex-shrink: 0;
-  flex-basis: 500px;
+  display: flex;
+  width: 45vw;
+  flex-direction: column;
   align-items: center;
-  @media screen and (max-width: 850px) {
-    max-width: 100vw;
+  overflow: scroll;
+  max-height: 100vh;
+  @media screen and (max-width: 1080px) {
+    width: 100vw;
   }
 `;
 
 const Title = styled.h1`
   font-size: 5.5rem;
-  margin-top: 100px;
+  margin: 100px 0;
+  margin-top: 150px;
+  @media screen and (max-width: 850px) {
+    margin: 100px 0;
+  }
 `;
 
 const Form = styled.form`
   text-align: center;
   align-items: center;
-  margin-top: 150px;
   display: flex;
   flex-direction: column;
   border-color: #293659;
@@ -182,7 +205,7 @@ const SignUpButton = styled.button`
   width: 44rem;
   /* height: 5.5rem; */
   font-size: 2.2rem;
-  margin-top: 15rem;
+  margin-top: 10rem;
   background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
