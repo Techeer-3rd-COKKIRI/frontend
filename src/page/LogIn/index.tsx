@@ -6,6 +6,7 @@ import logo from '../../assets/image/logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
 import { User, userInform } from '@/type/user';
+import Account from '@/components/account';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const LogIn = () => {
       <Logo onClick={() => navigate('/')}>
         <img src={logo}></img>
       </Logo>
-      <LoginIntroduce></LoginIntroduce>
+      <Account></Account>
       <DoLogin>
         <h1>Sign In</h1>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -95,7 +96,7 @@ export default LogIn;
 const LoginPage = styled.div`
   display: flex;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1080px) {
     justify-content: center;
   }
 `;
@@ -116,17 +117,17 @@ const Logo = styled.div`
   }
 `;
 
-const LoginIntroduce = styled.div`
-  width: 55vw;
-  height: 100vh;
-  background: #e9edf7;
-  flex-shrink: 1;
-  box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
+// export const LoginIntroduce = styled.div`
+//   width: 55vw;
+//   height: 100vh;
+//   background: #e9edf7;
+//   flex-shrink: 1;
+//   box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
 
-  @media screen and (max-width: 900px) {
-    display: none;
-  }
-`;
+//   @media screen and (max-width: 900px) {
+//     display: none;
+//   }
+// `;
 
 const DoLogin = styled.div`
   display: flex;
@@ -135,22 +136,25 @@ const DoLogin = styled.div`
   align-items: center;
   min-width: 350px;
   height: 100vh;
+  overflow: scroll;
+  max-height: 100vh;
 
   & > h1 {
     font-style: normal;
     font-weight: 400;
     font-size: 50px;
     line-height: 60px;
-    margin: 125px 0;
+    margin: 100px 0;
+    margin-top: 150px;
     color: #000000;
     text-align: center;
   }
 
   @media screen and (max-width: 850px) {
     max-width: 100vw;
-
     & > h1 {
       font-size: 40px;
+      margin: 100px 0;
     }
   }
 `;
