@@ -1,19 +1,60 @@
-import React from 'react';
+import { QueryKeys, restFetcher } from '@/queryClient';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Comment from '../comment';
 
-const CommentManagement = () => {
+const CommentManagement = ({ id, studyName, weekNumber }: any) => {
+  const { data: comments, refetch } = useQuery(
+    [QueryKeys.COMMENT, id, weekNumber],
+    () =>
+      restFetcher({
+        method: 'GET',
+        path: `/api/v1/comments/${id}`,
+        params: { studyWeek: weekNumber },
+      }),
+    {
+      select(data) {
+        return data.data;
+      },
+      staleTime: 0,
+      cacheTime: 0,
+    },
+  );
+  const { mutate } = useMutation((commentInform: any) =>
+    restFetcher({
+      method: 'POST',
+      path: '/api/v1/comments',
+      body: commentInform,
+    }),
+  );
+
+  const [chat, setChat] = useState('');
+  const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChat(e.target.value);
+  };
+
+  const sendComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const commentInform: any = {
+      content: chat,
+      studyId: id,
+      studyWeek: weekNumber,
+    };
+    console.log(commentInform);
+    mutate(commentInform, { onSuccess: (data) => refetch() });
+  };
+
   return (
     <CommentManagementPage>
       <InputBox>
-        <input placeholder="인증하기.."></input>
-        <button>게시</button>
+        <input onChange={chatWrite} placeholder="인증하기.."></input>
+        <button onClick={sendComment}>게시</button>
       </InputBox>
       <Comments>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments?.map((comment: any, index: number) => {
+          console.log(comment);
+          return <Comment key={index} commentInform={comment} />;
+        })}
       </Comments>
     </CommentManagementPage>
   );

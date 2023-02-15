@@ -12,6 +12,12 @@ const StudyMain = () => {
   console.log(state);
   console.log(useLocation());
 
+  const [weekNumber, setWeekNumber] = useState<number>(1);
+
+  const changeWeekNumber = (week: number) => {
+    setWeekNumber(week);
+  };
+
   //profiles 스크롤 변수 저장
   const profilesRef = React.createRef<HTMLDivElement>();
   const [profileScroll, setProfileScroll] = useState(0);
@@ -157,7 +163,7 @@ const StudyMain = () => {
           ) : null}
         </WeekBox>
         {/* 댓글 달수있는 컴포넌트*/}
-        <CommentManagement />
+        <CommentManagement {...state} weekNumber={weekNumber} />
       </StudyRoom>
     </StudyMainPage>
   );
