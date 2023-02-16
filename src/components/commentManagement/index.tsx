@@ -1,8 +1,15 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Comment, { CommentComponent } from '../comment';
+import Comment, {
+  CommentComponent,
+  CommentInform,
+  DownIcon,
+  UpIcon,
+  UserImage,
+  UserName,
+} from '../comment';
 
 const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   const { data: comments, refetch } = useQuery(
@@ -30,8 +37,13 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   );
 
   const [chat, setChat] = useState('');
-  const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChat(e.target.value);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const chatWrite = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    setChat(e.currentTarget.value);
+    if (e.code == 'Enter') {
+      setChat('');
+      if (inputRef.current) inputRef.current.value = '';
+    }
   };
 
   const sendComment = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +59,11 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   return (
     <CommentManagementPage>
       <InputBox>
-        <input onChange={chatWrite} placeholder="인증하기.."></input>
+        <input
+          ref={inputRef}
+          onKeyDown={chatWrite}
+          placeholder="인증하기.."
+        ></input>
       </InputBox>
       <Comments>
         <CommentComponent>
@@ -101,50 +117,3 @@ const InputBox = styled.div`
     min-width: 100%;
   }
 `;
-
-const PreBox = styled.div`
-  display: flex;
-`;
-
-const UserImage = styled.div`
-  width: 7rem;
-  height: 7rem;
-  background: #d9d9d9;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-right: 1.2rem;
-`;
-
-const CommentInform = styled.div``;
-
-const UserName = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 2.5rem;
-  margin: 0.5rem 0;
-  & > div {
-    display: flex;
-  }
-
-  & > div > span {
-    display: flex;
-    align-items: center;
-    margin: 0.2rem;
-  }
-
-  & > div > span:nth-child(1) {
-    margin-right: 3rem;
-  }
-`;
-
-const UpIcon = styled.div`
-  &:hover {
-    transform: scale(1.25);
-  }
-  margin: 0 0.5rem;
-`;
-
-const DownIcon = styled(UpIcon)``;
