@@ -48,7 +48,6 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
     <CommentManagementPage>
       <InputBox>
         <input onChange={chatWrite} placeholder="인증하기.."></input>
-        <button onClick={sendComment}>게시</button>
       </InputBox>
       <Comments>
         <CommentComponent>
@@ -100,17 +99,6 @@ const InputBox = styled.div`
     padding-left: 3rem;
     margin: 1.3rem 0;
     min-width: 100%;
-  }
-
-  & button {
-    min-width: 12rem;
-    height: 5rem;
-    position: relative;
-    background: #e2e2e2;
-    border-radius: 30px;
-    border: none;
-    left: -13rem;
-    top: 2.2rem;
   }
 `;
 
