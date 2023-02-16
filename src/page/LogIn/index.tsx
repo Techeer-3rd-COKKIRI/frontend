@@ -43,10 +43,6 @@ const LogIn = () => {
           alert('로그인에 실패하셨습니다 !');
         }
       },
-      onError: (data) => {
-        console.log(data);
-        console.log('로그인에 실패하셨습니다 !');
-      },
     });
   };
   //로그인버튼을 누르면 mutate trigger
@@ -69,17 +65,17 @@ const LogIn = () => {
             type="password"
             placeholder={'비밀번호를 입력해주세요'}
           />
-          {/* {errors.id ? (
-          <Error style={{ height: '10px' }}>{errors.id.message}</Error>
-        ) : (
-          <Error style={{ height: '10px' }}></Error>
-        )}
-        {errors.password ? (
-          <Error style={{ height: '10px' }}>{errors.password.message}</Error>
-        ) : (
-          <Error style={{ height: '10px' }}></Error>
-        )} */}
-          <Error />
+          {/* {errors.username ? (
+            <Error style={{ height: '10px' }}>{errors.username.message}</Error>
+          ) : (
+            <Error style={{ height: '10px' }}></Error>
+          )}
+          {errors.password ? (
+            <Error style={{ height: '10px' }}>{errors.password.message}</Error>
+          ) : (
+            <Error style={{ height: '10px' }}></Error>
+          )} */}
+          <UserError />
           <Buttons>
             <button type="submit">Sign In</button>
             <button onClick={() => navigate('/signup')}>Create Account</button>
@@ -181,8 +177,16 @@ const UserInput = styled.input`
   }
 `;
 
-const Error = styled.div`
-  height: 100px;
+export const UserError = styled.div`
+  height: 20px;
+  color: red;
+  font-size: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding-left: 1rem;
+  margin-left: 2rem;
+  align-items: center;
 `;
 
 const Buttons = styled.div`

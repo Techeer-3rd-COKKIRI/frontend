@@ -7,16 +7,27 @@ import { useMutation } from '@tanstack/react-query';
 import { createUser, userInform } from '@/type/user';
 import { restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
+import { UserError } from '../LogIn';
+
+interface SignUser extends createUser {
+  password_re: string;
+}
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { register, handleSubmit, watch } = useForm<createUser>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm<SignUser>();
   const { mutate } = useMutation((user: createUser) =>
     restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
   );
-  const onSubmitHandler: SubmitHandler<createUser> = async (values, e) => {
-    const { nickname, username, password } = values;
+  const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
+    const { nickname, username, password, password_re } = values;
     const user = { nickname, username, password };
     mutate(user, {
       onSuccess: (data) => {
@@ -45,26 +56,90 @@ const SignUp = () => {
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <NickName>
             <NickNameInput
-              {...register('nickname', { required: true })}
-              placeholder={'닉네임을 입력해주세요'}
+              {...register('nickname', {
+                required: '닉네임을 입력해주세요!',
+                minLength: {
+                  value: 2,
+                  message: '최소 2자 이상의 닉네임을 입력해주세요!',
+                },
+                maxLength: {
+                  value: 8,
+                  message: '8자 이하의 닉네임을 입력해주세요!',
+                },
+              })}
+              placeholder="닉네임을 입력해주세요!"
             ></NickNameInput>
             <NickNameCheck>중복확인</NickNameCheck>
           </NickName>
+          {errors.nickname ? (
+            <UserError>{errors.nickname.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <Id>
             <IdInput
-              {...register('username', { required: true })}
-              placeholder="Id를 입력해주세요"
+              {...register('username', {
+                required: '아이디를 입력해주세요!',
+                minLength: {
+                  value: 5,
+                  message: '최소 5자 이상의 아이디를 입력해주세요!',
+                },
+                maxLength: {
+                  value: 20,
+                  message: '20자 이하의 아이디를 입력해주세요!',
+                },
+                pattern: {
+                  value: /^[A-Za-z0-9]+$/,
+                  message: '영문,숫자를 혼용하여 입력주세요!',
+                },
+              })}
+              placeholder="아이디를 입력해주세요"
             ></IdInput>
           </Id>
+          {errors.username ? (
+            <UserError>{errors.username.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <Password
-            {...register('password', { required: true })}
+            {...register('password', {
+              required: '비밀번호를 입력해주세요 !',
+              minLength: {
+                value: 8,
+                message: '최소 8자 이상의 비밀번호를 입력해주세요!',
+              },
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-zA-ZS]).{8,}/,
+                message: '영문,숫자를 혼용하여 입력주세요!',
+              },
+            })}
             placeholder={'비밀번호를 입력해주세요'}
             type="password"
           ></Password>
+          {errors.password ? (
+            <UserError>{errors.password.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <PasswordCheck
-            placeholder="Password Check"
+            id="password_re"
             type="password"
-          ></PasswordCheck>
+            placeholder="비밀번호를 입력하세요"
+            {...register('password_re', {
+              required: '비밀번호를 입력해주세요!',
+              validate: {
+                matchesPreviousPassword: (value) => {
+                  const { password } = getValues();
+                  return password === value || '비밀번호가 일치하지않습니다!';
+                },
+              },
+            })}
+          />
+          {errors.password_re ? (
+            <UserError>{errors.password_re.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <SignUpButton type="submit">Sign Up</SignUpButton>
         </Form>
       </RightBackground>
@@ -152,7 +227,6 @@ const NickNameCheck = styled.button`
 `;
 
 const Id = styled.div`
-  margin-top: 10px;
   display: flex;
 `;
 
@@ -171,7 +245,6 @@ const IdInput = styled.input`
 
 const Password = styled.input`
   font-family: InriaSans;
-  margin-top: 10px;
   border-radius: 20px;
   width: 44rem;
   height: 2.5rem;
@@ -184,7 +257,6 @@ const Password = styled.input`
 `;
 const PasswordCheck = styled.input`
   font-family: InriaSans;
-  margin-top: 10px;
   border-radius: 20px;
   width: 44rem;
   height: 2.5rem;
@@ -205,7 +277,7 @@ const SignUpButton = styled.button`
   width: 44rem;
   /* height: 5.5rem; */
   font-size: 2.2rem;
-  margin-top: 10rem;
+  margin-top: 8rem;
   background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
