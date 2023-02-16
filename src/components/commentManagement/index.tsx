@@ -1,8 +1,15 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Comment from '../comment';
+import Comment, {
+  CommentComponent,
+  CommentInform,
+  DownIcon,
+  UpIcon,
+  UserImage,
+  UserName,
+} from '../comment';
 
 const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   const { data: comments, refetch } = useQuery(
@@ -30,8 +37,13 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   );
 
   const [chat, setChat] = useState('');
-  const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChat(e.target.value);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const chatWrite = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    setChat(e.currentTarget.value);
+    if (e.code == 'Enter') {
+      setChat('');
+      if (inputRef.current) inputRef.current.value = '';
+    }
   };
 
   const sendComment = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,10 +59,31 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
   return (
     <CommentManagementPage>
       <InputBox>
-        <input onChange={chatWrite} placeholder="인증하기.."></input>
-        <button onClick={sendComment}>게시</button>
+        <input
+          ref={inputRef}
+          onKeyDown={chatWrite}
+          placeholder="인증하기.."
+        ></input>
       </InputBox>
       <Comments>
+        <CommentComponent>
+          <UserImage></UserImage>
+          <div>
+            <UserName>
+              <h1>관리자</h1>
+              <div>
+                <span>작성 일자 : 22.11.19 22:45</span>
+                <span>
+                  <UpIcon>👍</UpIcon>1
+                </span>
+                <span>
+                  <DownIcon>👎</DownIcon>0
+                </span>
+              </div>
+            </UserName>
+            <CommentInform>안녕하세요</CommentInform>
+          </div>
+        </CommentComponent>
         {comments?.map((comment: any, index: number) => {
           console.log(comment);
           return <Comment key={index} commentInform={comment} />;
@@ -82,16 +115,5 @@ const InputBox = styled.div`
     padding-left: 3rem;
     margin: 1.3rem 0;
     min-width: 100%;
-  }
-
-  & button {
-    min-width: 12rem;
-    height: 5rem;
-    position: relative;
-    background: #e2e2e2;
-    border-radius: 30px;
-    border: none;
-    left: -13rem;
-    top: 2.2rem;
   }
 `;
