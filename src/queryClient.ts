@@ -22,7 +22,7 @@ export const getClient = (() => {
   };
 })();
 
-const BASE_URL = 'http://localhost';
+const BASE_URL = 'http://localhost:8080';
 
 export const restFetcher = async ({
   method,
@@ -43,6 +43,7 @@ export const restFetcher = async ({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': BASE_URL,
       },
+      withCredentials: true,
     };
     if (params) {
       const searchParams = new URLSearchParams(params);
