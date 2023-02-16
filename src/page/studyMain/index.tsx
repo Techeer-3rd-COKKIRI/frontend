@@ -152,8 +152,12 @@ const StudyMain = () => {
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
-            {[1, 2, 3].map((weekNumber, i) => {
-              return <WeekButton key={i} figure={i + 1} />;
+            {[1, 2, 3].map((_, i) => {
+              return (
+                <div onClick={() => changeWeekNumber(i + 1)}>
+                  <WeekButton weekNumber={weekNumber} figure={i + 1} />;
+                </div>
+              );
             })}
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (

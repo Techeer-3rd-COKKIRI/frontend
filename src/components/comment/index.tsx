@@ -5,7 +5,6 @@ const Comment = ({ commentInform }: any) => {
   console.log(commentInform);
   return (
     <CommentComponent>
-      <div></div>
       <div>
         <h1>{commentInform.userCommentInfo.userName}</h1>
         <div>{commentInform.content}</div>
@@ -16,7 +15,7 @@ const Comment = ({ commentInform }: any) => {
 
 export default Comment;
 
-const CommentComponent = styled.div`
+export const CommentComponent = styled.div`
   display: flex;
   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.25));
   box-sizing: border-box;
@@ -36,7 +35,7 @@ const CommentComponent = styled.div`
   margin-bottom: 2.2rem;
   border: none;
 
-  & div:nth-child(1) {
+  & > div:nth-child(1) {
     width: 7rem;
     height: 7rem;
     background: #d9d9d9;
@@ -48,18 +47,22 @@ const CommentComponent = styled.div`
     margin-right: 1.2rem;
   }
 
-  & div:nth-child(2) {
+  & > div:nth-child(2) {
     width: 85%;
     & h1 {
       font-weight: 700;
       font-size: 1.7rem;
       line-height: 2rem;
-      margin: 1rem 0;
+      margin: 0.3rem 0;
     }
 
     & div {
       font-size: 1.5rem;
       line-height: 2rem;
+    }
+    & span {
+      font-size: 1.5rem;
+      cursor: pointer;
     }
   }
 `;
