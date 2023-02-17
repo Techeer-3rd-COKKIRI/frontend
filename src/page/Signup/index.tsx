@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createUser, userInform } from '@/type/user';
-import { restFetcher } from '@/queryClient';
+import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
 import { UserError } from '../LogIn';
+import { UserName } from '@/components/comment';
 
 interface SignUser extends createUser {
   password_re: string;
@@ -15,7 +16,7 @@ interface SignUser extends createUser {
 
 const SignUp = () => {
   const navigate = useNavigate();
-
+  const [duplication, setDuplication] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,15 +28,48 @@ const SignUp = () => {
     restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
   );
   const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
-    const { nickname, username, password, password_re } = values;
+    const { nickname, username, password } = values;
     const user = { nickname, username, password };
-    mutate(user, {
+    if (duplication) {
+      mutate(user, {
+        onSuccess: (data) => {
+          console.log(data);
+          alert('회원가입에 성공하셨습니다 ! ');
+          navigate('/login');
+        },
+        onError: (data) => {
+          console.log('실패');
+          console.log(data);
+        },
+      });
+    } else {
+      alert('중복확인 버튼을 먼저 눌러주세요 !');
+    }
+  };
+
+  const { data, refetch } = useQuery(
+    [QueryKeys.DUPLICATION],
+    () =>
+      restFetcher({
+        method: 'GET',
+        path: `/api/v1/users/duplicated/${getValues().username}`,
+      }),
+    {
+      enabled: false, //기본동작 비활성화
       onSuccess: (data) => {
-        console.log(data);
-        alert('회원가입에 성공하셨습니다 ! ');
-        navigate('/login');
+        if (!data.data) {
+          alert('사용할 수 있는 username입니다 !');
+          setDuplication(true);
+        } else {
+          alert('username이 중복되었습니다 !');
+          setDuplication(false);
+        }
       },
-    });
+    },
+  );
+
+  const duplicationCheck = () => {
+    refetch();
   };
 
   const gotoMain = () => {
@@ -54,28 +88,6 @@ const SignUp = () => {
       <RightBackground>
         <Title>Create Account</Title>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
-          <NickName>
-            <NickNameInput
-              {...register('nickname', {
-                required: '닉네임을 입력해주세요!',
-                minLength: {
-                  value: 2,
-                  message: '최소 2자 이상의 닉네임을 입력해주세요!',
-                },
-                maxLength: {
-                  value: 8,
-                  message: '8자 이하의 닉네임을 입력해주세요!',
-                },
-              })}
-              placeholder="닉네임을 입력해주세요!"
-            ></NickNameInput>
-            <NickNameCheck>중복확인</NickNameCheck>
-          </NickName>
-          {errors.nickname ? (
-            <UserError>{errors.nickname.message}</UserError>
-          ) : (
-            <UserError />
-          )}
           <Id>
             <IdInput
               {...register('username', {
@@ -95,9 +107,34 @@ const SignUp = () => {
               })}
               placeholder="아이디를 입력해주세요"
             ></IdInput>
+            <UserNameCheck type="button" onClick={duplicationCheck}>
+              중복확인
+            </UserNameCheck>
           </Id>
+
           {errors.username ? (
             <UserError>{errors.username.message}</UserError>
+          ) : (
+            <UserError />
+          )}
+          <NickName>
+            <NickNameInput
+              {...register('nickname', {
+                required: '닉네임을 입력해주세요!',
+                minLength: {
+                  value: 2,
+                  message: '최소 2자 이상의 닉네임을 입력해주세요!',
+                },
+                maxLength: {
+                  value: 8,
+                  message: '8자 이하의 닉네임을 입력해주세요!',
+                },
+              })}
+              placeholder="닉네임을 입력해주세요!"
+            ></NickNameInput>
+          </NickName>
+          {errors.nickname ? (
+            <UserError>{errors.nickname.message}</UserError>
           ) : (
             <UserError />
           )}
@@ -109,8 +146,10 @@ const SignUp = () => {
                 message: '최소 8자 이상의 비밀번호를 입력해주세요!',
               },
               pattern: {
-                value: /^(?=.*\d)(?=.*[a-zA-ZS]).{8,}/,
-                message: '영문,숫자를 혼용하여 입력주세요!',
+                value: /^/,
+                // /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!~$%^&-+=()])(?=S+$).{8,16}$/,
+                message:
+                  '대소문자와 숫자, 특수문자를 포함한 8자 이상 16자 이하의 비밀번호를 입력해주세요!.',
               },
             })}
             placeholder={'비밀번호를 입력해주세요'}
@@ -152,8 +191,12 @@ export default SignUp;
 const SignUpPage = styled.div`
   display: flex;
   min-height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
-
 const Logo = styled.div`
   position: absolute;
   top: 1.5rem;
@@ -198,11 +241,11 @@ const Form = styled.form`
   flex-direction: column;
   border-color: #293659;
 `;
-const NickName = styled.div`
+const Id = styled.div`
   margin: 5px;
   display: flex;
 `;
-const NickNameInput = styled.input`
+const IdInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
   width: 32rem;
@@ -214,7 +257,7 @@ const NickNameInput = styled.input`
     min-width: 37rem;
   }
 `;
-const NickNameCheck = styled.button`
+const UserNameCheck = styled.button`
   border-radius: 20px;
   width: 11rem;
   height: 54px;
@@ -226,11 +269,11 @@ const NickNameCheck = styled.button`
   }
 `;
 
-const Id = styled.div`
+const NickName = styled.div`
   display: flex;
 `;
 
-const IdInput = styled.input`
+const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
   width: 44rem;
