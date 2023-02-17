@@ -55,7 +55,7 @@ const MainPage = () => {
     // const target = e.currentTarget; // 해결방법 (2)
     // let page = [];
 
-    setPage(Number(target.innerText)); //3 ,4
+    setPage(Number(target.innerText) - 1); //3 ,4
   };
 
   useEffect(() => {

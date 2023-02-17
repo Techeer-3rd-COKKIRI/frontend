@@ -1,6 +1,6 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Comment, {
   CommentComponent,

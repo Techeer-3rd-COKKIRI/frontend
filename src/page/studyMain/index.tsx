@@ -128,7 +128,7 @@ const StudyMain = () => {
         <ProfileBox>
           {profileScroll != 0 ? (
             <ProfileDirection onClick={profileScrollLeft}>
-              <img src={leftIcon} />
+              <img alt="프로필을 왼쪽으로 이동하는" src={leftIcon} />
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
@@ -138,7 +138,7 @@ const StudyMain = () => {
           </Profiles>
           {profileScroll < profileMaxWidth ? (
             <ProfileDirection onClick={profileScrollRight}>
-              <img src={rightIcon} />
+              <img alt="프로필을 오른쪽으로 이동하는" src={rightIcon} />
             </ProfileDirection>
           ) : null}
         </ProfileBox>
@@ -148,7 +148,7 @@ const StudyMain = () => {
         <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
-              <img src={leftIcon} />
+              <img alt="주차리스트를 왼쪽으로 이동하는" src={leftIcon} />
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
@@ -162,7 +162,7 @@ const StudyMain = () => {
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
             <WeekDirection onClick={weekScrollRight}>
-              <img src={rightIcon} />
+              <img alt="주차리스트를 오른쪽으로 이동하는" src={rightIcon} />
             </WeekDirection>
           ) : null}
         </WeekBox>
