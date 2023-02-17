@@ -6,7 +6,8 @@ import WeekButton from '@/components/weekButton';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-
+import leftIcon from '../../assets/image/leftProfile.png';
+import rightIcon from '../../assets/image/rightProfile.png';
 const StudyMain = () => {
   const { state } = useLocation();
   console.log(state);
@@ -121,14 +122,13 @@ const StudyMain = () => {
   return (
     <StudyMainPage>
       <Nav />
-
       <StudyRoom>
         <Title>Study Main</Title>
         {/* 유저별 프로필*/}
         <ProfileBox>
           {profileScroll != 0 ? (
             <ProfileDirection onClick={profileScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+              <img src={leftIcon} />
             </ProfileDirection>
           ) : null}
           <Profiles ref={profilesRef}>
@@ -138,7 +138,7 @@ const StudyMain = () => {
           </Profiles>
           {profileScroll < profileMaxWidth ? (
             <ProfileDirection onClick={profileScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+              <img src={rightIcon} />
             </ProfileDirection>
           ) : null}
         </ProfileBox>
@@ -148,7 +148,7 @@ const StudyMain = () => {
         <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+              <img src={leftIcon} />
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
@@ -162,7 +162,7 @@ const StudyMain = () => {
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
             <WeekDirection onClick={weekScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+              <img src={rightIcon} />
             </WeekDirection>
           ) : null}
         </WeekBox>
