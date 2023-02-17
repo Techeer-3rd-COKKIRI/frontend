@@ -1,7 +1,16 @@
+import { studyListType } from '@/type/studyList';
 import React from 'react';
 import styled from 'styled-components';
 
-const StudyIntroduce = ({ id, studyName }: any) => {
+const StudyIntroduce = ({
+  id,
+  studyName,
+  currentUserCount,
+  startDate,
+  finishDate,
+  introduction,
+  userLimit,
+}: studyListType) => {
   return (
     <StudyIntroducePage>
       <Title>{studyName}</Title>

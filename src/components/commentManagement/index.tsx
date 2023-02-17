@@ -1,4 +1,5 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
+import { studyListType } from '@/type/studyList';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -11,7 +12,26 @@ import Comment, {
   UserName,
 } from '../comment';
 
-const CommentManagement = ({ id, studyName, weekNumber }: any) => {
+interface commentProps extends studyListType {
+  weekNumber: number;
+}
+
+interface sendChatType {
+  content: string;
+  studyId: number;
+  studyWeek: number;
+}
+
+const CommentManagement = ({
+  id,
+  studyName,
+  currentUserCount,
+  startDate,
+  finishDate,
+  introduction,
+  userLimit,
+  weekNumber,
+}: commentProps) => {
   const { data: comments, refetch } = useQuery(
     [QueryKeys.COMMENT, id, weekNumber],
     () =>
@@ -28,7 +48,7 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       cacheTime: 0,
     },
   );
-  const { mutate } = useMutation((commentInform: any) =>
+  const { mutate } = useMutation((commentInform: sendChatType) =>
     restFetcher({
       method: 'POST',
       path: '/api/v1/comments',
@@ -38,22 +58,25 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
 
   const [chat, setChat] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatWrite = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const chatWrite = async (e: any) => {
     setChat(e.currentTarget.value);
+  };
+
+  const handleChat = (e: any) => {
     if (e.code == 'Enter') {
+      sendComment();
       setChat('');
       if (inputRef.current) inputRef.current.value = '';
     }
   };
 
-  const sendComment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const commentInform: any = {
+  const sendComment = () => {
+    const commentInform: sendChatType = {
       content: chat,
       studyId: id,
       studyWeek: weekNumber,
     };
-    console.log(commentInform);
-    mutate(commentInform, { onSuccess: (data) => refetch() });
+    return mutate(commentInform, { onSuccess: (data) => refetch() });
   };
 
   return (
@@ -61,7 +84,8 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       <InputBox>
         <input
           ref={inputRef}
-          onKeyDown={chatWrite}
+          onChange={chatWrite}
+          onKeyDown={handleChat}
           placeholder="인증하기.."
         ></input>
       </InputBox>
@@ -85,7 +109,6 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
           </div>
         </CommentComponent>
         {comments?.map((comment: any, index: number) => {
-          console.log(comment);
           return <Comment key={index} commentInform={comment} />;
         })}
       </Comments>

@@ -6,6 +6,7 @@ import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, restFetcher } from '@/queryClient';
+import { studyListType } from '@/type/studyList';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -58,19 +59,19 @@ const MainPage = () => {
     setPage(Number(target.innerText) - 1); //3 ,4
   };
 
-  // useEffect(() => {
-  //   console.log(data);
-  //   let pageNumber = data?.length / 20;
-  //   let remainNumber = data?.length % 20;
-  //   let arr: number[] = [];
-  //   for (let i = 0; i <= pageNumber; i++) {
-  //     arr.push(0);
-  //   }
-  //   if (remainNumber >= 1) {
-  //     arr.push(0);
-  //   }
-  //   setPageLenth(() => arr);
-  // }, []);
+  useEffect(() => {
+    console.log(data);
+    // let pageNumber = data?.length / 20;
+    // let remainNumber = data?.length % 20;
+    // let arr: number[] = [];
+    // for (let i = 0; i <= pageNumber; i++) {
+    //   arr.push(0);
+    // }
+    // if (remainNumber >= 1) {
+    //   arr.push(0);
+    // }
+    // setPageLenth(() => arr);
+  }, []);
 
   return (
     <StudyMain>
@@ -98,7 +99,7 @@ const MainPage = () => {
           </SearchBox>
 
           <GridStudyList>
-            {data?.map((item: any) => {
+            {data?.map((item: studyListType) => {
               return (
                 <StudyListComponent
                   key={item.id}

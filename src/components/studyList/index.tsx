@@ -1,3 +1,4 @@
+import { studyListType } from '@/type/studyList';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -5,10 +6,26 @@ import bear from '../../assets/image/bear.png';
 import bear2 from '../../assets/image/bear2.png';
 import bear3 from '../../assets/image/bear3.png';
 import bear4 from '../../assets/image/bear4.png';
-const StudyListComponent = ({ id, studyName }: any) => {
+const StudyListComponent = ({
+  id,
+  studyName,
+  currentUserCount,
+  startDate,
+  finishDate,
+  introduction,
+  userLimit,
+}: studyListType) => {
   const navigator = useNavigate();
   const goStudyMain = () => {
-    const roomData = { id, studyName };
+    const roomData = {
+      id,
+      studyName,
+      currentUserCount,
+      startDate,
+      finishDate,
+      introduction,
+      userLimit,
+    };
     navigator(`/studyMain/${id}`, { state: roomData }); // studyMain에 roomData를 보냄
   };
   return (
@@ -17,17 +34,27 @@ const StudyListComponent = ({ id, studyName }: any) => {
       <StudyText>
         <StudyInfo>
           <StudyTitle>{studyName}</StudyTitle>
-          <StudyIntro>스터디 소개</StudyIntro>
+          <StudyIntro>{introduction}</StudyIntro>
         </StudyInfo>
 
         <Bottom>
           <Period>
             <Studyperiod>모집기간</Studyperiod>
-            <DayCount>D-day</DayCount>
+            <DayCount>
+              {startDate.map((day) => (
+                <span>{day}-</span>
+              ))}
+              {finishDate.map((day, index) => {
+                if (finishDate.length - 1 == index) return <span>{day}</span>;
+                return <span>{day}-</span>;
+              })}
+            </DayCount>
           </Period>
           <People>
             <StudyPeople>모집인원</StudyPeople>
-            <PeopleCount>1/n</PeopleCount>
+            <PeopleCount>
+              {currentUserCount}/{userLimit}
+            </PeopleCount>
           </People>
         </Bottom>
       </StudyText>
@@ -107,6 +134,9 @@ const Bottom = styled.div`
   margin-right: 0.7rem;
 `;
 const Period = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   font-style: normal;
   font-weight: 400;
   font-size: 2rem;
@@ -115,7 +145,6 @@ const Period = styled.div`
   color: #8b8b8b;
   position: absolute;
   bottom: 1rem;
-  left: 1rem;
   @media screen and (max-width: 500px) {
     transform: scale(0.6);
     left: 0;
@@ -123,9 +152,7 @@ const Period = styled.div`
   }
 `;
 const Studyperiod = styled.a``;
-const DayCount = styled.a`
-  margin-left: 5px;
-`;
+const DayCount = styled.a``;
 const People = styled.div`
   font-style: normal;
   font-weight: 400;

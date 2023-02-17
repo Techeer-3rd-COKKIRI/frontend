@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Comment = ({ commentInform }: any) => {
-  console.log(commentInform);
   return (
     <CommentComponent>
       <UserImage></UserImage>

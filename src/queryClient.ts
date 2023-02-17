@@ -60,6 +60,7 @@ export const restFetcher = async ({
 
 export const QueryKeys = {
   STUDYROOM: 'STUDYROOM',
+  PAGE: 'PAGE',
   COMMENT: 'COOMENT',
   DUPLICATION: 'DUPLICATION',
 };
