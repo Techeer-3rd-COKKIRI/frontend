@@ -5,7 +5,7 @@ import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
-import { restFetcher } from '@/queryClient';
+import { QueryKeys, restFetcher } from '@/queryClient';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -14,10 +14,10 @@ const MainPage = () => {
   //   })();
   // }, []);
   const [page, setPage] = useState<number>(0);
-  const [pageLength, setPageLenth] = useState<number[]>([0]);
+  const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
 
   const { isLoading, isError, error, data } = useQuery(
-    ['page', page],
+    [QueryKeys.PAGE, page],
     async () =>
       await restFetcher({
         method: 'GET',
@@ -58,18 +58,19 @@ const MainPage = () => {
     setPage(Number(target.innerText) - 1); //3 ,4
   };
 
-  useEffect(() => {
-    console.log(data);
-    // let pageNumber = data.length / 20;
-    // if (!Number.isInteger(pageNumber)) {
-    //   pageNumber += 1;
-    // }
-    // let arr = [];
-    // for (let i = 0; i <= pageNumber; i++) {
-    //   arr.push(0);
-    // }
-    // setPageLenth(arr);
-  }, [page]);
+  // useEffect(() => {
+  //   console.log(data);
+  //   let pageNumber = data?.length / 20;
+  //   let remainNumber = data?.length % 20;
+  //   let arr: number[] = [];
+  //   for (let i = 0; i <= pageNumber; i++) {
+  //     arr.push(0);
+  //   }
+  //   if (remainNumber >= 1) {
+  //     arr.push(0);
+  //   }
+  //   setPageLenth(() => arr);
+  // }, []);
 
   return (
     <StudyMain>
@@ -89,7 +90,7 @@ const MainPage = () => {
         <AllStudyList>
           {/* 커스텀 훅 써보기  */}
           <SearchBox>
-            <img src={search} />
+            <img alt="검색" src={search} />
             <StudySearch
               onKeyDown={onKeyDown}
               onChange={changeInput}
@@ -110,7 +111,10 @@ const MainPage = () => {
             {pageLength.map((_, index) => {
               return (
                 <div
-                  style={{ backgroundColor: page == index ? 'gray' : '' }}
+                  style={{
+                    backgroundColor: page == index ? 'gray' : '',
+                    color: page == index ? 'white' : '',
+                  }}
                   key={index}
                   onClick={pageHandler}
                 >
@@ -223,6 +227,7 @@ const Paging = styled.div`
     margin-right: 10px;
     font-weight: 700;
     font-size: 1.5rem;
+    color: black;
   }
 `;
 export default MainPage;
