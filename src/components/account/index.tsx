@@ -1,13 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../../assets/image/logo.png';
+
 import mainElephant from '../../assets/image/mainElephant.png';
 const Account = () => {
-  const navigater = useNavigate();
-  const gotoMain = () => {
-    navigater('/');
-  };
   return (
     <LeftBackground>
       <LeftIntroduce>
@@ -41,17 +37,6 @@ const LeftIntroduce = styled.div`
   align-items: flex-end;
   height: 100%;
   padding-bottom: 5rem;
-`;
-
-const Logo = styled.div`
-  position: absolute;
-  top: 1.5rem;
-  left: 2.5rem;
-  cursor: pointer;
-  & img {
-    width: 130px;
-    height: 50px;
-  }
 `;
 
 const Logo2 = styled.div`

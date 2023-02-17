@@ -1,30 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createUser, userInform } from '@/type/user';
-import { restFetcher } from '@/queryClient';
+import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
+import { UserError } from '../LogIn';
+import { UserName } from '@/components/comment';
+
+interface SignUser extends createUser {
+  password_re: string;
+}
 
 const SignUp = () => {
   const navigate = useNavigate();
-
-  const { register, handleSubmit, watch } = useForm<createUser>();
+  const [duplication, setDuplication] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm<SignUser>();
   const { mutate } = useMutation((user: createUser) =>
     restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
   );
-  const onSubmitHandler: SubmitHandler<createUser> = async (values, e) => {
+  const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
     const { nickname, username, password } = values;
     const user = { nickname, username, password };
-    mutate(user, {
+    if (duplication) {
+      mutate(user, {
+        onSuccess: (data) => {
+          console.log(data);
+          alert('회원가입에 성공하셨습니다 ! ');
+          navigate('/login');
+        },
+        onError: (data) => {
+          console.log('실패');
+          console.log(data);
+        },
+      });
+    } else {
+      alert('중복확인 버튼을 먼저 눌러주세요 !');
+    }
+  };
+
+  const { data, refetch } = useQuery(
+    [QueryKeys.DUPLICATION],
+    () =>
+      restFetcher({
+        method: 'GET',
+        path: `/api/v1/users/duplicated/${getValues().username}`,
+      }),
+    {
+      enabled: false, //기본동작 비활성화
       onSuccess: (data) => {
-        console.log(data);
-        alert('회원가입에 성공하셨습니다 ! ');
-        navigate('/login');
+        if (!data.data) {
+          alert('사용할 수 있는 username입니다 !');
+          setDuplication(true);
+        } else {
+          alert('username이 중복되었습니다 !');
+          setDuplication(false);
+        }
       },
-    });
+    },
+  );
+
+  const duplicationCheck = () => {
+    refetch();
   };
 
   const gotoMain = () => {
@@ -43,28 +88,97 @@ const SignUp = () => {
       <RightBackground>
         <Title>Create Account</Title>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
-          <NickName>
-            <NickNameInput
-              {...register('nickname', { required: true })}
-              placeholder={'닉네임을 입력해주세요'}
-            ></NickNameInput>
-            <NickNameCheck>중복확인</NickNameCheck>
-          </NickName>
           <Id>
             <IdInput
-              {...register('username', { required: true })}
-              placeholder="Id를 입력해주세요"
+              {...register('username', {
+                required: '아이디를 입력해주세요!',
+                minLength: {
+                  value: 5,
+                  message: '최소 5자 이상의 아이디를 입력해주세요!',
+                },
+                maxLength: {
+                  value: 20,
+                  message: '20자 이하의 아이디를 입력해주세요!',
+                },
+                pattern: {
+                  value: /^[A-Za-z0-9]+$/,
+                  message: '영문,숫자를 혼용하여 입력주세요!',
+                },
+              })}
+              placeholder="아이디를 입력해주세요"
             ></IdInput>
+            <UserNameCheck type="button" onClick={duplicationCheck}>
+              중복확인
+            </UserNameCheck>
           </Id>
+
+          {errors.username ? (
+            <UserError>{errors.username.message}</UserError>
+          ) : (
+            <UserError />
+          )}
+          <NickName>
+            <NickNameInput
+              {...register('nickname', {
+                required: '닉네임을 입력해주세요!',
+                minLength: {
+                  value: 2,
+                  message: '최소 2자 이상의 닉네임을 입력해주세요!',
+                },
+                maxLength: {
+                  value: 8,
+                  message: '8자 이하의 닉네임을 입력해주세요!',
+                },
+              })}
+              placeholder="닉네임을 입력해주세요!"
+            ></NickNameInput>
+          </NickName>
+          {errors.nickname ? (
+            <UserError>{errors.nickname.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <Password
-            {...register('password', { required: true })}
+            {...register('password', {
+              required: '비밀번호를 입력해주세요 !',
+              minLength: {
+                value: 8,
+                message: '최소 8자 이상의 비밀번호를 입력해주세요!',
+              },
+              pattern: {
+                value: /^/,
+                // /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!~$%^&-+=()])(?=S+$).{8,16}$/,
+                message:
+                  '대소문자와 숫자, 특수문자를 포함한 8자 이상 16자 이하의 비밀번호를 입력해주세요!.',
+              },
+            })}
             placeholder={'비밀번호를 입력해주세요'}
             type="password"
           ></Password>
+          {errors.password ? (
+            <UserError>{errors.password.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <PasswordCheck
-            placeholder="Password Check"
+            id="password_re"
             type="password"
-          ></PasswordCheck>
+            placeholder="비밀번호를 입력하세요"
+            {...register('password_re', {
+              required: '비밀번호를 입력해주세요!',
+              validate: {
+                matchesPreviousPassword: (value) => {
+                  const { password } = getValues();
+                  return password === value || '비밀번호가 일치하지않습니다!';
+                },
+              },
+            })}
+          />
+          {errors.password_re ? (
+            <UserError>{errors.password_re.message}</UserError>
+          ) : (
+            <UserError />
+          )}
           <SignUpButton type="submit">Sign Up</SignUpButton>
         </Form>
       </RightBackground>
@@ -77,8 +191,12 @@ export default SignUp;
 const SignUpPage = styled.div`
   display: flex;
   min-height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
-
 const Logo = styled.div`
   position: absolute;
   top: 1.5rem;
@@ -123,11 +241,11 @@ const Form = styled.form`
   flex-direction: column;
   border-color: #293659;
 `;
-const NickName = styled.div`
+const Id = styled.div`
   margin: 5px;
   display: flex;
 `;
-const NickNameInput = styled.input`
+const IdInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
   width: 32rem;
@@ -139,7 +257,7 @@ const NickNameInput = styled.input`
     min-width: 37rem;
   }
 `;
-const NickNameCheck = styled.button`
+const UserNameCheck = styled.button`
   border-radius: 20px;
   width: 11rem;
   height: 54px;
@@ -151,12 +269,11 @@ const NickNameCheck = styled.button`
   }
 `;
 
-const Id = styled.div`
-  margin-top: 10px;
+const NickName = styled.div`
   display: flex;
 `;
 
-const IdInput = styled.input`
+const NickNameInput = styled.input`
   font-family: InriaSans;
   border-radius: 20px;
   width: 44rem;
@@ -171,7 +288,6 @@ const IdInput = styled.input`
 
 const Password = styled.input`
   font-family: InriaSans;
-  margin-top: 10px;
   border-radius: 20px;
   width: 44rem;
   height: 2.5rem;
@@ -184,7 +300,6 @@ const Password = styled.input`
 `;
 const PasswordCheck = styled.input`
   font-family: InriaSans;
-  margin-top: 10px;
   border-radius: 20px;
   width: 44rem;
   height: 2.5rem;
@@ -205,7 +320,7 @@ const SignUpButton = styled.button`
   width: 44rem;
   /* height: 5.5rem; */
   font-size: 2.2rem;
-  margin-top: 10rem;
+  margin-top: 8rem;
   background: #7e84ff;
   border: 1px solid #ffffff;
   border-radius: 20px;
