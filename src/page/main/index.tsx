@@ -8,12 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
 const MainPage = () => {
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await axios.get('/todos');
-  //     console.log(result.data);
-  //   })();
-  // }, []);
   const [page, setPage] = useState<number>(0);
   const [myStudyPage, setMyStudyPage] = useState<number>(0);
   const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
@@ -73,20 +67,6 @@ const MainPage = () => {
     setPage(Number(target.innerText) - 1); //3 ,4
   };
 
-  useEffect(() => {
-    console.log(data);
-    // let pageNumber = data?.length / 20;
-    // let remainNumber = data?.length % 20;
-    // let arr: number[] = [];
-    // for (let i = 0; i <= pageNumber; i++) {
-    //   arr.push(0);
-    // }
-    // if (remainNumber >= 1) {
-    //   arr.push(0);
-    // }
-    // setPageLenth(() => arr);
-  }, []);
-
   return (
     <StudyMain>
       <Nav />
@@ -95,14 +75,13 @@ const MainPage = () => {
           <h1>내 스터디</h1>
           <UserStudyList>
             {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
-            {/* userpage를 선언후 userpage에 맞게 splice */}
             {userData?.map((item: studyListType) => {
               return <UserStudy key={item.id} {...item}></UserStudy>;
             })}
           </UserStudyList>
         </UserStudying>
         <AllStudyList>
-          {/* 커스텀 훅 써보기  */}
+          {/* 검색창 */}
           <SearchBox>
             <img alt="검색" src={search} />
             <StudySearch
@@ -111,6 +90,7 @@ const MainPage = () => {
             ></StudySearch>
           </SearchBox>
 
+          {/* 스터디리스트  */}
           <GridStudyList>
             {data?.map((item: studyListType) => {
               return (
@@ -121,6 +101,7 @@ const MainPage = () => {
               );
             })}
           </GridStudyList>
+          {/* 페이지  */}
           <Paging>
             {pageLength.map((_, index) => {
               return (

@@ -12,7 +12,6 @@ import Comment, {
   UserName,
 } from '../comment';
 import CommentLoading from '../loading';
-import Loading from '../loading';
 
 interface commentProps extends studyListType {
   weekNumber: number;
