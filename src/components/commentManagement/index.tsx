@@ -1,7 +1,7 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Comment, {
   CommentComponent,
@@ -11,6 +11,8 @@ import Comment, {
   UserImage,
   UserName,
 } from '../comment';
+import CommentLoading from '../loading';
+import Loading from '../loading';
 
 interface commentProps extends studyListType {
   weekNumber: number;
@@ -32,7 +34,11 @@ const CommentManagement = ({
   userLimit,
   weekNumber,
 }: commentProps) => {
-  const { data: comments, refetch } = useQuery(
+  const {
+    data: comments,
+    refetch,
+    isLoading,
+  } = useQuery(
     [QueryKeys.COMMENT, id, weekNumber],
     () =>
       restFetcher({
@@ -58,11 +64,11 @@ const CommentManagement = ({
 
   const [chat, setChat] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatWrite = async (e: any) => {
+  const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChat(e.currentTarget.value);
   };
 
-  const handleChat = (e: any) => {
+  const handleChat = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code == 'Enter') {
       sendComment();
       setChat('');
@@ -76,7 +82,7 @@ const CommentManagement = ({
       studyId: id,
       studyWeek: weekNumber,
     };
-    return mutate(commentInform, { onSuccess: (data) => refetch() });
+    return mutate(commentInform, { onSuccess: () => refetch() });
   };
 
   return (
@@ -108,9 +114,15 @@ const CommentManagement = ({
             <CommentInform>안녕하세요</CommentInform>
           </div>
         </CommentComponent>
-        {comments?.map((comment: any, index: number) => {
-          return <Comment key={index} commentInform={comment} />;
-        })}
+        {isLoading ? (
+          <CommentLoading />
+        ) : (
+          <>
+            {comments?.map((comment: any, index: number) => {
+              return <Comment key={index} commentInform={comment} />;
+            })}
+          </>
+        )}
       </Comments>
     </CommentManagementPage>
   );
