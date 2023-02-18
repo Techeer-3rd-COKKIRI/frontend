@@ -15,6 +15,7 @@ const MainPage = () => {
   //   })();
   // }, []);
   const [page, setPage] = useState<number>(0);
+  const [myStudyPage, setMyStudyPage] = useState<number>(0);
   const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
 
   const { isLoading, isError, error, data } = useQuery(
@@ -34,9 +35,22 @@ const MainPage = () => {
     },
   );
 
+  const { data: userData } = useQuery(
+    [QueryKeys.MYSTUDY],
+    async () =>
+      await restFetcher({
+        method: 'GET',
+        path: `/api/v1/studies/user/${myStudyPage}?size=4`,
+      }),
+    {
+      select(data) {
+        return data.data;
+      },
+    },
+  );
+
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setInputValue(e.target.value);
   }, []);
 
@@ -82,10 +96,9 @@ const MainPage = () => {
           <UserStudyList>
             {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
             {/* userpage를 선언후 userpage에 맞게 splice */}
-            <UserStudy />
-            <UserStudy />
-            <UserStudy />
-            <UserStudy />
+            {userData?.map((item: studyListType) => {
+              return <UserStudy key={item.id} {...item}></UserStudy>;
+            })}
           </UserStudyList>
         </UserStudying>
         <AllStudyList>

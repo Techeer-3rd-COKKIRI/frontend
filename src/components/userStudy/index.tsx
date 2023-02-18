@@ -1,17 +1,50 @@
+import { studyListType } from '@/type/studyList';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import temporary from '../../assets/image/temporary.png';
-const UserStudy = () => {
+const UserStudy = ({
+  id,
+  studyName,
+  currentUserCount,
+  startDate,
+  finishDate,
+  introduction,
+  userLimit,
+}: studyListType) => {
+  const navigator = useNavigate();
+
+  const gotoStudyMain = () => {
+    const roomData = {
+      id,
+      studyName,
+      currentUserCount,
+      startDate,
+      finishDate,
+      introduction,
+      userLimit,
+    };
+    navigator(`/studyMain/${id}`, { state: roomData });
+  };
+
   return (
-    <UserStudyBox>
+    <UserStudyBox onClick={gotoStudyMain}>
       <ImageBox>
         <img src={temporary} />
       </ImageBox>
       <TextBox>
-        <StudyTitle>당근마켓 클론코딩</StudyTitle>
+        <StudyTitle>{studyName}</StudyTitle>
         <Period>
           <p>진행기간</p>
-          <p>2022-11-13 ~ 2022-11-29</p>
+          <p>
+            {startDate.map((day) => (
+              <span>{day}-</span>
+            ))}
+            {finishDate.map((day, index) => {
+              if (finishDate.length - 1 == index) return <span>{day}</span>;
+              return <span>{day}-</span>;
+            })}
+          </p>
         </Period>
         <button>바로가기</button>
       </TextBox>

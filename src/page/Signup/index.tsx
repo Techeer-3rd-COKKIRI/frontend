@@ -7,8 +7,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { createUser, userInform } from '@/type/user';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
-import { UserError } from '../LogIn';
-import { UserName } from '@/components/comment';
+import { UserError } from '../logIn';
 
 interface SignUser extends createUser {
   password_re: string;

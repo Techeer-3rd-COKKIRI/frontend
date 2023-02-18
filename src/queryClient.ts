@@ -63,4 +63,5 @@ export const QueryKeys = {
   PAGE: 'PAGE',
   COMMENT: 'COOMENT',
   DUPLICATION: 'DUPLICATION',
+  MYSTUDY: 'MYSTUDY',
 };

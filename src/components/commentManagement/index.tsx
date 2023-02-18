@@ -69,13 +69,14 @@ const CommentManagement = ({
   };
 
   const handleChat = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code == 'Enter') {
-      sendComment();
-      setChat('');
-      if (inputRef.current) inputRef.current.value = '';
+    if (e.key === 'Enter') {
+      if (e.nativeEvent.isComposing === false) {
+        sendComment();
+        setChat('');
+        if (inputRef.current) inputRef.current.value = '';
+      }
     }
   };
-
   const sendComment = () => {
     const commentInform: sendChatType = {
       content: chat,
