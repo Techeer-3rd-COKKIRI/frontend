@@ -80,21 +80,19 @@ const MainPage = () => {
     <StudyMain>
       <Nav />
       <MainView>
-        <UserStudying>
-          <h1>내 스터디</h1>
-          <UserStudyList>
-            {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
-            {user ? (
-              <>
+        {user ? (
+          <>
+            <UserStudying>
+              <h1>내 스터디</h1>
+              <UserStudyList>
+                {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
                 {userData?.map((item: studyListType) => {
                   return <UserStudy key={item.id} {...item}></UserStudy>;
                 })}
-              </>
-            ) : (
-              <AccessBlock></AccessBlock>
-            )}
-          </UserStudyList>
-        </UserStudying>
+              </UserStudyList>
+            </UserStudying>
+          </>
+        ) : null}
         <AllStudyList>
           {/* 검색창 */}
           <SearchBox>

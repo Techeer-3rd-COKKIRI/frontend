@@ -16,6 +16,14 @@ const StudyListComponent = ({
   userLimit,
 }: studyListType) => {
   const navigator = useNavigate();
+
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user: string;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
   const goStudyMain = () => {
     const roomData = {
       id,
@@ -26,7 +34,10 @@ const StudyListComponent = ({
       introduction,
       userLimit,
     };
-    navigator(`/studyMain/${id}`, { state: roomData }); // studyMain에 roomData를 보냄
+    if (user) navigator(`/studyMain/${id}`, { state: roomData });
+    else {
+      alert('로그인이후에 사용 가능한 서비스입니다!');
+    }
   };
   return (
     <StudyList onClick={goStudyMain}>
