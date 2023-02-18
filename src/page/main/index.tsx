@@ -7,10 +7,19 @@ import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
+import AccessBlock from '@/components/accessBlock';
 const MainPage = () => {
   const [page, setPage] = useState<number>(0);
   const [myStudyPage, setMyStudyPage] = useState<number>(0);
   const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
+
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
 
   const { isLoading, isError, error, data } = useQuery(
     [QueryKeys.PAGE, page],
@@ -75,9 +84,15 @@ const MainPage = () => {
           <h1>내 스터디</h1>
           <UserStudyList>
             {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
-            {userData?.map((item: studyListType) => {
-              return <UserStudy key={item.id} {...item}></UserStudy>;
-            })}
+            {user ? (
+              <>
+                {userData?.map((item: studyListType) => {
+                  return <UserStudy key={item.id} {...item}></UserStudy>;
+                })}
+              </>
+            ) : (
+              <AccessBlock></AccessBlock>
+            )}
           </UserStudyList>
         </UserStudying>
         <AllStudyList>
