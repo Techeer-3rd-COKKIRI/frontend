@@ -1,6 +1,7 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
+import { studyListType } from '@/type/studyList';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Comment, {
   CommentComponent,
@@ -10,9 +11,34 @@ import Comment, {
   UserImage,
   UserName,
 } from '../comment';
+import CommentLoading from '../loading';
+import Loading from '../loading';
 
-const CommentManagement = ({ id, studyName, weekNumber }: any) => {
-  const { data: comments, refetch } = useQuery(
+interface commentProps extends studyListType {
+  weekNumber: number;
+}
+
+interface sendChatType {
+  content: string;
+  studyId: number;
+  studyWeek: number;
+}
+
+const CommentManagement = ({
+  id,
+  studyName,
+  currentUserCount,
+  startDate,
+  finishDate,
+  introduction,
+  userLimit,
+  weekNumber,
+}: commentProps) => {
+  const {
+    data: comments,
+    refetch,
+    isLoading,
+  } = useQuery(
     [QueryKeys.COMMENT, id, weekNumber],
     () =>
       restFetcher({
@@ -28,7 +54,7 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       cacheTime: 0,
     },
   );
-  const { mutate } = useMutation((commentInform: any) =>
+  const { mutate } = useMutation((commentInform: sendChatType) =>
     restFetcher({
       method: 'POST',
       path: '/api/v1/comments',
@@ -38,22 +64,26 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
 
   const [chat, setChat] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatWrite = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const chatWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChat(e.currentTarget.value);
-    if (e.code == 'Enter') {
-      setChat('');
-      if (inputRef.current) inputRef.current.value = '';
-    }
   };
 
-  const sendComment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const commentInform: any = {
+  const handleChat = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (e.nativeEvent.isComposing === false) {
+        sendComment();
+        setChat('');
+        if (inputRef.current) inputRef.current.value = '';
+      }
+    }
+  };
+  const sendComment = () => {
+    const commentInform: sendChatType = {
       content: chat,
       studyId: id,
       studyWeek: weekNumber,
     };
-    console.log(commentInform);
-    mutate(commentInform, { onSuccess: (data) => refetch() });
+    return mutate(commentInform, { onSuccess: () => refetch() });
   };
 
   return (
@@ -61,7 +91,8 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
       <InputBox>
         <input
           ref={inputRef}
-          onKeyDown={chatWrite}
+          onChange={chatWrite}
+          onKeyDown={handleChat}
           placeholder="인증하기.."
         ></input>
       </InputBox>
@@ -84,10 +115,15 @@ const CommentManagement = ({ id, studyName, weekNumber }: any) => {
             <CommentInform>안녕하세요</CommentInform>
           </div>
         </CommentComponent>
-        {comments?.map((comment: any, index: number) => {
-          console.log(comment);
-          return <Comment key={index} commentInform={comment} />;
-        })}
+        {isLoading ? (
+          <CommentLoading />
+        ) : (
+          <>
+            {comments?.map((comment: any, index: number) => {
+              return <Comment key={index} commentInform={comment} />;
+            })}
+          </>
+        )}
       </Comments>
     </CommentManagementPage>
   );

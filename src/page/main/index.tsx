@@ -5,7 +5,8 @@ import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
-import { restFetcher } from '@/queryClient';
+import { QueryKeys, restFetcher } from '@/queryClient';
+import { studyListType } from '@/type/studyList';
 const MainPage = () => {
   // useEffect(() => {
   //   (async () => {
@@ -14,10 +15,11 @@ const MainPage = () => {
   //   })();
   // }, []);
   const [page, setPage] = useState<number>(0);
-  const [pageLength, setPageLenth] = useState<number[]>([0]);
+  const [myStudyPage, setMyStudyPage] = useState<number>(0);
+  const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
 
   const { isLoading, isError, error, data } = useQuery(
-    ['page', page],
+    [QueryKeys.PAGE, page],
     async () =>
       await restFetcher({
         method: 'GET',
@@ -33,9 +35,22 @@ const MainPage = () => {
     },
   );
 
+  const { data: userData } = useQuery(
+    [QueryKeys.MYSTUDY],
+    async () =>
+      await restFetcher({
+        method: 'GET',
+        path: `/api/v1/studies/user/${myStudyPage}?size=4`,
+      }),
+    {
+      select(data) {
+        return data.data;
+      },
+    },
+  );
+
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setInputValue(e.target.value);
   }, []);
 
@@ -55,21 +70,22 @@ const MainPage = () => {
     // const target = e.currentTarget; // 해결방법 (2)
     // let page = [];
 
-    setPage(Number(target.innerText)); //3 ,4
+    setPage(Number(target.innerText) - 1); //3 ,4
   };
 
   useEffect(() => {
     console.log(data);
-    // let pageNumber = data.length / 20;
-    // if (!Number.isInteger(pageNumber)) {
-    //   pageNumber += 1;
-    // }
-    // let arr = [];
+    // let pageNumber = data?.length / 20;
+    // let remainNumber = data?.length % 20;
+    // let arr: number[] = [];
     // for (let i = 0; i <= pageNumber; i++) {
     //   arr.push(0);
     // }
-    // setPageLenth(arr);
-  }, [page]);
+    // if (remainNumber >= 1) {
+    //   arr.push(0);
+    // }
+    // setPageLenth(() => arr);
+  }, []);
 
   return (
     <StudyMain>
@@ -80,16 +96,15 @@ const MainPage = () => {
           <UserStudyList>
             {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
             {/* userpage를 선언후 userpage에 맞게 splice */}
-            <UserStudy />
-            <UserStudy />
-            <UserStudy />
-            <UserStudy />
+            {userData?.map((item: studyListType) => {
+              return <UserStudy key={item.id} {...item}></UserStudy>;
+            })}
           </UserStudyList>
         </UserStudying>
         <AllStudyList>
           {/* 커스텀 훅 써보기  */}
           <SearchBox>
-            <img src={search} />
+            <img alt="검색" src={search} />
             <StudySearch
               onKeyDown={onKeyDown}
               onChange={changeInput}
@@ -97,7 +112,7 @@ const MainPage = () => {
           </SearchBox>
 
           <GridStudyList>
-            {data?.map((item: any) => {
+            {data?.map((item: studyListType) => {
               return (
                 <StudyListComponent
                   key={item.id}
@@ -110,7 +125,10 @@ const MainPage = () => {
             {pageLength.map((_, index) => {
               return (
                 <div
-                  style={{ backgroundColor: page == index ? 'gray' : '' }}
+                  style={{
+                    backgroundColor: page == index ? 'gray' : '',
+                    color: page == index ? 'white' : '',
+                  }}
                   key={index}
                   onClick={pageHandler}
                 >
@@ -223,6 +241,7 @@ const Paging = styled.div`
     margin-right: 10px;
     font-weight: 700;
     font-size: 1.5rem;
+    color: black;
   }
 `;
 export default MainPage;
