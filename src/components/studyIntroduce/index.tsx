@@ -11,39 +11,54 @@ const StudyIntroduce = ({
   introduction,
   userLimit,
 }: studyListType) => {
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
   return (
     <StudyIntroducePage>
       <Title>{studyName}</Title>
       <ReaderProfile>
         <div></div>
-        <span>이승환승</span>
-        <span>2022.11.17</span>
+        <span>{user.username}</span>
       </ReaderProfile>
       <Line></Line>
       <IntroduceRule>
         <RuleBox>
           <div>모집인원</div>
-          <div>5명</div>
+          <div>
+            {currentUserCount}/{userLimit}명
+          </div>
         </RuleBox>
         <RuleBox>
           <div>진행기간</div>
-          <div>6개월이상</div>
-        </RuleBox>
-        <RuleBox>
-          <div>진행방식</div>
-          <div>오프라인</div>
+          <div>{finishDate[1] - startDate[1]}개월 이내</div>
         </RuleBox>
         <RuleBox>
           <div>시작예정</div>
-          <div>2022-11-16</div>
+          <div>
+            {startDate.map((day, index) => {
+              if (startDate.length - 1 == index) return <div>{day}</div>;
+              return <div>{day}-</div>;
+            })}
+          </div>
+        </RuleBox>
+        <RuleBox>
+          <div>마칠예정</div>
+          <div>
+            {finishDate.map((day, index) => {
+              if (finishDate.length - 1 == index) return <div>{day}</div>;
+              return <div>{day}-</div>;
+            })}
+          </div>
         </RuleBox>
       </IntroduceRule>
       <IntroduceTitle>스프링 스터디 소개</IntroduceTitle>
       <Line></Line>
-      <Introduction>
-        스프링 스터디입니다 !<br /> 일주일에 한번이상 블로그링크를 작성해서
-        댓글창에 올려주세요 !
-      </Introduction>
+      <Introduction>{introduction}</Introduction>
     </StudyIntroducePage>
   );
 };
@@ -114,30 +129,21 @@ const RuleBox = styled.div`
   width: 50%;
 
   margin-bottom: 0.8rem;
-  & div:nth-child(1) {
-    font-family: 'Inria Sans';
+  & div {
+    display: flex;
     font-style: normal;
     font-weight: 700;
     font-size: 1.7rem;
     line-height: 2.4rem;
     color: #000000;
+  }
+  & > div:nth-child(1) {
     opacity: 0.5;
     margin-right: 5.7rem;
-  }
-
-  & div:nth-child(2) {
-    font-family: 'Inria Sans';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.7rem;
-    line-height: 2rem;
-
-    color: #000000;
   }
 `;
 
 const IntroduceTitle = styled.h1`
-  font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 2rem;
@@ -147,14 +153,13 @@ const IntroduceTitle = styled.h1`
 `;
 
 const Introduction = styled.div`
-  font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.4rem;
   color: #000000;
   border: 1px solid black;
-  border-radius: 3rem;
-  padding: 30px 10px;
+  border-radius: 1.5rem;
+  padding: 4.5rem 1.5rem;
   margin: 30px 0;
 `;

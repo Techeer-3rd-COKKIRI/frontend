@@ -6,7 +6,7 @@ const Profile = () => {
   const navigator = useNavigate();
 
   const gotoMain = () => {
-    navigator('/');
+    navigator(-1);
   };
 
   return (

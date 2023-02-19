@@ -1,6 +1,7 @@
 import CommentManagement from '@/components/commentManagement';
 import Nav from '@/components/nav';
 import ProfilePicture from '@/components/profilePicture';
+import RecruitingBox from '@/components/recruitingBox';
 import StudyIntroduce from '@/components/studyIntroduce';
 import WeekButton from '@/components/weekButton';
 import React, { useEffect, useRef, useState } from 'react';
@@ -144,8 +145,9 @@ const StudyMain = () => {
         </ProfileBox>
         {/* 스터디 소개하는 컴포넌트*/}
         <StudyIntroduce {...state} />
+        <RecruitingBox />
         {/* 주차별 버튼*/}
-        <WeekBox>
+        {/* <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
               <img src="src\assets\image\leftProfile.png" />
@@ -165,9 +167,9 @@ const StudyMain = () => {
               <img src="src\assets\image\rightProfile.png" />
             </WeekDirection>
           ) : null}
-        </WeekBox>
+        </WeekBox> */}
         {/* 댓글 달수있는 컴포넌트*/}
-        <CommentManagement {...state} weekNumber={weekNumber} />
+        {/* <CommentManagement {...state} weekNumber={weekNumber} /> */}
       </StudyRoom>
     </StudyMainPage>
   );
@@ -183,7 +185,7 @@ const StudyMainPage = styled.div`
 `;
 
 const StudyRoom = styled.div`
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

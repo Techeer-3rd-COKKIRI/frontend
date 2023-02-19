@@ -6,7 +6,9 @@ const NonStudy = () => {
     <NonStudyBox>
       <div>
         <h1>아직 진행중인 스터디가 없습니다 !</h1>
-        <p>스터디에 가입해주세요 !</p>
+        <p>
+          스터디에 <span>가입</span> 또는 <span>개설</span> 해주세요 !
+        </p>
       </div>
     </NonStudyBox>
   );
@@ -32,6 +34,12 @@ const NonStudyBox = styled.div`
       font-size: 1.5rem;
       opacity: 0.5;
       padding-top: 1rem;
+      & > span {
+        opacity: 1;
+        font-size: 1.5rem;
+        color: red;
+        font-weight: 700;
+      }
     }
     cursor: pointer;
   }
