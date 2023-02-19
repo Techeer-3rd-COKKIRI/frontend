@@ -17,9 +17,6 @@ const LogIn = () => {
     formState: { errors },
   } = useForm<userInform>();
 
-  // console.log(watch());
-  // 1.유효성검사 추가하기
-  // 2.유효성검사 실패시 에러핸들링하기
   const { mutate } = useMutation((user: userInform) =>
     restFetcher({ method: 'POST', path: '/api/v1/users/login', body: user }),
   );
@@ -65,16 +62,6 @@ const LogIn = () => {
             type="password"
             placeholder={'비밀번호를 입력해주세요'}
           />
-          {/* {errors.username ? (
-            <Error style={{ height: '10px' }}>{errors.username.message}</Error>
-          ) : (
-            <Error style={{ height: '10px' }}></Error>
-          )}
-          {errors.password ? (
-            <Error style={{ height: '10px' }}>{errors.password.message}</Error>
-          ) : (
-            <Error style={{ height: '10px' }}></Error>
-          )} */}
           <UserError />
           <Buttons>
             <button type="submit">Sign In</button>

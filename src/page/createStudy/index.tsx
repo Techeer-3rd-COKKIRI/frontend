@@ -43,10 +43,8 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
-  const { mutate } = useMutation(
-    (formData: any) =>
-      restFetcher({ method: 'POST', path: '/api/v1/studies', body: formData }),
-    //axios.post<FormValue>('/api/v1/studies', formData),
+  const { mutate } = useMutation((formData: any) =>
+    restFetcher({ method: 'POST', path: '/api/v1/studies', body: formData }),
   );
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
@@ -87,14 +85,6 @@ const CreateStudy = () => {
         navigator('/');
       },
     });
-    // let result = await axios.post('/api/v1/studies', formData, {
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    // });
-
-    let entries = formData.entries();
-    for (const pair of entries) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
   };
 
   return (
@@ -126,25 +116,8 @@ const CreateStudy = () => {
                 type={'password'}
                 id={'studyPassword'}
                 register={register}
-                // registerConfig={{
-                //   required: '패스워드를 입력해주세요!',
-                //   minLength: {
-                //     value: 2,
-                //     message: '패스워드 많이많이 입력해주세요!',
-                //   },
-                //}}
                 error={errors.studyPassword?.message}
               />
-              {/* <CreateStudySelectInput
-                inputName={'인증기간'}
-                placeholder={'인증기간'}
-                id={'studyCycle'}
-                option={certificationPeriod}
-                register={register}
-                registerConfig={{
-                  required: '인증기간을 선택해주세요!',
-                }}
-              /> */}
               <CreateStudyCalender
                 inputName={'시작날짜'}
                 id={'startDay'}

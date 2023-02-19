@@ -1,22 +1,26 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
+import NonStudy from '@/components/nonStudy';
+
 const MainPage = () => {
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await axios.get('/todos');
-  //     console.log(result.data);
-  //   })();
-  // }, []);
   const [page, setPage] = useState<number>(0);
   const [myStudyPage, setMyStudyPage] = useState<number>(0);
   const [pageLength, setPageLenth] = useState<number[]>([0, 0, 0]);
+
+  //localstorage가 있다면 그값을 전해줌 // 애는 객체이기때문에 parse가공을 해줘야한다. 현재는 Json형태이다.
+  const checkUser = localStorage.getItem('user');
+
+  let user;
+  if (typeof checkUser === 'string') {
+    user = JSON.parse(checkUser); // ok
+  }
 
   const { isLoading, isError, error, data } = useQuery(
     [QueryKeys.PAGE, page],
@@ -44,8 +48,11 @@ const MainPage = () => {
       }),
     {
       select(data) {
+        console.log(userData);
         return data.data;
       },
+      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+      cacheTime: 0,
     },
   );
 
@@ -73,36 +80,31 @@ const MainPage = () => {
     setPage(Number(target.innerText) - 1); //3 ,4
   };
 
-  useEffect(() => {
-    console.log(data);
-    // let pageNumber = data?.length / 20;
-    // let remainNumber = data?.length % 20;
-    // let arr: number[] = [];
-    // for (let i = 0; i <= pageNumber; i++) {
-    //   arr.push(0);
-    // }
-    // if (remainNumber >= 1) {
-    //   arr.push(0);
-    // }
-    // setPageLenth(() => arr);
-  }, []);
-
   return (
     <StudyMain>
       <Nav />
       <MainView>
-        <UserStudying>
-          <h1>내 스터디</h1>
-          <UserStudyList>
-            {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
-            {/* userpage를 선언후 userpage에 맞게 splice */}
-            {userData?.map((item: studyListType) => {
-              return <UserStudy key={item.id} {...item}></UserStudy>;
-            })}
-          </UserStudyList>
-        </UserStudying>
+        {user ? (
+          <>
+            <UserStudying>
+              <h1>내 스터디</h1>
+              <UserStudyList>
+                {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
+                {userData?.length ? (
+                  <>
+                    {userData?.map((item: studyListType) => {
+                      return <UserStudy key={item.id} {...item}></UserStudy>;
+                    })}
+                  </>
+                ) : (
+                  <NonStudy></NonStudy>
+                )}
+              </UserStudyList>
+            </UserStudying>
+          </>
+        ) : null}
         <AllStudyList>
-          {/* 커스텀 훅 써보기  */}
+          {/* 검색창 */}
           <SearchBox>
             <img alt="검색" src={search} />
             <StudySearch
@@ -111,6 +113,7 @@ const MainPage = () => {
             ></StudySearch>
           </SearchBox>
 
+          {/* 스터디리스트  */}
           <GridStudyList>
             {data?.map((item: studyListType) => {
               return (
@@ -121,6 +124,7 @@ const MainPage = () => {
               );
             })}
           </GridStudyList>
+          {/* 페이지  */}
           <Paging>
             {pageLength.map((_, index) => {
               return (
@@ -148,7 +152,7 @@ const StudyMain = styled.div`
   font-family: 'InriaSans';
   @media screen and (max-width: 1440px) {
     margin-left: 0px;
-    margin-top: 50px;
+    margin-top: 5rem;
   }
 `;
 
@@ -158,7 +162,7 @@ const UserStudying = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 50px;
   & > h1 {
     font-style: normal;
     font-weight: 700;
@@ -168,6 +172,7 @@ const UserStudying = styled.div`
     color: #000000;
   }
 `;
+
 const UserStudyList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -219,7 +224,7 @@ const GridStudyList = styled.div`
     transform: translateX(15px);
   }
   @media screen and (max-width: 400px) {
-    transform: translateX(0px);
+    transform: translateX(-15px);
   }
 `;
 
