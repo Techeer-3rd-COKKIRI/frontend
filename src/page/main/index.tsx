@@ -1,13 +1,14 @@
 import Nav from '@/components/nav';
 import styled from 'styled-components';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
-import AccessBlock from '@/components/accessBlock';
+import NonStudy from '@/components/nonStudy';
+
 const MainPage = () => {
   const [page, setPage] = useState<number>(0);
   const [myStudyPage, setMyStudyPage] = useState<number>(0);
@@ -47,8 +48,11 @@ const MainPage = () => {
       }),
     {
       select(data) {
+        console.log(userData);
         return data.data;
       },
+      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+      cacheTime: 0,
     },
   );
 
@@ -86,9 +90,15 @@ const MainPage = () => {
               <h1>내 스터디</h1>
               <UserStudyList>
                 {/* 4개씩 계속 짤라서 화살표를 누르면 다음  */}
-                {userData?.map((item: studyListType) => {
-                  return <UserStudy key={item.id} {...item}></UserStudy>;
-                })}
+                {userData?.length ? (
+                  <>
+                    {userData?.map((item: studyListType) => {
+                      return <UserStudy key={item.id} {...item}></UserStudy>;
+                    })}
+                  </>
+                ) : (
+                  <NonStudy></NonStudy>
+                )}
               </UserStudyList>
             </UserStudying>
           </>
@@ -162,6 +172,7 @@ const UserStudying = styled.div`
     color: #000000;
   }
 `;
+
 const UserStudyList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

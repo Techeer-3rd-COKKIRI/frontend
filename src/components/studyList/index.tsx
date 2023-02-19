@@ -52,12 +52,13 @@ const StudyListComponent = ({
           <Period>
             <Studyperiod>모집기간</Studyperiod>
             <DayCount>
-              {startDate.map((day) => (
-                <span>{day}-</span>
+              {startDate.map((day, index) => (
+                <span key={index}>{day}-</span>
               ))}
               {finishDate.map((day, index) => {
-                if (finishDate.length - 1 == index) return <span>{day}</span>;
-                return <span>{day}-</span>;
+                if (finishDate.length - 1 == index)
+                  return <span key={index}>{day}</span>;
+                return <span key={index}>{day}-</span>;
               })}
             </DayCount>
           </Period>
