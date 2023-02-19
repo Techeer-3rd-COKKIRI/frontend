@@ -29,7 +29,9 @@ const StudyIntroduce = ({
       <IntroduceRule>
         <RuleBox>
           <div>모집인원</div>
-          <div>{userLimit}명</div>
+          <div>
+            {currentUserCount}/{userLimit}명
+          </div>
         </RuleBox>
         <RuleBox>
           <div>진행기간</div>
@@ -129,7 +131,6 @@ const RuleBox = styled.div`
   margin-bottom: 0.8rem;
   & div {
     display: flex;
-    font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 700;
     font-size: 1.7rem;
@@ -143,7 +144,6 @@ const RuleBox = styled.div`
 `;
 
 const IntroduceTitle = styled.h1`
-  font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 2rem;
@@ -153,14 +153,13 @@ const IntroduceTitle = styled.h1`
 `;
 
 const Introduction = styled.div`
-  font-family: 'Inria Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.4rem;
   color: #000000;
   border: 1px solid black;
-  border-radius: 3rem;
+  border-radius: 1.5rem;
   padding: 4.5rem 1.5rem;
   margin: 30px 0;
 `;

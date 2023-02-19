@@ -23,7 +23,7 @@ const Application = styled.div`
   border-radius: 10px;
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   line-height: 2.2rem;
 
   padding: 2rem;

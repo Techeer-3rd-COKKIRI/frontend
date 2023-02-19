@@ -185,7 +185,7 @@ const StudyMainPage = styled.div`
 `;
 
 const StudyRoom = styled.div`
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
