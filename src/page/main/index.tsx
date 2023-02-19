@@ -152,7 +152,7 @@ const StudyMain = styled.div`
   font-family: 'InriaSans';
   @media screen and (max-width: 1440px) {
     margin-left: 0px;
-    margin-top: 50px;
+    margin-top: 5rem;
   }
 `;
 
@@ -162,7 +162,7 @@ const UserStudying = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 50px;
   & > h1 {
     font-style: normal;
     font-weight: 700;
@@ -224,7 +224,7 @@ const GridStudyList = styled.div`
     transform: translateX(15px);
   }
   @media screen and (max-width: 400px) {
-    transform: translateX(0px);
+    transform: translateX(-15px);
   }
 `;
 
