@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createUser, userInform } from '@/type/user';
+import { CreateUser, UserInform } from '@/type/user';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
 import { UserError } from '../logIn';
+import { usePostSignUp } from '@/hook/usePOSTSignUp';
 
-interface SignUser extends createUser {
+interface SignUser extends CreateUser {
   password_re: string;
 }
 
@@ -23,22 +24,18 @@ const SignUp = () => {
     getValues,
     formState: { errors },
   } = useForm<SignUser>();
-  const { mutate } = useMutation((user: createUser) =>
-    restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
-  );
+  const { mutate } = usePostSignUp();
   const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
     const { nickname, username, password } = values;
     const user = { nickname, username, password };
     if (duplication) {
       mutate(user, {
         onSuccess: (data) => {
-          console.log(data);
           alert('회원가입에 성공하셨습니다 ! ');
           navigate('/login');
         },
         onError: (data) => {
-          console.log('실패');
-          console.log(data);
+          console.log('회원가입 실패');
         },
       });
     } else {

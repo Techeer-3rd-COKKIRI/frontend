@@ -1,8 +1,6 @@
-import { Suspense, useState } from 'react';
-import reactLogo from './assets/react.svg';
+import { Suspense } from 'react';
 import './App.css';
 import Router from './Router';
-import './App.css';
 import FallbackLoading from './components/fallbackLoading';
 
 function App() {

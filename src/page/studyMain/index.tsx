@@ -10,9 +10,6 @@ import styled from 'styled-components';
 
 const StudyMain = () => {
   const { state } = useLocation();
-  console.log(state);
-  console.log(useLocation());
-
   const [weekNumber, setWeekNumber] = useState<number>(1);
 
   const changeWeekNumber = (week: number) => {
