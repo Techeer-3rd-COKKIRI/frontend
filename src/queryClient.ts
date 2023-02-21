@@ -64,4 +64,5 @@ export const QueryKeys = {
   COMMENT: 'COOMENT',
   DUPLICATION: 'DUPLICATION',
   MYSTUDY: 'MYSTUDY',
+  LOGOUT: 'LOGOUT',
 };

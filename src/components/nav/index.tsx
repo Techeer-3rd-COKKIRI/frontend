@@ -13,7 +13,7 @@ import myprofile from '@/assets/image/myprofile.svg';
 import clickMyprofile from '@/assets/image/clickMyprofile.svg';
 import people from '@/assets/image/user.png';
 import pencil from '@/assets/image/pencil.png';
-import axios from 'axios';
+import { useGetLogout } from '@/hook/nav/useGETLogout';
 
 const Nav = () => {
   const [toggleNav, setToggleNav] = useState(false);
@@ -30,17 +30,8 @@ const Nav = () => {
   if (typeof checkUser === 'string') {
     user = JSON.parse(checkUser); // ok
   }
-  const logoutHandle = async () => {
-    // useQuery(['logout'], async () =>
-    //   restFetcher({ method: 'GET', path: '/api/v1/users/logout' }),
-    // );
-    try {
-      await axios.get('http://localhost/api/v1/users/logout');
-    } catch {
-      location.replace('/');
-      window.localStorage.clear();
-    }
-  };
+
+  const { refetch: logout } = useGetLogout();
 
   return (
     <>
@@ -128,7 +119,7 @@ const Nav = () => {
           ) : null}
 
           {user ? (
-            <div onClick={logoutHandle}>
+            <div onClick={() => logout()}>
               <Tap>
                 <div>
                   <img

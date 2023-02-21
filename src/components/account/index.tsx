@@ -1,7 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
 import mainElephant from '../../assets/image/mainElephant.png';
 const Account = () => {
   return (
