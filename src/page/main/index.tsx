@@ -38,14 +38,12 @@ const MainPage = () => {
       e.nativeEvent.isComposing === false
     ) {
       e.preventDefault();
-      console.log(inputValue);
     }
   };
 
   const pageHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement; // 해결 방법 (1)
     // const target = e.currentTarget; // 해결방법 (2)
-    // let page = [];
 
     setPage(Number(target.innerText) - 1); //3 ,4
   };

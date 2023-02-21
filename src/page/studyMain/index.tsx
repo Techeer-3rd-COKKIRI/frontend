@@ -4,10 +4,11 @@ import ProfilePicture from '@/components/profilePicture';
 import RecruitingBox from '@/components/recruitingBox';
 import StudyIntroduce from '@/components/studyIntroduce';
 import WeekButton from '@/components/weekButton';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-
+import leftDirection from '@/assets/image/leftProfile.png';
+import rightDirection from '@/assets/image/rightProfile.png';
 const StudyMain = () => {
   const { state } = useLocation();
   const [weekNumber, setWeekNumber] = useState<number>(1);
@@ -125,18 +126,18 @@ const StudyMain = () => {
         {/* 유저별 프로필*/}
         <ProfileBox>
           {profileScroll != 0 ? (
-            <ProfileDirection onClick={profileScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+            <ProfileDirection role="button" onClick={profileScrollLeft}>
+              <img alt="왼쪽으로 스크롤되는 방향" src={leftDirection} />
             </ProfileDirection>
           ) : null}
-          <Profiles ref={profilesRef}>
+          <Profiles role="button" ref={profilesRef}>
             {[1, 2, 3].map((user, i) => {
               return <ProfilePicture key={i} people={i + 1} />;
             })}
           </Profiles>
           {profileScroll < profileMaxWidth ? (
-            <ProfileDirection onClick={profileScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+            <ProfileDirection role="button" onClick={profileScrollRight}>
+              <img alt="오른쪽으로 스크롤되는 방향" src={rightDirection} />
             </ProfileDirection>
           ) : null}
         </ProfileBox>
@@ -144,29 +145,29 @@ const StudyMain = () => {
         <StudyIntroduce {...state} />
         <RecruitingBox />
         {/* 주차별 버튼*/}
-        {/* <WeekBox>
+        <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+              <img alt="주차리스트를 왼쪽쪽으로 넘기는" src={leftDirection} />
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
             {[1, 2, 3].map((_, i) => {
               return (
-                <div onClick={() => changeWeekNumber(i + 1)}>
+                <div key={i} onClick={() => changeWeekNumber(i + 1)}>
                   <WeekButton weekNumber={weekNumber} figure={i + 1} />;
                 </div>
               );
             })}
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
-            <WeekDirection onClick={weekScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+            <WeekDirection role="button" onClick={weekScrollRight}>
+              <img alt="주차리스트를 오른쪽으로 넘기는 " src={rightDirection} />
             </WeekDirection>
           ) : null}
-        </WeekBox> */}
+        </WeekBox>
         {/* 댓글 달수있는 컴포넌트*/}
-        {/* <CommentManagement {...state} weekNumber={weekNumber} /> */}
+        <CommentManagement {...state} weekNumber={weekNumber} />
       </StudyRoom>
     </StudyMainPage>
   );

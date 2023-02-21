@@ -1,3 +1,5 @@
+import { useGetComment } from '@/hook/createStudy/useGETComment';
+import { usePostComment } from '@/hook/createStudy/usePOSTComment';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -17,7 +19,7 @@ interface commentProps extends studyListType {
   weekNumber: number;
 }
 
-interface sendChatType {
+export interface sendChatType {
   content: string;
   studyId: number;
   studyWeek: number;
@@ -33,33 +35,9 @@ const CommentManagement = ({
   userLimit,
   weekNumber,
 }: commentProps) => {
-  const {
-    data: comments,
-    refetch,
-    isLoading,
-  } = useQuery(
-    [QueryKeys.COMMENT, id, weekNumber],
-    () =>
-      restFetcher({
-        method: 'GET',
-        path: `/api/v1/comments/${id}`,
-        params: { studyWeek: weekNumber },
-      }),
-    {
-      select(data) {
-        return data.data;
-      },
-      staleTime: 0,
-      cacheTime: 0,
-    },
-  );
-  const { mutate } = useMutation((commentInform: sendChatType) =>
-    restFetcher({
-      method: 'POST',
-      path: '/api/v1/comments',
-      body: commentInform,
-    }),
-  );
+  const { data: comments, refetch, isLoading } = useGetComment(id, weekNumber);
+
+  const { mutate } = usePostComment();
 
   const [chat, setChat] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +54,7 @@ const CommentManagement = ({
       }
     }
   };
+
   const sendComment = () => {
     const commentInform: sendChatType = {
       content: chat,
