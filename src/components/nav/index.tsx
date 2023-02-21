@@ -36,25 +36,26 @@ const Nav = () => {
   return (
     <>
       <HambergetIcon
+        role="button"
         toggleNav={toggleNav}
         onClick={() => {
           setToggleNav(!toggleNav);
         }}
       >
-        <img src={hamburger}></img>
+        <img alt="nav토글" src={hamburger}></img>
       </HambergetIcon>
       <NavBar style={{ display: toggleNav ? 'block' : 'none' }}>
-        <Logo>
-          <img src={logo}></img>
+        <Logo role="button">
+          <img alt="메인페이지로가는 로고" src={logo}></img>
         </Logo>
         <Taps>
           <Link to={'/'} style={{ textDecoration: 'none' }}>
             <Tap isActive={homeMatch !== null}>
               <div>
                 {homeMatch !== null ? (
-                  <img src={selectedHome}></img>
+                  <img alt="메인페이지로 가는" src={selectedHome}></img>
                 ) : (
-                  <img src={home}></img>
+                  <img alt="메인페이지로 가는" src={home}></img>
                 )}
               </div>
               홈
@@ -66,9 +67,9 @@ const Nav = () => {
                 <Tap isActive={loginMatch !== null}>
                   <div>
                     {loginMatch !== null ? (
-                      <img src={selectedLogin}></img>
+                      <img alt="로그인페이지로 가는" src={selectedLogin}></img>
                     ) : (
-                      <img src={login}></img>
+                      <img alt="로그인페이지로 가는" src={login}></img>
                     )}
                   </div>
                   로그인
@@ -78,9 +79,9 @@ const Nav = () => {
                 <Tap isActive={signMatch !== null}>
                   <div>
                     {signMatch !== null ? (
-                      <img src={selectedSign}></img>
+                      <img alt="회원가입페이지로 가는" src={selectedSign}></img>
                     ) : (
-                      <img src={people}></img>
+                      <img alt="회원가입페이지로 가는" src={people}></img>
                     )}
                   </div>
                   회원가입
@@ -94,9 +95,9 @@ const Nav = () => {
               <Tap isActive={profile !== null}>
                 <div>
                   {profile !== null ? (
-                    <img src={myprofile}></img>
+                    <img alt="프로필페이지로 가는" src={myprofile}></img>
                   ) : (
-                    <img src={clickMyprofile}></img>
+                    <img alt="프로필페이지로 가는" src={clickMyprofile}></img>
                   )}
                 </div>
                 내 프로필
@@ -108,9 +109,9 @@ const Nav = () => {
               <Tap isActive={createStudy !== null}>
                 <div>
                   {createStudy !== null ? (
-                    <img src={pencil}></img>
+                    <img alt="개설페이지로 가는" src={pencil}></img>
                   ) : (
-                    <img src={pencil}></img>
+                    <img alt="개설페이지로 가는" src={pencil}></img>
                   )}
                 </div>
                 스터디 개설
@@ -119,10 +120,11 @@ const Nav = () => {
           ) : null}
 
           {user ? (
-            <div onClick={() => logout()}>
+            <div role="button" onClick={() => logout()}>
               <Tap>
                 <div>
                   <img
+                    alt="로그아웃"
                     style={{ width: '55px', height: '55px' }}
                     src={bye}
                   ></img>
