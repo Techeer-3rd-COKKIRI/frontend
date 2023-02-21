@@ -98,18 +98,6 @@ const Logo = styled.div`
   }
 `;
 
-// export const LoginIntroduce = styled.div`
-//   width: 55vw;
-//   height: 100vh;
-//   background: #e9edf7;
-//   flex-shrink: 1;
-//   box-shadow: 6px 0px 10px rgba(0, 0, 0, 0.25);
-
-//   @media screen and (max-width: 900px) {
-//     display: none;
-//   }
-// `;
-
 const DoLogin = styled.div`
   display: flex;
   width: 45vw;
