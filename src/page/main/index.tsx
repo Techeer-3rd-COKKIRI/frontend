@@ -4,11 +4,10 @@ import React, { useCallback, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
-import { useQuery } from '@tanstack/react-query';
-import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
 import NonStudy from '@/components/nonStudy';
 import { useGetStudyList } from '@/hook/main/useGETStudyList';
+import { useGetMyStudyList } from '@/hook/main/useGETMyStudyList';
 
 const MainPage = () => {
   const [page, setPage] = useState<number>(0);
@@ -25,7 +24,7 @@ const MainPage = () => {
 
   const { data } = useGetStudyList(page);
 
-  const { data: userData } = useGetStudyList(myStudyPage);
+  const { data: userData } = useGetMyStudyList(myStudyPage);
 
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

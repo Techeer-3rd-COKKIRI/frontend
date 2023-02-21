@@ -5,8 +5,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import logo from '../../assets/image/logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { restFetcher } from '@/queryClient';
-import { User, userInform } from '@/type/user';
+import { User, UserInform } from '@/type/user';
 import Account from '@/components/account';
+import { usePostLogin } from '@/hook/login/usePOSTLogin';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -15,13 +16,11 @@ const LogIn = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<userInform>();
+  } = useForm<UserInform>();
 
-  const { mutate } = useMutation((user: userInform) =>
-    restFetcher({ method: 'POST', path: '/api/v1/users/login', body: user }),
-  );
+  const { mutate } = usePostLogin();
 
-  const onSubmitHandler: SubmitHandler<userInform> = async (values, e) => {
+  const onSubmitHandler: SubmitHandler<UserInform> = async (values, e) => {
     const { username, password } = values;
     const user = { username, password };
     mutate(user, {

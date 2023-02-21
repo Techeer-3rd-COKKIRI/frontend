@@ -1,14 +1,13 @@
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetStudyList = (page: number) => {
+export const useGetMyStudyList = (myStudyPage: number) => {
   return useQuery(
-    [QueryKeys.PAGE, page],
+    [QueryKeys.MYSTUDY],
     async () =>
       await restFetcher({
         method: 'GET',
-        path: `/api/v1/studies/page/${page}`,
-        params: { size: 20 },
+        path: `/api/v1/studies/user/${myStudyPage}?size=4`,
       }),
     {
       select(data) {
