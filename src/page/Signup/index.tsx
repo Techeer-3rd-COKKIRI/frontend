@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createUser, userInform } from '@/type/user';
+import { CreateUser, UserInform } from '@/type/user';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
 import { UserError } from '../logIn';
+import { usePostSignUp } from '@/hook/signup/usePOSTSignUp';
+import { useGetDuplication } from '@/hook/signup/useGETDuplication';
 
-interface SignUser extends createUser {
+interface SignUser extends CreateUser {
   password_re: string;
 }
 
@@ -23,22 +25,20 @@ const SignUp = () => {
     getValues,
     formState: { errors },
   } = useForm<SignUser>();
-  const { mutate } = useMutation((user: createUser) =>
-    restFetcher({ method: 'POST', path: '/api/v1/users', body: user }),
-  );
+
+  const { mutate } = usePostSignUp();
+
   const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
     const { nickname, username, password } = values;
     const user = { nickname, username, password };
     if (duplication) {
       mutate(user, {
         onSuccess: (data) => {
-          console.log(data);
           alert('회원가입에 성공하셨습니다 ! ');
           navigate('/login');
         },
         onError: (data) => {
-          console.log('실패');
-          console.log(data);
+          console.log('회원가입 실패');
         },
       });
     } else {
@@ -46,25 +46,9 @@ const SignUp = () => {
     }
   };
 
-  const { data, refetch } = useQuery(
-    [QueryKeys.DUPLICATION],
-    () =>
-      restFetcher({
-        method: 'GET',
-        path: `/api/v1/users/duplicated/${getValues().username}`,
-      }),
-    {
-      enabled: false, //기본동작 비활성화
-      onSuccess: (data) => {
-        if (!data.data) {
-          alert('사용할 수 있는 username입니다 !');
-          setDuplication(true);
-        } else {
-          alert('username이 중복되었습니다 !');
-          setDuplication(false);
-        }
-      },
-    },
+  const { data, refetch } = useGetDuplication(
+    getValues().username,
+    setDuplication,
   );
 
   const duplicationCheck = () => {
@@ -74,13 +58,10 @@ const SignUp = () => {
   const gotoMain = () => {
     navigate('/');
   };
-  // 회원가입 성공 -> 로그인
-  // 중복확인
-  // 유효성검사
-  // 비밀번호 같게입력했는지
+
   return (
     <SignUpPage>
-      <Logo onClick={gotoMain}>
+      <Logo role="button" onClick={gotoMain}>
         <img src={logo} alt="클릭하면 메인페이지로 가는 로고"></img>
       </Logo>
       <Account />

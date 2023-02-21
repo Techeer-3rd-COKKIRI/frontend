@@ -5,12 +5,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import CreateStudyInput from '@/components/createStudyInput';
 import CreateStudySelectInput from '@/components/createStudySelectInput';
-import { certificationPeriod, recruits } from '@/constants/option';
+import { recruits } from '@/constants/option';
 import CreateStudyCalender from '@/components/createStudyCalender';
 import CreateStudyImage from '@/components/createStudyImage';
 import { useMutation } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { restFetcher } from '@/queryClient';
+import { usePostRegistration } from '@/hook/createStudy/usePOSTRegistration';
 
 export type FormName =
   | 'studyName'
@@ -43,9 +44,7 @@ const CreateStudy = () => {
     formState: { errors }, // 에러검증
   } = useForm<FormValue>();
 
-  const { mutate } = useMutation((formData: any) =>
-    restFetcher({ method: 'POST', path: '/api/v1/studies', body: formData }),
-  );
+  const { mutate } = usePostRegistration();
 
   const onSubmitHandler: SubmitHandler<FormValue> = async (values, e) => {
     alert('글 등록이 완료되었습니다 !');

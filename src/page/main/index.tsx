@@ -4,10 +4,10 @@ import React, { useCallback, useState } from 'react';
 import StudyListComponent from '@/components/studyList';
 import UserStudy from '@/components/userStudy';
 import search from '../../assets/image/search.png';
-import { useQuery } from '@tanstack/react-query';
-import { QueryKeys, restFetcher } from '@/queryClient';
 import { studyListType } from '@/type/studyList';
 import NonStudy from '@/components/nonStudy';
+import { useGetStudyList } from '@/hook/main/useGETStudyList';
+import { useGetMyStudyList } from '@/hook/main/useGETMyStudyList';
 
 const MainPage = () => {
   const [page, setPage] = useState<number>(0);
@@ -22,39 +22,9 @@ const MainPage = () => {
     user = JSON.parse(checkUser); // ok
   }
 
-  const { isLoading, isError, error, data } = useQuery(
-    [QueryKeys.PAGE, page],
-    async () =>
-      await restFetcher({
-        method: 'GET',
-        path: `/api/v1/studies/page/${page}`,
-        params: { size: 20 },
-      }),
-    {
-      select(data) {
-        return data.data;
-      },
-      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
-      cacheTime: 0,
-    },
-  );
+  const { data } = useGetStudyList(page);
 
-  const { data: userData } = useQuery(
-    [QueryKeys.MYSTUDY],
-    async () =>
-      await restFetcher({
-        method: 'GET',
-        path: `/api/v1/studies/user/${myStudyPage}?size=4`,
-      }),
-    {
-      select(data) {
-        console.log(userData);
-        return data.data;
-      },
-      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
-      cacheTime: 0,
-    },
-  );
+  const { data: userData } = useGetMyStudyList(myStudyPage);
 
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

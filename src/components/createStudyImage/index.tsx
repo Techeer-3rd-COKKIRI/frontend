@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { Error, FormName, FormValue } from '@/page/createStudy';
-import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { FormName, FormValue } from '@/page/createStudy';
+import { UseFormRegister } from 'react-hook-form';
 import styled from 'styled-components';
 
 interface Props {
