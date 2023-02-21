@@ -58,13 +58,10 @@ const SignUp = () => {
   const gotoMain = () => {
     navigate('/');
   };
-  // 회원가입 성공 -> 로그인
-  // 중복확인
-  // 유효성검사
-  // 비밀번호 같게입력했는지
+
   return (
     <SignUpPage>
-      <Logo onClick={gotoMain}>
+      <Logo role="button" onClick={gotoMain}>
         <img src={logo} alt="클릭하면 메인페이지로 가는 로고"></img>
       </Logo>
       <Account />
