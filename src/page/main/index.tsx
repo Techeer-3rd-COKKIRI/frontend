@@ -25,22 +25,7 @@ const MainPage = () => {
 
   const { data } = useGetStudyList(page);
 
-  const { data: userData } = useQuery(
-    [QueryKeys.MYSTUDY],
-    async () =>
-      await restFetcher({
-        method: 'GET',
-        path: `/api/v1/studies/user/${myStudyPage}?size=4`,
-      }),
-    {
-      select(data) {
-        console.log(userData);
-        return data.data;
-      },
-      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
-      cacheTime: 0,
-    },
-  );
+  const { data: userData } = useGetStudyList(myStudyPage);
 
   const [inputValue, setInputValue] = useState<string>('');
   const changeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
