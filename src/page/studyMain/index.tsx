@@ -7,7 +7,8 @@ import WeekButton from '@/components/weekButton';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-
+import leftDirection from '@/assets/image/leftProfile.png';
+import rightDirection from '@/assets/image/rightProfile.png';
 const StudyMain = () => {
   const { state } = useLocation();
   const [weekNumber, setWeekNumber] = useState<number>(1);
@@ -125,18 +126,18 @@ const StudyMain = () => {
         {/* 유저별 프로필*/}
         <ProfileBox>
           {profileScroll != 0 ? (
-            <ProfileDirection onClick={profileScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+            <ProfileDirection role="button" onClick={profileScrollLeft}>
+              <img alt="왼쪽으로 스크롤되는 방향" src={leftDirection} />
             </ProfileDirection>
           ) : null}
-          <Profiles ref={profilesRef}>
+          <Profiles role="button" ref={profilesRef}>
             {[1, 2, 3].map((user, i) => {
               return <ProfilePicture key={i} people={i + 1} />;
             })}
           </Profiles>
           {profileScroll < profileMaxWidth ? (
-            <ProfileDirection onClick={profileScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+            <ProfileDirection role="button" onClick={profileScrollRight}>
+              <img alt="오른쪽으로 스크롤되는 방향" src={rightDirection} />
             </ProfileDirection>
           ) : null}
         </ProfileBox>
@@ -147,7 +148,7 @@ const StudyMain = () => {
         <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
-              <img src="src\assets\image\leftProfile.png" />
+              <img src={leftDirection} />
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
@@ -161,7 +162,7 @@ const StudyMain = () => {
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
             <WeekDirection role="button" onClick={weekScrollRight}>
-              <img src="src\assets\image\rightProfile.png" />
+              <img src={rightDirection} />
             </WeekDirection>
           ) : null}
         </WeekBox>
