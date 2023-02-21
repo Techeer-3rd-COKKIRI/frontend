@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import logo from '../../assets/image/logo.png';
-import { useMutation } from '@tanstack/react-query';
-import { restFetcher } from '@/queryClient';
 import { User, UserInform } from '@/type/user';
 import Account from '@/components/account';
 import { usePostLogin } from '@/hook/login/usePOSTLogin';
@@ -14,7 +12,6 @@ const LogIn = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<UserInform>();
 
@@ -45,7 +42,7 @@ const LogIn = () => {
 
   return (
     <LoginPage>
-      <Logo onClick={() => navigate('/')}>
+      <Logo role="button" onClick={() => navigate('/')}>
         <img src={logo} alt="누르면 메인으로 가는 로고"></img>
       </Logo>
       <Account></Account>

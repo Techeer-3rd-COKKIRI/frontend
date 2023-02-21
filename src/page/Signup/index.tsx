@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Account from '@/components/account';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { CreateUser, UserInform } from '@/type/user';
-import { QueryKeys, restFetcher } from '@/queryClient';
+import { CreateUser } from '@/type/user';
 import logo from '../../assets/image/logo.png';
 import { UserError } from '../logIn';
 import { usePostSignUp } from '@/hook/signup/usePOSTSignUp';
@@ -21,23 +19,22 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    watch,
     getValues,
     formState: { errors },
   } = useForm<SignUser>();
 
   const { mutate } = usePostSignUp();
 
-  const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
+  const onSubmitHandler: SubmitHandler<SignUser> = async (values) => {
     const { nickname, username, password } = values;
     const user = { nickname, username, password };
     if (duplication) {
       mutate(user, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           alert('회원가입에 성공하셨습니다 ! ');
           navigate('/login');
         },
-        onError: (data) => {
+        onError: () => {
           console.log('회원가입 실패');
         },
       });
