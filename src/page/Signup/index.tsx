@@ -8,7 +8,8 @@ import { CreateUser, UserInform } from '@/type/user';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import logo from '../../assets/image/logo.png';
 import { UserError } from '../logIn';
-import { usePostSignUp } from '@/hook/usePOSTSignUp';
+import { usePostSignUp } from '@/hook/signup/usePOSTSignUp';
+import { useGetDuplication } from '@/hook/signup/useGETDuplication';
 
 interface SignUser extends CreateUser {
   password_re: string;
@@ -24,7 +25,9 @@ const SignUp = () => {
     getValues,
     formState: { errors },
   } = useForm<SignUser>();
+
   const { mutate } = usePostSignUp();
+
   const onSubmitHandler: SubmitHandler<SignUser> = async (values, e) => {
     const { nickname, username, password } = values;
     const user = { nickname, username, password };
@@ -43,25 +46,9 @@ const SignUp = () => {
     }
   };
 
-  const { data, refetch } = useQuery(
-    [QueryKeys.DUPLICATION],
-    () =>
-      restFetcher({
-        method: 'GET',
-        path: `/api/v1/users/duplicated/${getValues().username}`,
-      }),
-    {
-      enabled: false, //기본동작 비활성화
-      onSuccess: (data) => {
-        if (!data.data) {
-          alert('사용할 수 있는 username입니다 !');
-          setDuplication(true);
-        } else {
-          alert('username이 중복되었습니다 !');
-          setDuplication(false);
-        }
-      },
-    },
+  const { data, refetch } = useGetDuplication(
+    getValues().username,
+    setDuplication,
   );
 
   const duplicationCheck = () => {
