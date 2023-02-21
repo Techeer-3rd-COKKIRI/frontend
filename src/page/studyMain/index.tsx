@@ -148,13 +148,13 @@ const StudyMain = () => {
         <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
-              <img src={leftDirection} />
+              <img alt="주차리스트를 왼쪽쪽으로 넘기는" src={leftDirection} />
             </WeekDirection>
           ) : null}
           <WeekButtons ref={weekButtonRef}>
             {[1, 2, 3].map((_, i) => {
               return (
-                <div onClick={() => changeWeekNumber(i + 1)}>
+                <div key={i} onClick={() => changeWeekNumber(i + 1)}>
                   <WeekButton weekNumber={weekNumber} figure={i + 1} />;
                 </div>
               );
@@ -162,7 +162,7 @@ const StudyMain = () => {
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
             <WeekDirection role="button" onClick={weekScrollRight}>
-              <img src={rightDirection} />
+              <img alt="주차리스트를 오른쪽으로 넘기는 " src={rightDirection} />
             </WeekDirection>
           ) : null}
         </WeekBox>

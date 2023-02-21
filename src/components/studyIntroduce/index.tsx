@@ -39,21 +39,11 @@ const StudyIntroduce = ({
         </RuleBox>
         <RuleBox>
           <div>시작예정</div>
-          <div>
-            {startDate.map((day, index) => {
-              if (startDate.length - 1 == index) return <div>{day}</div>;
-              return <div>{day}-</div>;
-            })}
-          </div>
+          <div>{startDate.join('-')}</div>
         </RuleBox>
         <RuleBox>
           <div>마칠예정</div>
-          <div>
-            {finishDate.map((day, index) => {
-              if (finishDate.length - 1 == index) return <div>{day}</div>;
-              return <div>{day}-</div>;
-            })}
-          </div>
+          <div>{finishDate.join('-')}</div>
         </RuleBox>
       </IntroduceRule>
       <IntroduceTitle>스프링 스터디 소개</IntroduceTitle>
