@@ -4,7 +4,7 @@ import ProfilePicture from '@/components/profilePicture';
 import RecruitingBox from '@/components/recruitingBox';
 import StudyIntroduce from '@/components/studyIntroduce';
 import WeekButton from '@/components/weekButton';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -144,7 +144,7 @@ const StudyMain = () => {
         <StudyIntroduce {...state} />
         <RecruitingBox />
         {/* 주차별 버튼*/}
-        {/* <WeekBox>
+        <WeekBox>
           {weekButtonScroll != 0 ? (
             <WeekDirection onClick={weekScrollLeft}>
               <img src="src\assets\image\leftProfile.png" />
@@ -160,13 +160,13 @@ const StudyMain = () => {
             })}
           </WeekButtons>
           {weekButtonScroll < weekButtonMaxWidth ? (
-            <WeekDirection onClick={weekScrollRight}>
+            <WeekDirection role="button" onClick={weekScrollRight}>
               <img src="src\assets\image\rightProfile.png" />
             </WeekDirection>
           ) : null}
-        </WeekBox> */}
+        </WeekBox>
         {/* 댓글 달수있는 컴포넌트*/}
-        {/* <CommentManagement {...state} weekNumber={weekNumber} /> */}
+        <CommentManagement {...state} weekNumber={weekNumber} />
       </StudyRoom>
     </StudyMainPage>
   );

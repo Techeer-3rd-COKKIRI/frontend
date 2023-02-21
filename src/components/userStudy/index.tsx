@@ -28,22 +28,16 @@ const UserStudy = ({
   };
 
   return (
-    <UserStudyBox onClick={gotoStudyMain}>
+    <UserStudyBox role="button" onClick={gotoStudyMain}>
       <ImageBox>
-        <img src={temporary} />
+        <img alt="스터디방 프로필" src={temporary} />
       </ImageBox>
       <TextBox>
         <StudyTitle>{studyName}</StudyTitle>
         <Period>
           <p>진행기간</p>
           <p>
-            {startDate.map((day) => (
-              <span>{day}-</span>
-            ))}
-            {finishDate.map((day, index) => {
-              if (finishDate.length - 1 == index) return <span>{day}</span>;
-              return <span>{day}-</span>;
-            })}
+            {startDate.join('-')} - {finishDate.join('-')}
           </p>
         </Period>
         <button>바로가기</button>
