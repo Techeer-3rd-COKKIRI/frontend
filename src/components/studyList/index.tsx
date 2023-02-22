@@ -41,7 +41,7 @@ const StudyListComponent = ({
   };
   return (
     <StudyList onClick={goStudyMain}>
-      <StudyImage></StudyImage>
+      <StudyImage src={bear3} alt="스터디 썸네일" loading="lazy"></StudyImage>
       <StudyText>
         <StudyInfo>
           <StudyTitle>{studyName}</StudyTitle>
@@ -88,14 +88,10 @@ const StudyList = styled.div`
     height: 23rem;
   }
 `;
-const StudyImage = styled.div`
+const StudyImage = styled.img`
   border-radius: 5px;
   width: 23rem;
-  height: 12rem;
-  background-image: url(${bear3});
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+  aspect-ratio: 16/9;
   overflow: hidden;
   transition: 0.2s all;
   @media screen and (max-width: 500px) {

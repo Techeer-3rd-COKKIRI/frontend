@@ -14,8 +14,8 @@ export const useGetStudyList = (page: number) => {
       select(data) {
         return data.data;
       },
-      staleTime: 0, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
-      cacheTime: 0,
+      staleTime: 5000, // staleTime을 2초로 설정하여 fetch된 데이터는 2초간 fresh 상태
+      cacheTime: 60 * 1000,
     },
   );
 };
