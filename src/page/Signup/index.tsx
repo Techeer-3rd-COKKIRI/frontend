@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -16,12 +16,28 @@ interface SignUser extends CreateUser {
 const SignUp = () => {
   const navigate = useNavigate();
   const [duplication, setDuplication] = useState(false);
+  const [signButtonEnable, setSignButtonEnable] = useState(false);
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
+    watch,
   } = useForm<SignUser>();
+
+  useEffect(() => {
+    let flag = 1;
+    Object.values(watch()).map((inform) => {
+      if (!inform) {
+        flag = 0;
+      }
+    });
+    if (flag) {
+      setSignButtonEnable(true);
+    } else {
+      setSignButtonEnable(false);
+    }
+  }, [watch()]);
 
   const { mutate } = usePostSignUp();
 
@@ -156,7 +172,12 @@ const SignUp = () => {
           ) : (
             <UserError />
           )}
-          <SignUpButton type="submit">Sign Up</SignUpButton>
+          <SignUpButton
+            style={{ opacity: signButtonEnable ? '1' : '0.5' }}
+            type="submit"
+          >
+            Sign Up
+          </SignUpButton>
         </Form>
       </RightBackground>
     </SignUpPage>
