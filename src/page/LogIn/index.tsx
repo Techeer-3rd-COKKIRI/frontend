@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -9,11 +9,27 @@ import { usePostLogin } from '@/hook/login/usePOSTLogin';
 
 const LogIn = () => {
   const navigate = useNavigate();
+  const [loginButtonEnable, setLoginButtonEnable] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<UserInform>();
+
+  useEffect(() => {
+    let flag = 1;
+    Object.values(watch()).map((inform) => {
+      if (!inform) {
+        flag = 0;
+      }
+    });
+    if (flag) {
+      setLoginButtonEnable(true);
+    } else {
+      setLoginButtonEnable(false);
+    }
+  }, [watch()]);
 
   const { mutate } = usePostLogin();
 
@@ -60,7 +76,12 @@ const LogIn = () => {
           />
           <UserError />
           <Buttons>
-            <button type="submit">Sign In</button>
+            <button
+              style={{ opacity: loginButtonEnable ? '1' : '0.5' }}
+              type="submit"
+            >
+              Sign In
+            </button>
             <button onClick={() => navigate('/signup')}>Create Account</button>
           </Buttons>
         </Form>
