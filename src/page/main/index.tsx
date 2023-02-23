@@ -187,12 +187,10 @@ const GridStudyList = styled.div`
   margin-bottom: 3rem;
   @media screen and (max-width: 1084px) {
     grid-template-columns: repeat(3, 1fr);
-    width: 80%;
     gap: 0.5rem;
-    transform: translateX(15px);
   }
   @media screen and (max-width: 400px) {
-    transform: translateX(-15px);
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 

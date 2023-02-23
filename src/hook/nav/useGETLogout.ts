@@ -11,7 +11,7 @@ export const useGetLogout = () => {
       }),
     {
       enabled: false,
-      onSuccess: (data) => {
+      onSettled: (data) => {
         location.replace('/');
         window.localStorage.clear();
       },

@@ -41,7 +41,7 @@ const StudyListComponent = ({
   };
   return (
     <StudyList onClick={goStudyMain}>
-      <StudyImage></StudyImage>
+      <StudyImage src={bear3} alt="스터디 썸네일" loading="lazy"></StudyImage>
       <StudyText>
         <StudyInfo>
           <StudyTitle>{studyName}</StudyTitle>
@@ -88,14 +88,10 @@ const StudyList = styled.div`
     height: 23rem;
   }
 `;
-const StudyImage = styled.div`
+const StudyImage = styled.img`
   border-radius: 5px;
   width: 23rem;
-  height: 12rem;
-  background-image: url(${bear3});
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+  aspect-ratio: 16/9;
   overflow: hidden;
   transition: 0.2s all;
   @media screen and (max-width: 500px) {
@@ -150,25 +146,28 @@ const Period = styled.div`
   color: #8b8b8b;
   position: absolute;
   bottom: 1rem;
-  @media screen and (max-width: 500px) {
-    transform: scale(0.6);
-    left: 0;
-    bottom: 0.5rem;
+  @media screen and (max-width: 640px) {
+    transform: scale(0.5);
+    left: -20px;
+    bottom: 0rem;
+    padding: 0;
+    margin: 0;
   }
 `;
-const Studyperiod = styled.a``;
-const DayCount = styled.a``;
+const Studyperiod = styled.span``;
+const DayCount = styled.span``;
 const People = styled.div`
   font-style: normal;
   font-weight: 400;
+  font-size: 2rem;
   line-height: 1.8rem;
   text-align: center;
   color: #8b8b8b;
   position: absolute;
   bottom: 1rem;
   right: 2rem;
-  @media screen and (max-width: 500px) {
-    transform: scale(0.6);
+  @media screen and (max-width: 640px) {
+    transform: scale(0.5);
     right: 0.1rem;
     bottom: 0.5rem;
   }
